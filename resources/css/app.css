@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS */
+.transition-transform {
+    transition: transform 0.3s ease-in-out;
+}
+
+.transition-all {
+    transition: all 0.3s ease-in-out;
+}
+
+.-translate-x-full {
+    transform: translateX(-100%);
+}
+
+.ml-64 {
+    margin-left: 16rem; /* 64px */
+}
+
+.w-full {
+    width: 100%;
+}
