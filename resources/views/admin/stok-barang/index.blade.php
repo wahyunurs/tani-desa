@@ -9,9 +9,9 @@
         <div class="mb-4">
             <nav class="text-sm text-gray-500">
                 <ol class="list-reset flex">
-                    <li><a href="{{ url('/admin') }}" class="hover:underline">Admin</a></li>
+                    <li><a href="{{ route('admin.index') }}" class="hover:underline">Admin</a></li>
                     <li><span class="mx-2">></span></li>
-                    <li class="text-gray-700"><a href="{{ url('admin/stok-barang') }}">Stok Barang</a></li>
+                    <li class="text-gray-700"><a href="{{ route('admin.stok-barang.index') }}">Stok Barang</a></li>
                 </ol>
                 <h1 class="text-2xl font-bold text-black">Stok Barang</h1>
             </nav>
@@ -20,7 +20,8 @@
         <div class="p-4 rounded-lg bg-white border border-gray-200 mb-4">
             <div class="flex items-center justify-between mb-4">
                 <!-- Form Filter -->
-                <form method="GET" action="{{ route('stok-barang.filter') }}" class="flex items-center space-x-4">
+                <form method="GET" action="{{ route('admin.stok-barang.filter') }}"
+                    class="flex items-center space-x-4">
                     <!-- Filter Jenis -->
                     <div>
                         <label for="jenis" class="block text-sm font-medium text-gray-700">Jenis Barang</label>
@@ -58,7 +59,7 @@
                 </form>
 
                 <!-- Button Tambah -->
-                <a href="{{ route('stok-barang.create') }}"
+                <a href="{{ route('admin.stok-barang.create') }}"
                     class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -107,7 +108,7 @@
                                 </td>
                                 <td class="px-6 py-4 text-center text-sm text-gray-700 flex justify-center space-x-4">
                                     <!-- Tombol Edit -->
-                                    <form action="{{ route('stok-barang.edit', $barang->id) }}" method="GET">
+                                    <form action="{{ route('admin.stok-barang.edit', $barang->id) }}" method="GET">
                                         <button type="submit"
                                             class="text-yellow-500 hover:text-yellow-700 transition duration-200 ease-in-out">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
@@ -120,7 +121,7 @@
 
                                     <!-- Tombol Delete -->
                                     <button type="button" data-id="{{ $barang->id }}"
-                                        data-url="{{ route('stok-barang.destroy', $barang->id) }}"
+                                        data-url="{{ route('admin.stok-barang.destroy', $barang->id) }}"
                                         class="deleteButton text-red-500 hover:text-red-700 transition duration-200 ease-in-out">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
@@ -130,7 +131,7 @@
                                     </button>
 
                                     {{-- <!-- Tombol Show -->
-                                    <form action="{{ route('stok-barang.show', $barang->id) }}" method="GET">
+                                    <form action="{{ route('admin.stok-barang.show', $barang->id) }}" method="GET">
                                         <button type="submit"
                                             class="text-gray-500 hover:text-gray-700 transition duration-200 ease-in-out">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500"

@@ -22,6 +22,11 @@ class DistribusiBarang extends Model
         'status',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'distributor_id', 'id');
+    }
+
     public function permintaanBarang()
     {
         return $this->belongsTo(PermintaanBarang::class, 'permintaan_id', 'id');

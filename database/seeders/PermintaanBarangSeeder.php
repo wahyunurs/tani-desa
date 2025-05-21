@@ -26,7 +26,7 @@ class PermintaanBarangSeeder extends Seeder
             'stok_barang_id' => 2,
             'nama_barang' => 'Bibit Jagung',
             'jumlah' => 100,
-            'status' => 'Diproses',
+            'status' => 'Masuk',
         ]);
 
         PermintaanBarang::create([
@@ -34,7 +34,7 @@ class PermintaanBarangSeeder extends Seeder
             'stok_barang_id' => 3,
             'nama_barang' => 'Obat Hama',
             'jumlah' => 20,
-            'status' => 'Selesai',
+            'status' => 'Masuk',
         ]);
     }
 }

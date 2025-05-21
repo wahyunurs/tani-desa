@@ -27,7 +27,7 @@ class PenggunaAdminController extends Controller
 
             // Jika pengguna tidak ditemukan, kembalikan pesan error
             if (!$selectedUser) {
-                return redirect()->route('pengguna.index')->with('error', 'Pengguna tidak ditemukan.');
+                return redirect()->route('admin.pengguna.index')->with('error', 'Pengguna tidak ditemukan.');
             }
         }
 

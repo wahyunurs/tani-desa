@@ -117,7 +117,7 @@ class StokBarangAdminController extends Controller
             'status' => 'masuk',
         ]);
 
-        return redirect()->route('stok-barang.index')->with('success', 'Stok barang berhasil ditambahkan.');
+        return redirect()->route('admin.stok-barang.index')->with('success', 'Stok barang berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -184,7 +184,7 @@ class StokBarangAdminController extends Controller
             'status' => $request->input('status'),
         ]);
 
-        return redirect()->route('stok-barang.index')->with('success', 'Stok barang berhasil diperbarui.');
+        return redirect()->route('admin.stok-barang.index')->with('success', 'Stok barang berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -195,6 +195,6 @@ class StokBarangAdminController extends Controller
         // Hapus stok barang
         $stokBarang->delete();
 
-        return redirect()->route('stok-barang.index')->with('success', 'Stok barang berhasil dihapus.');
+        return redirect()->route('admin.stok-barang.index')->with('success', 'Stok barang berhasil dihapus.');
     }
 }

@@ -10,9 +10,10 @@
         <div class="mb-6">
             <nav class="text-sm text-gray-500">
                 <ol class="list-reset flex items-center space-x-2">
-                    <li><a href="{{ url('/admin') }}" class="hover:underline text-blue-600">Admin</a></li>
+                    <li><a href="{{ route('admin.index') }}" class="hover:underline text-blue-600">Admin</a></li>
                     <li><span class="text-gray-400">></span></li>
-                    <li><a href="{{ route('stok-barang.index') }}" class="hover:underline text-blue-600">Stok Barang</a>
+                    <li><a href="{{ route('admin.stok-barang.index') }}" class="hover:underline text-blue-600">Stok
+                            Barang</a>
                     </li>
                     <li><span class="text-gray-400">></span></li>
                     <li class="text-gray-700 font-semibold">Edit Barang</li>
@@ -23,7 +24,7 @@
 
         <!-- Form Edit Barang -->
         <div class="p-6 rounded-lg bg-white shadow-lg border border-gray-200">
-            <form action="{{ route('stok-barang.update', $stokBarang->id) }}" method="POST"
+            <form action="{{ route('admin.stok-barang.update', $stokBarang->id) }}" method="POST"
                 enctype="multipart/form-data" class="space-y-6">
                 @csrf
                 @method('PUT')
@@ -111,7 +112,7 @@
 
                 <!-- Tombol Submit -->
                 <div class="flex justify-end space-x-4">
-                    <a href="{{ route('stok-barang.index') }}"
+                    <a href="{{ route('admin.stok-barang.index') }}"
                         class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition duration-200">
                         Batal
                     </a>

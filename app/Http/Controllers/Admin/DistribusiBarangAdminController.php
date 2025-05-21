@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DistribusiBarang;
+use App\Models\PermintaanBarang;
+use App\Models\User;
 
 class DistribusiBarangAdminController extends Controller
 {
@@ -30,7 +32,7 @@ class DistribusiBarangAdminController extends Controller
 
             // Jika distribusi barang tidak ditemukan, kembalikan pesan error
             if (!$selectedDistribusiBarang) {
-                return redirect()->route('distribusi-barang.index')->with('error', 'Distribusi barang tidak ditemukan.');
+                return redirect()->route('admin.distribusi-barang.index')->with('error', 'Distribusi barang tidak ditemukan.');
             }
         }
 
@@ -77,10 +79,18 @@ class DistribusiBarangAdminController extends Controller
 
     public function create()
     {
+        // List permintaan_id dari permintaan
+        $permintaanList = PermintaanBarang::where('status', 'Masuk')->get();
+
+        // Ambil semua distributor
+        $distributorList = User::where('role', 'distributor')->get();
+
         // Tampilkan form untuk membuat distribusi barang baru
         return view('admin.distribusi-barang.create', [
             'title' => 'Buat Distribusi Barang',
             'user' => Auth::user()->name,
+            'permintaanList' => $permintaanList,
+            'distributorList' => $distributorList,
         ]);
     }
 
@@ -94,13 +104,49 @@ class DistribusiBarangAdminController extends Controller
         ]);
 
         // Simpan data distribusi barang ke database
-        DistribusiBarang::create($validatedData);
+        $distribusi = DistribusiBarang::create($validatedData);
 
-        return redirect()->route('distribusi-barang.index')->with('success', 'Distribusi barang berhasil dibuat.');
+        // Update status permintaan barang sesuai status distribusi
+        $permintaan = PermintaanBarang::findOrFail($validatedData['permintaan_id']);
+
+        if ($validatedData['status'] === 'Proses Pengiriman') {
+            $permintaan->status = 'Diproses';
+        } elseif ($validatedData['status'] === 'Selesai') {
+            $permintaan->status = 'Selesai';
+        } elseif ($validatedData['status'] === 'Gagal') {
+            $permintaan->status = 'Gagal';
+        }
+
+        $permintaan->save();
+
+        return redirect()->route('admin.distribusi-barang.index')
+            ->with('success', 'Distribusi barang berhasil dibuat dan status permintaan diperbarui.');
+    }
+
+
+    public function updateStatus(Request $request, $id)
+    {
+        // Validasi data yang diterima dari form
+        $validatedData = $request->validate([
+            'status' => 'required|in:Proses Pengiriman,Selesai,Gagal',
+        ]);
+
+        // Update status distribusi barang di database
+        DistribusiBarang::where('id', $id)->update($validatedData);
+
+        return redirect()->route('admin.distribusi-barang.index')->with('success', 'Status distribusi barang berhasil diperbarui.');
     }
 
     public function edit($id)
     {
+        // Periksa apakah pengguna memiliki role admin
+        if (Auth::user()->role !== 'admin') {
+            return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
+        }
+
+        // Ambil semua distributor
+        $distributorList = User::where('role', 'distributor')->get();
+
         // Ambil distribusi barang berdasarkan ID
         $distribusiBarang = DistribusiBarang::findOrFail($id);
 
@@ -108,6 +154,7 @@ class DistribusiBarangAdminController extends Controller
             'title' => 'Edit Distribusi Barang',
             'user' => Auth::user()->name,
             'distribusiBarang' => $distribusiBarang,
+            'distributorList' => $distributorList,
         ]);
     }
 
@@ -123,8 +170,23 @@ class DistribusiBarangAdminController extends Controller
         // Update data distribusi barang di database
         DistribusiBarang::where('id', $id)->update($validatedData);
 
-        return redirect()->route('distribusi-barang.index')->with('success', 'Distribusi barang berhasil diperbarui.');
+        // Update status permintaan barang sesuai status distribusi
+        $permintaan = PermintaanBarang::findOrFail($validatedData['permintaan_id']);
+
+        if ($validatedData['status'] === 'Proses Pengiriman') {
+            $permintaan->status = 'Diproses';
+        } elseif ($validatedData['status'] === 'Selesai') {
+            $permintaan->status = 'Selesai';
+        } elseif ($validatedData['status'] === 'Gagal') {
+            $permintaan->status = 'Gagal';
+        }
+
+        $permintaan->save();
+
+        return redirect()->route('admin.distribusi-barang.index')
+            ->with('success', 'Distribusi barang berhasil diperbarui dan status permintaan diperbarui.');
     }
+
 
     public function destroy($id)
     {
@@ -132,6 +194,6 @@ class DistribusiBarangAdminController extends Controller
         $distribusiBarang = DistribusiBarang::findOrFail($id);
         $distribusiBarang->delete();
 
-        return redirect()->route('distribusi-barang.index')->with('success', 'Distribusi barang berhasil dihapus.');
+        return redirect()->route('admin.distribusi-barang.index')->with('success', 'Distribusi barang berhasil dihapus.');
     }
 }

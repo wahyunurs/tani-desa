@@ -5,7 +5,7 @@
         <div class="mb-4">
             <nav class="text-sm text-gray-500">
                 <ol class="list-reset flex">
-                    <li><a href="{{ url('/admin') }}" class="hover:underline">Admin</a></li>
+                    <li><a href="{{ route('admin.index') }}" class="hover:underline">Admin</a></li>
                     <li><span class="mx-2">></span></li>
                     <li class="text-gray-700">Laporan</li>
                 </ol>
@@ -16,7 +16,7 @@
         <div class="p-4 rounded-lg bg-white border border-gray-200 mb-4">
             <div class="flex items-center justify-between mb-4">
                 <!-- Form Filter -->
-                <form method="GET" action="{{ route('laporan.filter') }}" class="flex items-center space-x-4">
+                <form method="GET" action="{{ route('admin.laporan.filter') }}" class="flex items-center space-x-4">
                     <!-- Filter Status -->
                     <div>
                         <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
@@ -46,7 +46,7 @@
                 </form>
 
                 <!-- Button Ekspor -->
-                <a href="{{ route('laporan.export') }}"
+                <a href="{{ route('admin.laporan.export') }}"
                     class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center">
                     Ekspor Laporan
                 </a>

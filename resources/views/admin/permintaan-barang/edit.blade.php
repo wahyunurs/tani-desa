@@ -10,9 +10,10 @@
         <div class="mb-6">
             <nav class="text-sm text-gray-500">
                 <ol class="list-reset flex items-center space-x-2">
-                    <li><a href="{{ url('/admin') }}" class="hover:underline text-blue-600">Admin</a></li>
+                    <li><a href="{{ route('admin.index') }}" class="hover:underline text-blue-600">Admin</a></li>
                     <li><span class="text-gray-400">></span></li>
-                    <li><a href="{{ route('permintaan-barang.index') }}" class="hover:underline text-blue-600">Permintaan
+                    <li><a href="{{ route('admin.permintaan-barang.index') }}"
+                            class="hover:underline text-blue-600">Permintaan
                             Barang</a>
                     </li>
                     <li><span class="text-gray-400">></span></li>
@@ -24,7 +25,7 @@
 
         <!-- Form Tambah Barang -->
         <div class="p-6 rounded-lg bg-white shadow-lg border border-gray-200">
-            <form action="{{ route('permintaan-barang.update', $permintaanBarang->id) }}" method="POST"
+            <form action="{{ route('admin.permintaan-barang.update', $permintaanBarang->id) }}" method="POST"
                 enctype="multipart/form-data" class="space-y-6">
                 @csrf
                 @method('PUT')
@@ -67,26 +68,9 @@
                         placeholder="Masukkan jumlah barang" value="{{ $permintaanBarang->jumlah }}">
                 </div>
 
-                <!-- Status -->
-                <div>
-                    <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                    <select name="status" id="status" required
-                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        <option value="">Pilih Status</option>
-                        <option value="Masuk" {{ $permintaanBarang->status == 'Masuk' ? 'selected' : '' }}>Masuk
-                        </option>
-                        <option value="Diproses" {{ $permintaanBarang->status == 'Diproses' ? 'selected' : '' }}>
-                            Diproses</option>
-                        <option value="Selesai" {{ $permintaanBarang->status == 'Selesai' ? 'selected' : '' }}>Selesai
-                        </option>
-                        <option value="Gagal" {{ $permintaanBarang->status == 'Gagal' ? 'selected' : '' }}>Gagal
-                        </option>
-                    </select>
-                </div>
-
                 <!-- Tombol Submit -->
                 <div class="flex justify-end space-x-4">
-                    <a href="{{ route('permintaan-barang.index') }}"
+                    <a href="{{ route('admin.permintaan-barang.index') }}"
                         class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition duration-200">
                         Batal
                     </a>

@@ -12,9 +12,9 @@
 
 <body>
     <div id="app-container" class="relative flex">
-        @include('components.sidebar-admin')
+        @include('components.sidebar')
         <div id="content-container" class="flex-1 transition-all duration-300 ml-64">
-            @include('components.navbar-admin')
+            @include('components.navbar')
 
             <main id="main-content" class="bg-gray-100 p-4 transition-all duration-300">
                 {{ $slot }}

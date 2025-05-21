@@ -9,9 +9,10 @@
         <div class="mb-4">
             <nav class="text-sm text-gray-500">
                 <ol class="list-reset flex">
-                    <li><a href="{{ url('/admin') }}" class="hover:underline">Admin</a></li>
+                    <li><a href="{{ route('admin.index') }}" class="hover:underline">Admin</a></li>
                     <li><span class="mx-2">></span></li>
-                    <li class="text-gray-700"><a href="{{ url('admin/distribusi-barang') }}">Distribusi Barang</a></li>
+                    <li class="text-gray-700"><a href="{{ route('admin.distribusi-barang.index') }}">Distribusi Barang</a>
+                    </li>
                 </ol>
                 <h1 class="text-2xl font-bold text-black">Distribusi Barang</h1>
             </nav>
@@ -21,7 +22,8 @@
             <div class="flex items-center justify-between mb-4">
                 <!-- Filter by Status -->
                 <div class="flex items-center justify-between">
-                    <form method="GET" action="{{ route('distribusi-barang.filter') }}" class="flex items-center">
+                    <form method="GET" action="{{ route('admin.distribusi-barang.filter') }}"
+                        class="flex items-center">
                         <label for="status" class="block text-sm font-medium text-gray-700 mr-2">Filter
                             Status:</label>
                         <select name="status" id="status"
@@ -48,7 +50,7 @@
                 </div>
 
                 <!-- Button Tambah -->
-                <a href="{{ route('distribusi-barang.create') }}"
+                <a href="{{ route('admin.distribusi-barang.create') }}"
                     class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -71,6 +73,9 @@
                             </th>
                             <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Status
                             </th>
+                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Update
+                                Status
+                            </th>
                             <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">Aksi
                             </th>
                         </tr>
@@ -85,9 +90,24 @@
                                     {{ $distribusi->distributor->name ?? 'Tidak Diketahui' }}
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $distribusi->status }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-700">
+                                    <button type="button"
+                                        class="updateStatusButton text-blue-500 hover:text-blue-700 transition duration-200 ease-in-out"
+                                        data-url="{{ route('admin.distribusi-barang.update-status', $distribusi->id) }}"
+                                        data-status="{{ $distribusi->status }}">
+                                        <div class="flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                            </svg>
+                                            Update Status
+                                        </div>
+                                    </button>
+                                </td>
                                 <td class="px-6 py-4 text-center text-sm text-gray-700 flex justify-center space-x-4">
                                     <!-- Tombol Edit -->
-                                    <form action="{{ route('distribusi-barang.edit', $distribusi->id) }}"
+                                    <form action="{{ route('admin.distribusi-barang.edit', $distribusi->id) }}"
                                         method="GET">
                                         <button type="submit"
                                             class="text-yellow-500 hover:text-yellow-700 transition duration-200 ease-in-out">
@@ -101,7 +121,7 @@
 
                                     <!-- Tombol Delete -->
                                     <button type="button" data-id="{{ $distribusi->id }}"
-                                        data-url="{{ route('distribusi-barang.destroy', $distribusi->id) }}"
+                                        data-url="{{ route('admin.distribusi-barang.destroy', $distribusi->id) }}"
                                         class="deleteButton text-red-500 hover:text-red-700 transition duration-200 ease-in-out">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
@@ -113,7 +133,8 @@
                                     <!-- Tombol Show -->
                                     <button type="submit"
                                         class="text-gray-500 hover:text-gray-700 transition duration-200 ease-in-out">
-                                        <a href="{{ route('distribusi-barang.index', ['id' => $distribusi->id]) }}">
+                                        <a
+                                            href="{{ route('admin.distribusi-barang.index', ['id' => $distribusi->id]) }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500"
                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -127,7 +148,8 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="px-6 py-4 text-center text-gray-500">Belum ada barang.</td>
+                                <td colspan="4" class="px-6 py-4 text-center text-gray-500">Belum ada distribusi.
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -138,6 +160,9 @@
 
     <!-- Modal Konfirmasi Hapus -->
     @include('admin.distribusi-barang.delete')
+
+    <!-- Modal Update Status -->
+    @include('admin.distribusi-barang.update-status')
 
     <!-- Modal Detail -->
     @include('admin.distribusi-barang.show')

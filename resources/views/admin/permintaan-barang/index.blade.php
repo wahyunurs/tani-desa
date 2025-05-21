@@ -9,9 +9,10 @@
         <div class="mb-4">
             <nav class="text-sm text-gray-500">
                 <ol class="list-reset flex">
-                    <li><a href="{{ url('/admin') }}" class="hover:underline">Admin</a></li>
+                    <li><a href="{{ route('admin.index') }}" class="hover:underline">Admin</a></li>
                     <li><span class="mx-2">></span></li>
-                    <li class="text-gray-700"><a href="{{ url('admin/permintaan-barang') }}">Permintaan Barang</a></li>
+                    <li class="text-gray-700"><a href="{{ route('admin.permintaan-barang.index') }}">Permintaan Barang</a>
+                    </li>
                 </ol>
                 <h1 class="text-2xl font-bold text-black">Permintaan Barang</h1>
             </nav>
@@ -21,7 +22,8 @@
             <div class="flex items-center justify-between mb-4">
                 <!-- Filter by Status -->
                 <div class="flex items-center justify-between">
-                    <form method="GET" action="{{ route('permintaan-barang.filter') }}" class="flex items-center">
+                    <form method="GET" action="{{ route('admin.permintaan-barang.filter') }}"
+                        class="flex items-center">
                         <label for="status" class="block text-sm font-medium text-gray-700 mr-2">Filter
                             Status:</label>
                         <select name="status" id="status"
@@ -49,7 +51,7 @@
                 </div>
 
                 <!-- Button Tambah -->
-                <a href="{{ route('permintaan-barang.create') }}"
+                <a href="{{ route('admin.permintaan-barang.create') }}"
                     class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -74,6 +76,9 @@
                             </th>
                             <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Status
                             </th>
+                            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">
+                                Distribusi
+                            </th>
                             <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">Aksi
                             </th>
                         </tr>
@@ -88,23 +93,50 @@
                                 <td class="px-6 py-4 text-sm text-gray-700">
                                     {{ $permintaan->jumlah }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $permintaan->status }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-700">
+                                    @if ($permintaan->status == 'Masuk')
+                                        <form
+                                            action="{{ route('admin.permintaan-barang.distribusi', $permintaan->id) }}"
+                                            method="GET">
+                                            <button type="submit"
+                                                class="text-blue-500 hover:text-blue-700 transition duration-200 ease-in-out">
+                                                Distribusi
+                                            </button>
+                                        </form>
+                                    @else
+                                        <span class="text-gray-500">Sudah didistribusi</span>
+                                    @endif
+                                </td>
                                 <td class="px-6 py-4 text-center text-sm text-gray-700 flex justify-center space-x-4">
                                     <!-- Tombol Edit -->
-                                    <form action="{{ route('permintaan-barang.edit', $permintaan->id) }}"
+                                    <form action="{{ route('admin.permintaan-barang.edit', $permintaan->id) }}"
                                         method="GET">
-                                        <button type="submit"
-                                            class="text-yellow-500 hover:text-yellow-700 transition duration-200 ease-in-out">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15.232 5.232l3.536 3.536M9 11l6.364-6.364a2 2 0 012.828 0l1.172 1.172a2 2 0 010 2.828L13 15l-4 1 1-4z" />
-                                            </svg>
-                                        </button>
+                                        @if ($permintaan->status === 'Masuk')
+                                            <button type="submit"
+                                                class="text-yellow-500 hover:text-yellow-700 transition duration-200 ease-in-out">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M15.232 5.232l3.536 3.536M9 11l6.364-6.364a2 2 0 012.828 0l1.172 1.172a2 2 0 010 2.828L13 15l-4 1 1-4z" />
+                                                </svg>
+                                            </button>
+                                        @else
+                                            <button type="button" disabled
+                                                class="text-gray-400 cursor-not-allowed transition duration-200 ease-in-out">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M15.232 5.232l3.536 3.536M9 11l6.364-6.364a2 2 0 012.828 0l1.172 1.172a2 2 0 010 2.828L13 15l-4 1 1-4z" />
+                                                </svg>
+                                            </button>
+                                        @endif
                                     </form>
 
                                     <!-- Tombol Delete -->
                                     <button type="button" data-id="{{ $permintaan->id }}"
-                                        data-url="{{ route('permintaan-barang.destroy', $permintaan->id) }}"
+                                        data-url="{{ route('admin.permintaan-barang.destroy', $permintaan->id) }}"
                                         class="deleteButton text-red-500 hover:text-red-700 transition duration-200 ease-in-out">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
@@ -114,7 +146,7 @@
                                     </button>
 
                                     {{-- <!-- Tombol Show -->
-                                    <form action="{{ route('permintaan-barang.show', $permintaan->id) }}" method="GET">
+                                    <form action="{{ route('admin.permintaan-barang.show', $permintaan->id) }}" method="GET">
                                         <button type="submit"
                                             class="text-gray-500 hover:text-gray-700 transition duration-200 ease-in-out">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500"
@@ -130,7 +162,8 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="px-6 py-4 text-center text-gray-500">Belum ada barang.</td>
+                                <td colspan="4" class="px-6 py-4 text-center text-gray-500">Belum ada permintaan.
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>

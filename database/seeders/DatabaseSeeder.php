@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             StokBarangSeeder::class,
             PermintaanBarangSeeder::class,
-            DistribusiBarangSeeder::class,
         ]);
     }
 }

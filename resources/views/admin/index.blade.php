@@ -9,7 +9,7 @@
         <div class="mb-6">
             <nav class="text-sm text-gray-500">
                 <ol class="list-reset flex items-center space-x-2">
-                    <li><a href="{{ url('/admin') }}" class="hover:underline text-blue-600">Admin</a></li>
+                    <li><a href="{{ route('admin.index') }}" class="hover:underline text-blue-600">Admin</a></li>
                     <li><span class="text-gray-400">></span></li>
                     <li class="text-gray-700 font-semibold">Dashboard</li>
                 </ol>
@@ -22,21 +22,21 @@
             <div class="grid grid-cols-3 gap-6 mb-6">
                 <div
                     class="flex flex-col items-center justify-center h-28 rounded-lg bg-gradient-to-r from-green-300 to-green-500 text-white shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out">
-                    <a href="{{ route('pengguna.index') }}" class="text-center">
+                    <a href="{{ route('admin.pengguna.index') }}" class="text-center">
                         <p class="text-lg font-semibold">Gudang</p>
                         <p class="text-3xl font-bold">{{ $gudangCount }}</p>
                     </a>
                 </div>
                 <div
                     class="flex flex-col items-center justify-center h-28 rounded-lg bg-gradient-to-r from-yellow-300 to-yellow-500 text-white shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out">
-                    <a href="{{ route('pengguna.index') }}" class="text-center">
+                    <a href="{{ route('admin.pengguna.index') }}" class="text-center">
                         <p class="text-lg font-semibold">Petani</p>
                         <p class="text-3xl font-bold">{{ $petaniCount }}</p>
                     </a>
                 </div>
                 <div
                     class="flex flex-col items-center justify-center h-28 rounded-lg bg-gradient-to-r from-red-300 to-red-500 text-white shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out">
-                    <a href="{{ route('pengguna.index') }}" class="text-center">
+                    <a href="{{ route('admin.pengguna.index') }}" class="text-center">
                         <p class="text-lg font-semibold">Distributor</p>
                         <p class="text-3xl font-bold">{{ $distributorCount }}</p>
                     </a>
@@ -45,7 +45,7 @@
 
             <!-- Diagram Lingkaran dan Permintaan Barang Terbaru -->
             <div class="grid grid-cols-2 gap-6 mb-6">
-                <a href="{{ route('stok-barang.index') }}">
+                <a href="{{ route('admin.stok-barang.index') }}">
                     <div
                         class="rounded-lg bg-white shadow-md border border-gray-200 p-6 hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out">
                         <h2 class="text-lg font-semibold text-gray-700 mb-4">Total Barang Berdasarkan Jenis</h2>
@@ -57,7 +57,7 @@
 
                 <div
                     class="rounded-lg bg-white shadow-md border border-gray-200 p-6 hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out">
-                    <a href="{{ route('permintaan-barang.index') }}">
+                    <a href="{{ route('admin.permintaan-barang.index') }}">
                         <h2 class="text-lg font-semibold text-gray-700 mb-4">Permintaan Barang Terbaru</h2>
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm text-left text-gray-500">
@@ -95,7 +95,7 @@
             <!-- Distribusi Barang Terbaru -->
             <div
                 class="rounded-lg bg-white shadow-md border border-gray-200 p-6 mb-6 hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out">
-                <a href="{{ route('distribusi-barang.index') }}">
+                <a href="{{ route('admin.distribusi-barang.index') }}">
                     <h2 class="text-lg font-semibold text-gray-700 mb-4">Distribusi Barang Terbaru</h2>
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-500">

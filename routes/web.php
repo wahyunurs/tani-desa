@@ -34,45 +34,48 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.index');
 
         Route::prefix('pengguna')->group(function () {
-            Route::get('/', [PenggunaAdminController::class, 'index'])->name('pengguna.index');
-            Route::get('/filter', [PenggunaAdminController::class, 'filter'])->name('pengguna.filter');
+            Route::get('/', [PenggunaAdminController::class, 'index'])->name('admin.pengguna.index');
+            Route::get('/filter', [PenggunaAdminController::class, 'filter'])->name('admin.pengguna.filter');
             // Route::get('/show/{id}', [PenggunaAdminController::class, 'show'])->name('pengguna.show');
         });
         Route::prefix('stok-barang')->group(function () {
-            Route::get('/', [StokBarangAdminController::class, 'index'])->name('stok-barang.index');
-            Route::get('/filter', [StokBarangAdminController::class, 'filter'])->name('stok-barang.filter');
-            Route::get('/show/{id}', [StokBarangAdminController::class, 'show'])->name('stok-barang.show');
-            Route::get('/create', [StokBarangAdminController::class, 'create'])->name('stok-barang.create');
-            Route::post('/store', [StokBarangAdminController::class, 'store'])->name('stok-barang.store');
-            Route::get('/edit/{id}', [StokBarangAdminController::class, 'edit'])->name('stok-barang.edit');
-            Route::put('/update/{id}', [StokBarangAdminController::class, 'update'])->name('stok-barang.update');
-            Route::delete('/destroy/{id}', [StokBarangAdminController::class, 'destroy'])->name('stok-barang.destroy');
+            Route::get('/', [StokBarangAdminController::class, 'index'])->name('admin.stok-barang.index');
+            Route::get('/filter', [StokBarangAdminController::class, 'filter'])->name('admin.stok-barang.filter');
+            Route::get('/show/{id}', [StokBarangAdminController::class, 'show'])->name('admin.stok-barang.show');
+            Route::get('/create', [StokBarangAdminController::class, 'create'])->name('admin.stok-barang.create');
+            Route::post('/store', [StokBarangAdminController::class, 'store'])->name('admin.stok-barang.store');
+            Route::get('/edit/{id}', [StokBarangAdminController::class, 'edit'])->name('admin.stok-barang.edit');
+            Route::put('/update/{id}', [StokBarangAdminController::class, 'update'])->name('admin.stok-barang.update');
+            Route::delete('/destroy/{id}', [StokBarangAdminController::class, 'destroy'])->name('admin.stok-barang.destroy');
         });
         Route::prefix('permintaan-barang')->group(function () {
-            Route::get('/', [PermintaanBarangAdminController::class, 'index'])->name('permintaan-barang.index');
-            Route::get('/filter', [PermintaanBarangAdminController::class, 'filter'])->name('permintaan-barang.filter');
-            // Route::get('/show/{id}', [PermintaanBarangAdminController::class, 'show'])->name('permintaan-barang.show');
-            Route::get('/create', [PermintaanBarangAdminController::class, 'create'])->name('permintaan-barang.create');
-            Route::post('/store', [PermintaanBarangAdminController::class, 'store'])->name('permintaan-barang.store');
-            Route::get('/edit/{id}', [PermintaanBarangAdminController::class, 'edit'])->name('permintaan-barang.edit');
-            Route::put('/update/{id}', [PermintaanBarangAdminController::class, 'update'])->name('permintaan-barang.update');
-            Route::delete('/destroy/{id}', [PermintaanBarangAdminController::class, 'destroy'])->name('permintaan-barang.destroy');
+            Route::get('/', [PermintaanBarangAdminController::class, 'index'])->name('admin.permintaan-barang.index');
+            Route::get('/filter', [PermintaanBarangAdminController::class, 'filter'])->name('admin.permintaan-barang.filter');
+            // Route::get('/show/{id}', [PermintaanBarangAdminController::class, 'show'])->name('admin.permintaan-barang.show');
+            Route::get('/distribusi/{id}', [PermintaanBarangAdminController::class, 'distribusi'])->name('admin.permintaan-barang.distribusi');
+            Route::post('/distribusi/{id}', [PermintaanBarangAdminController::class, 'distribusiStore'])->name('admin.permintaan-barang.distribusi.store');
+            Route::get('/create', [PermintaanBarangAdminController::class, 'create'])->name('admin.permintaan-barang.create');
+            Route::post('/store', [PermintaanBarangAdminController::class, 'store'])->name('admin.permintaan-barang.store');
+            Route::get('/edit/{id}', [PermintaanBarangAdminController::class, 'edit'])->name('admin.permintaan-barang.edit');
+            Route::put('/update/{id}', [PermintaanBarangAdminController::class, 'update'])->name('admin.permintaan-barang.update');
+            Route::delete('/destroy/{id}', [PermintaanBarangAdminController::class, 'destroy'])->name('admin.permintaan-barang.destroy');
         });
 
         Route::prefix('distribusi-barang')->group(function () {
-            Route::get('/', [DistribusiBarangAdminController::class, 'index'])->name('distribusi-barang.index');
-            Route::get('/filter', [DistribusiBarangAdminController::class, 'filter'])->name('distribusi-barang.filter');
-            // Route::get('/{id}', [DistribusiBarangAdminController::class, 'show'])->name('distribusi-barang.show');
-            Route::get('/create', [DistribusiBarangAdminController::class, 'create'])->name('distribusi-barang.create');
-            Route::post('/store', [DistribusiBarangAdminController::class, 'store'])->name('distribusi-barang.store');
-            Route::get('/edit/{id}', [DistribusiBarangAdminController::class, 'edit'])->name('distribusi-barang.edit');
-            Route::put('/update/{id}', [DistribusiBarangAdminController::class, 'update'])->name('distribusi-barang.update');
-            Route::delete('/destroy/{id}', [DistribusiBarangAdminController::class, 'destroy'])->name('distribusi-barang.destroy');
+            Route::get('/', [DistribusiBarangAdminController::class, 'index'])->name('admin.distribusi-barang.index');
+            Route::get('/filter', [DistribusiBarangAdminController::class, 'filter'])->name('admin.distribusi-barang.filter');
+            // Route::get('/{id}', [DistribusiBarangAdminController::class, 'show'])->name('admin.distribusi-barang.show');
+            Route::put('/update-status/{id}', [DistribusiBarangAdminController::class, 'updateStatus'])->name('admin.distribusi-barang.update-status');
+            Route::get('/create', [DistribusiBarangAdminController::class, 'create'])->name('admin.distribusi-barang.create');
+            Route::post('/store', [DistribusiBarangAdminController::class, 'store'])->name('admin.distribusi-barang.store');
+            Route::get('/edit/{id}', [DistribusiBarangAdminController::class, 'edit'])->name('admin.distribusi-barang.edit');
+            Route::put('/update/{id}', [DistribusiBarangAdminController::class, 'update'])->name('admin.distribusi-barang.update');
+            Route::delete('/destroy/{id}', [DistribusiBarangAdminController::class, 'destroy'])->name('admin.distribusi-barang.destroy');
         });
         Route::prefix('laporan')->group(function () {
-            Route::get('/', [LaporanAdminController::class, 'index'])->name('laporan.index');
-            Route::get('/filter', [LaporanAdminController::class, 'filter'])->name('laporan.filter');
-            Route::get('/export', [LaporanAdminController::class, 'export'])->name('laporan.export');
+            Route::get('/', [LaporanAdminController::class, 'index'])->name('admin.laporan.index');
+            Route::get('/filter', [LaporanAdminController::class, 'filter'])->name('admin.laporan.filter');
+            Route::get('/export', [LaporanAdminController::class, 'export'])->name('admin.laporan.export');
         });
     });
 });
@@ -80,7 +83,18 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:gudang'])->group(function () {
 
     Route::prefix('gudang')->group(function () {
-        Route::get('/', [GudangController::class, 'index']);
+        Route::get('/', [GudangController::class, 'index'])->name('gudang.index');
+    });
+
+    Route::prefix('stok-barang')->group(function () {
+        Route::get('/', [GudangController::class, 'index'])->name('gudang.stok-barang.index');
+        Route::get('/filter', [GudangController::class, 'filter'])->name('gudang.stok-barang.filter');
+        Route::get('/show/{id}', [GudangController::class, 'show'])->name('gudang.stok-barang.show');
+        Route::get('/create', [GudangController::class, 'create'])->name('gudang.stok-barang.create');
+        Route::post('/store', [GudangController::class, 'store'])->name('gudang.stok-barang.store');
+        Route::get('/edit/{id}', [GudangController::class, 'edit'])->name('gudang.stok-barang.edit');
+        Route::put('/update/{id}', [GudangController::class, 'update'])->name('gudang.stok-barang.update');
+        Route::delete('/destroy/{id}', [GudangController::class, 'destroy'])->name('gudang.stok-barang.destroy');
     });
 });
 

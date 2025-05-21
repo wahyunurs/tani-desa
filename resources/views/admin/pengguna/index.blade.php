@@ -9,9 +9,9 @@
         <div class="mb-4">
             <nav class="text-sm text-gray-500">
                 <ol class="list-reset flex">
-                    <li><a href="{{ url('/admin') }}" class="hover:underline">Admin</a></li>
+                    <li><a href="{{ route('admin.index') }}" class="hover:underline">Admin</a></li>
                     <li><span class="mx-2">></span></li>
-                    <li class="text-gray-700"><a href="{{ url('admin/pengguna') }}">Pengguna</a></li>
+                    <li class="text-gray-700"><a href="{{ route('admin.pengguna.index') }}">Pengguna</a></li>
                 </ol>
                 <h1 class="text-2xl font-bold text-black">Kelola Pengguna</h1>
             </nav>
@@ -20,7 +20,7 @@
         <div class="p-4 rounded-lg bg-white border border-gray-200">
             <!-- Filter by Role -->
             <div class="flex items-center justify-between mb-4">
-                <form method="GET" action="{{ route('pengguna.filter') }}" class="flex items-center">
+                <form method="GET" action="{{ route('admin.pengguna.filter') }}" class="flex items-center">
                     <label for="role" class="block text-sm font-medium text-gray-700 mr-2">Filter Role:</label>
                     <select name="role" id="role"
                         class="mt-1 block w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
@@ -76,7 +76,7 @@
                                 <td class="px-6 py-4 text-sm text-gray-700">
                                     <button type="submit"
                                         class="text-gray-500 hover:text-gray-700 transition duration-200 ease-in-out">
-                                        <a href="{{ route('pengguna.index', ['user_id' => $user->id]) }}">
+                                        <a href="{{ route('admin.pengguna.index', ['user_id' => $user->id]) }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500"
                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

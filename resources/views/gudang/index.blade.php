@@ -1,7 +1,24 @@
-<app-layout>
+<x-app-layout>
     @if (session('error'))
-        <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
-            {{ session('error') }}
-        </div>
+        <script>
+            alert("{{ session('error') }}");
+        </script>
     @endif
-</app-layout>
+    <div class="p-6 sm">
+        <!-- Heading dan Breadcrumb -->
+        <div class="mb-6">
+            <nav class="text-sm text-gray-500">
+                <ol class="list-reset flex items-center space-x-2">
+                    <li><a href="{{ url('/gudang') }}" class="hover:underline text-blue-600">Gudang</a></li>
+                    <li><span class="text-gray-400">></span></li>
+                    <li class="text-gray-700 font-semibold">Dashboard</li>
+                </ol>
+                <h1 class="text-3xl font-bold text-gray-800 mt-2">Petugas Gudang Dashboard</h1>
+            </nav>
+        </div>
+
+        <div class="p-6 rounded-lg bg-white shadow-lg border border-gray-200">
+
+        </div>
+    </div>
+</x-app-layout>

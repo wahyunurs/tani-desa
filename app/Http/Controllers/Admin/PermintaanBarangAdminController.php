@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PermintaanBarang;
 use App\Models\StokBarang;
+use App\Models\User;
+use App\Models\DistribusiBarang;
 
 class PermintaanBarangAdminController extends Controller
 {
@@ -64,6 +66,46 @@ class PermintaanBarangAdminController extends Controller
         ]);
     }
 
+    public function distribusi($id)
+    {
+        // Ambil permintaan barang berdasarkan ID
+        $permintaanBarang = PermintaanBarang::findOrFail($id);
+
+        // Ambil semua distributor
+        $distributorList = User::where('role', 'distributor')->get();
+
+        return view('admin.permintaan-barang.distribusi', [
+            'title' => 'Distribusi Permintaan Barang',
+            'user' => Auth::user()->name,
+            'permintaanBarang' => $permintaanBarang,
+            'distributorList' => $distributorList,
+        ]);
+    }
+
+    public function distribusiStore(Request $request, $id)
+    {
+        // Validasi data yang diterima dari form
+        $validatedData = $request->validate([
+            'permintaan_id' => 'required|exists:permintaan_barangs,id',
+            'distributor_id' => 'required|exists:users,id',
+        ]);
+
+        // Simpan data distribusi barang ke database
+        DistribusiBarang::create([
+            'permintaan_id' => $validatedData['permintaan_id'],
+            'distributor_id' => $validatedData['distributor_id'],
+            'status' => 'Proses Pengiriman',
+        ]);
+
+        // Update status permintaan barang
+        $permintaanBarang = PermintaanBarang::findOrFail($validatedData['permintaan_id']);
+        $permintaanBarang->update([
+            'status' => 'Diproses',
+        ]);
+
+        return redirect()->route('admin.permintaan-barang.index')->with('success', 'Permintaan barang berhasil didistribusikan.');
+    }
+
     public function create()
     {
         $stokBarang = StokBarang::all();
@@ -77,16 +119,11 @@ class PermintaanBarangAdminController extends Controller
             ->distinct()
             ->get();
 
-        $statusList = PermintaanBarang::select('status')
-            ->distinct()
-            ->get();
-
         return view('admin.permintaan-barang.create', [
             'title' => 'Buat Permintaan Barang',
             'stokBarang' => $stokBarang,
             'petaniList' => $petaniList,
             'barangList' => $barangList,
-            'statusList' => $statusList,
         ]);
     }
 
@@ -97,7 +134,6 @@ class PermintaanBarangAdminController extends Controller
             'petani_id' => 'required|exists:users,id',
             'stok_barang_id' => 'required|exists:stok_barangs,id',
             'jumlah' => 'required|numeric|min:1',
-            'status' => 'required|string',
         ]);
 
         // Ambil stok barang berdasarkan stok_barang_id
@@ -117,10 +153,10 @@ class PermintaanBarangAdminController extends Controller
             'stok_barang_id' => $request->stok_barang_id,
             'nama_barang' => $stokBarang->nama_barang,
             'jumlah' => $request->jumlah,
-            'status' => $request->status,
+            'status' => 'Masuk',
         ]);
 
-        return redirect()->route('permintaan-barang.index')->with('success', 'Permintaan barang berhasil ditambahkan.');
+        return redirect()->route('admin.permintaan-barang.index')->with('success', 'Permintaan barang berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -139,17 +175,12 @@ class PermintaanBarangAdminController extends Controller
             ->distinct()
             ->get();
 
-        $statusList = PermintaanBarang::select('status')
-            ->distinct()
-            ->get();
-
         return view('admin.permintaan-barang.edit', [
             'title' => 'Edit Permintaan Barang',
             'permintaanBarang' => $permintaanBarang,
             'stokBarang' => $stokBarang,
             'petaniList' => $petaniList,
             'barangList' => $barangList,
-            'statusList' => $statusList,
         ]);
     }
 
@@ -168,7 +199,7 @@ class PermintaanBarangAdminController extends Controller
             'status' => $request->input('status'),
         ]);
 
-        return redirect()->route('permintaan-barang.index')->with('success', 'Permintaan barang berhasil diperbarui.');
+        return redirect()->route('admin.permintaan-barang.index')->with('success', 'Permintaan barang berhasil diperbarui.');
     }
 
     public function destroy($id)
