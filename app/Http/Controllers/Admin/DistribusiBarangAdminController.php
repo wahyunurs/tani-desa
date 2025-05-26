@@ -194,6 +194,13 @@ class DistribusiBarangAdminController extends Controller
         $distribusiBarang = DistribusiBarang::findOrFail($id);
         $distribusiBarang->delete();
 
+        // Perbarui status permintaan barang terkait
+        $permintaan = PermintaanBarang::where('id', $distribusiBarang->permintaan_id)->first();
+        if ($permintaan) {
+            $permintaan->status = 'Masuk';
+            $permintaan->save();
+        }
+
         return redirect()->route('admin.distribusi-barang.index')->with('success', 'Distribusi barang berhasil dihapus.');
     }
 }

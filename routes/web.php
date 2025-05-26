@@ -14,6 +14,7 @@ use App\Http\Controllers\Gudang\PermintaanBarangGudangController;
 use App\Http\Controllers\Gudang\DistribusiBarangGudangController;
 use App\Http\Controllers\Distributor\DistributorController;
 use App\Http\Controllers\Distributor\PermintaanBarangDistributorController;
+use App\Http\Controllers\Distributor\DistribusiBarangDistributorController;
 use App\Http\Controllers\Petani\PetaniController;
 
 Route::get('/', function () {
@@ -39,7 +40,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::prefix('pengguna')->group(function () {
             Route::get('/', [PenggunaAdminController::class, 'index'])->name('admin.pengguna.index');
             Route::get('/filter', [PenggunaAdminController::class, 'filter'])->name('admin.pengguna.filter');
-            // Route::get('/show/{id}', [PenggunaAdminController::class, 'show'])->name('pengguna.show');
         });
         Route::prefix('stok-barang')->group(function () {
             Route::get('/', [StokBarangAdminController::class, 'index'])->name('admin.stok-barang.index');
@@ -54,7 +54,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::prefix('permintaan-barang')->group(function () {
             Route::get('/', [PermintaanBarangAdminController::class, 'index'])->name('admin.permintaan-barang.index');
             Route::get('/filter', [PermintaanBarangAdminController::class, 'filter'])->name('admin.permintaan-barang.filter');
-            // Route::get('/show/{id}', [PermintaanBarangAdminController::class, 'show'])->name('admin.permintaan-barang.show');
             Route::get('/distribusi/{id}', [PermintaanBarangAdminController::class, 'distribusi'])->name('admin.permintaan-barang.distribusi');
             Route::post('/distribusi/{id}', [PermintaanBarangAdminController::class, 'distribusiStore'])->name('admin.permintaan-barang.distribusi.store');
             Route::get('/create', [PermintaanBarangAdminController::class, 'create'])->name('admin.permintaan-barang.create');
@@ -67,7 +66,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::prefix('distribusi-barang')->group(function () {
             Route::get('/', [DistribusiBarangAdminController::class, 'index'])->name('admin.distribusi-barang.index');
             Route::get('/filter', [DistribusiBarangAdminController::class, 'filter'])->name('admin.distribusi-barang.filter');
-            // Route::get('/{id}', [DistribusiBarangAdminController::class, 'show'])->name('admin.distribusi-barang.show');
             Route::put('/update-status/{id}', [DistribusiBarangAdminController::class, 'updateStatus'])->name('admin.distribusi-barang.update-status');
             Route::get('/create', [DistribusiBarangAdminController::class, 'create'])->name('admin.distribusi-barang.create');
             Route::post('/store', [DistribusiBarangAdminController::class, 'store'])->name('admin.distribusi-barang.store');
@@ -113,7 +111,6 @@ Route::middleware(['auth', 'role:gudang'])->group(function () {
         Route::prefix('distribusi-barang')->group(function () {
             Route::get('/', [DistribusiBarangGudangController::class, 'index'])->name('gudang.distribusi-barang.index');
             Route::get('/filter', [DistribusiBarangGudangController::class, 'filter'])->name('gudang.distribusi-barang.filter');
-            // Route::get('/show/{id}', [DistribusiBarangGudangController::class, 'show'])->name('gudang.distribusi-barang.show');
             Route::put('/update-status/{id}', [DistribusiBarangGudangController::class, 'updateStatus'])->name('gudang.distribusi-barang.update-status');
             Route::get('/create', [DistribusiBarangGudangController::class, 'create'])->name('gudang.distribusi-barang.create');
             Route::post('/store', [DistribusiBarangGudangController::class, 'store'])->name('gudang.distribusi-barang.store');
@@ -131,6 +128,15 @@ Route::middleware(['auth', 'role:distributor'])->group(function () {
         Route::prefix('permintaan-barang')->group(function () {
             Route::get('/', [PermintaanBarangDistributorController::class, 'index'])->name('distributor.permintaan-barang.index');
             Route::get('/filter', [PermintaanBarangDistributorController::class, 'filter'])->name('distributor.permintaan-barang.filter');
+        });
+
+        Route::prefix('distribusi-barang')->group(function () {
+            Route::get('/', [DistribusiBarangDistributorController::class, 'index'])->name('distributor.distribusi-barang.index');
+            Route::get('/filter', [DistribusiBarangDistributorController::class, 'filter'])->name('distributor.distribusi-barang.filter');
+            Route::put('/update-status/{id}', [DistribusiBarangDistributorController::class, 'updateStatus'])->name('distributor.distribusi-barang.update-status');
+            Route::get('/create', [DistribusiBarangDistributorController::class, 'create'])->name('distributor.distribusi-barang.create');
+            Route::post('/store', [DistribusiBarangDistributorController::class, 'store'])->name('distributor.distribusi-barang.store');
+            Route::delete('/destroy/{id}', [DistribusiBarangDistributorController::class, 'destroy'])->name('distributor.distribusi-barang.destroy');
         });
     });
 });

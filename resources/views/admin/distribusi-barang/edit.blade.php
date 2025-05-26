@@ -80,7 +80,7 @@
 
                 <!-- Tombol Submit -->
                 <div class="flex justify-end space-x-4">
-                    <a href="{{ route('admin.stok-barang.index') }}"
+                    <a href="{{ route('admin.distribusi-barang.index') }}"
                         class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition duration-200">
                         Batal
                     </a>

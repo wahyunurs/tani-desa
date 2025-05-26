@@ -171,7 +171,7 @@
                         <span class="flex-1 ms-3 whitespace-nowrap">Permintaan Barang</span>
                     </a>
                 </li>
-                {{-- <li>
+                <li>
                     <a href="{{ route('distributor.distribusi-barang.index') }}"
                         class="flex items-center p-2 rounded-lg group {{ request()->routeIs('distributor.distribusi-barang.index') ? 'bg-green-600' : 'hover:bg-green-600' }}">
                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +185,7 @@
                         </svg>
                         <span class="flex-1 ms-3 whitespace-nowrap">Distribusi Barang</span>
                     </a>
-                </li> --}}
+                </li>
             @endif
         </ul>
     </div>

@@ -9,9 +9,10 @@
         <div class="mb-6">
             <nav class="text-sm text-gray-500">
                 <ol class="list-reset flex items-center space-x-2">
-                    <li><a href="{{ route('admin.index') }}" class="hover:underline text-blue-600">Admin</a></li>
+                    <li><a href="{{ route('distributor.index') }}" class="hover:underline text-blue-600">Distributor</a>
+                    </li>
                     <li><span class="text-gray-400">></span></li>
-                    <li><a href="{{ route('admin.distribusi-barang.index') }}"
+                    <li><a href="{{ route('distributor.distribusi-barang.index') }}"
                             class="hover:underline text-blue-600">Distribusi
                             Barang</a>
                     </li>
@@ -24,8 +25,8 @@
 
         <!-- Form Tambah Distribusi Barang -->
         <div class="p-6 rounded-lg bg-white shadow-lg border border-gray-200">
-            <form action="{{ route('admin.distribusi-barang.store') }}" method="POST" enctype="multipart/form-data"
-                class="space-y-6">
+            <form action="{{ route('distributor.distribusi-barang.store') }}" method="POST"
+                enctype="multipart/form-data" class="space-y-6">
                 @csrf
                 <!-- Permintaan Barang id -->
                 <div>
@@ -42,35 +43,9 @@
                     </select>
                 </div>
 
-                <!-- Distributor id -->
-                <div>
-                    <label for="distributor_id" class="block text-sm font-medium text-gray-700">Distributor</label>
-                    <select name="distributor_id" id="distributor_id" required
-                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        <option value="">Pilih Distributor</option>
-                        @foreach ($distributorList as $distributor)
-                            <option value="{{ $distributor->id }}">
-                                {{ $distributor->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <!-- Status -->
-                <div>
-                    <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                    <select name="status" id="status" required
-                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        <option value="">Pilih Status</option>
-                        <option value="Proses Pengiriman">Proses Pengiriman</option>
-                        <option value="Selesai">Selesai</option>
-                        <option value="Gagal">Gagal</option>
-                    </select>
-                </div>
-
                 <!-- Tombol Submit -->
                 <div class="flex justify-end space-x-4">
-                    <a href="{{ route('admin.distribusi-barang.index') }}"
+                    <a href="{{ route('distributor.distribusi-barang.index') }}"
                         class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition duration-200">
                         Batal
                     </a>

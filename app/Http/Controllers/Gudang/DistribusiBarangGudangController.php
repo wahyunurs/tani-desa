@@ -75,18 +75,6 @@ class DistribusiBarangGudangController extends Controller
         ]);
     }
 
-    public function show($id)
-    {
-        // Ambil distribusi barang berdasarkan ID
-        $distribusiBarang = DistribusiBarang::with('distributor', 'permintaanBarang')->findOrFail($id);
-
-        return view('gudang.distribusi-barang.show', [
-            'title' => 'Detail Distribusi Barang',
-            'distribusiBarang' => $distribusiBarang,
-            'permintaanBarang' => $distribusiBarang->permintaanBarang, // Relasi ke permintaan barang
-        ]);
-    }
-
     public function create()
     {
         // List permintaan_id dari permintaan
@@ -114,7 +102,7 @@ class DistribusiBarangGudangController extends Controller
         ]);
 
         // Simpan data distribusi barang ke database
-        $distribusi = DistribusiBarang::create($validatedData);
+        DistribusiBarang::create($validatedData);
 
         // Update status permintaan barang sesuai status distribusi
         $permintaan = PermintaanBarang::findOrFail($validatedData['permintaan_id']);
@@ -132,7 +120,6 @@ class DistribusiBarangGudangController extends Controller
         return redirect()->route('gudang.distribusi-barang.index')
             ->with('success', 'Distribusi barang berhasil dibuat dan status permintaan diperbarui.');
     }
-
 
     public function updateStatus(Request $request, $id)
     {
@@ -202,6 +189,13 @@ class DistribusiBarangGudangController extends Controller
         // Hapus distribusi barang berdasarkan ID
         $distribusiBarang = DistribusiBarang::findOrFail($id);
         $distribusiBarang->delete();
+
+        // Perbarui status permintaan barang terkait
+        $permintaan = PermintaanBarang::where('id', $distribusiBarang->permintaan_id)->first();
+        if ($permintaan) {
+            $permintaan->status = 'Masuk';
+            $permintaan->save();
+        }
 
         return redirect()->route('gudang.distribusi-barang.index')->with('success', 'Distribusi barang berhasil dihapus.');
     }
