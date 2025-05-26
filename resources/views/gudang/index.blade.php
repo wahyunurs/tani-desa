@@ -9,7 +9,7 @@
         <div class="mb-6">
             <nav class="text-sm text-gray-500">
                 <ol class="list-reset flex items-center space-x-2">
-                    <li><a href="{{ url('/gudang') }}" class="hover:underline text-blue-600">Gudang</a></li>
+                    <li><a href="{{ route('gudang.index') }}" class="hover:underline text-blue-600">Gudang</a></li>
                     <li><span class="text-gray-400">></span></li>
                     <li class="text-gray-700 font-semibold">Dashboard</li>
                 </ol>

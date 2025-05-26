@@ -1,29 +1,38 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Gudang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\DistribusiBarang;
 use App\Models\PermintaanBarang;
+use App\Models\StokBarang;
 use App\Models\User;
 
-class DistribusiBarangAdminController extends Controller
+class DistribusiBarangGudangController extends Controller
 {
     public function index()
     {
-        // Periksa apakah pengguna memiliki role admin
-        if (Auth::user()->role !== 'admin') {
+        if (Auth::user()->role !== 'gudang') {
             return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
         }
 
-        // Ambil semua distribusi barang
-        $distribusiBarang = DistribusiBarang::with('permintaanBarang', 'distributor')->get();
+        // Ambil semua stok_barang_id milik gudang yang login
+        $stokIds = StokBarang::where('gudang_id', Auth::id())->pluck('id');
 
-        $statusList = DistribusiBarang::select('status')
-            ->distinct()
-            ->get();
+        // Ambil permintaan_barang berdasarkan stok_barang_id
+        $permintaanBarang = PermintaanBarang::whereIn('stok_barang_id', $stokIds)->get();
+
+        // Ambil ID permintaan
+        $permintaanIds = $permintaanBarang->pluck('id');
+
+        // Ambil distribusi_barang berdasarkan permintaan_id
+        $distribusiBarang = DistribusiBarang::whereIn('permintaan_id', $permintaanIds)->get();
+
+        // Ambil semua status unik untuk filter (opsional)
+        $statusList = DistribusiBarang::select('status')->distinct()->get();
 
         // Ambil distribusi barang yang dipilih berdasarkan id (jika ada)
         $selectedDistribusiBarang = null;
@@ -36,12 +45,13 @@ class DistribusiBarangAdminController extends Controller
             }
         }
 
-        return view('admin.distribusi-barang.index', [
+        return view('gudang.distribusi-barang.index', [
             'title' => 'Distribusi Barang',
-            'user' => Auth::user()->name,
+            'permintaanBarang' => $permintaanBarang,
             'distribusiBarang' => $distribusiBarang,
-            'selectedDistribusiBarang' => $selectedDistribusiBarang ?? null,
+            'user' => Auth::user()->name,
             'statusList' => $statusList,
+            'selectedDistribusiBarang' => $selectedDistribusiBarang ?? null,
         ]);
     }
 
@@ -57,7 +67,7 @@ class DistribusiBarangAdminController extends Controller
             ->distinct()
             ->get();
 
-        return view('admin.distribusi-barang.index', [
+        return view('gudang.distribusi-barang.index', [
             'title' => 'Distribusi Barang',
             'user' => Auth::user()->name,
             'distribusiBarang' => $distribusiBarang,
@@ -70,10 +80,10 @@ class DistribusiBarangAdminController extends Controller
         // Ambil distribusi barang berdasarkan ID
         $distribusiBarang = DistribusiBarang::with('distributor', 'permintaanBarang')->findOrFail($id);
 
-        return view('admin.distribusi-barang.show', [
+        return view('gudang.distribusi-barang.show', [
             'title' => 'Detail Distribusi Barang',
             'distribusiBarang' => $distribusiBarang,
-            'permintaanBarang' => $distribusiBarang->permintaanBarang,
+            'permintaanBarang' => $distribusiBarang->permintaanBarang, // Relasi ke permintaan barang
         ]);
     }
 
@@ -86,7 +96,7 @@ class DistribusiBarangAdminController extends Controller
         $distributorList = User::where('role', 'distributor')->get();
 
         // Tampilkan form untuk membuat distribusi barang baru
-        return view('admin.distribusi-barang.create', [
+        return view('gudang.distribusi-barang.create', [
             'title' => 'Buat Distribusi Barang',
             'user' => Auth::user()->name,
             'permintaanList' => $permintaanList,
@@ -119,7 +129,7 @@ class DistribusiBarangAdminController extends Controller
 
         $permintaan->save();
 
-        return redirect()->route('admin.distribusi-barang.index')
+        return redirect()->route('gudang.distribusi-barang.index')
             ->with('success', 'Distribusi barang berhasil dibuat dan status permintaan diperbarui.');
     }
 
@@ -134,13 +144,13 @@ class DistribusiBarangAdminController extends Controller
         // Update status distribusi barang di database
         DistribusiBarang::where('id', $id)->update($validatedData);
 
-        return redirect()->route('admin.distribusi-barang.index')->with('success', 'Status distribusi barang berhasil diperbarui.');
+        return redirect()->route('gudang.distribusi-barang.index')->with('success', 'Status distribusi barang berhasil diperbarui.');
     }
 
     public function edit($id)
     {
-        // Periksa apakah pengguna memiliki role admin
-        if (Auth::user()->role !== 'admin') {
+        // Periksa apakah pengguna memiliki role gudang
+        if (Auth::user()->role !== 'gudang') {
             return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
         }
 
@@ -150,7 +160,7 @@ class DistribusiBarangAdminController extends Controller
         // Ambil distribusi barang berdasarkan ID
         $distribusiBarang = DistribusiBarang::findOrFail($id);
 
-        return view('admin.distribusi-barang.edit', [
+        return view('gudang.distribusi-barang.edit', [
             'title' => 'Edit Distribusi Barang',
             'user' => Auth::user()->name,
             'distribusiBarang' => $distribusiBarang,
@@ -183,10 +193,9 @@ class DistribusiBarangAdminController extends Controller
 
         $permintaan->save();
 
-        return redirect()->route('admin.distribusi-barang.index')
+        return redirect()->route('gudang.distribusi-barang.index')
             ->with('success', 'Distribusi barang berhasil diperbarui dan status permintaan diperbarui.');
     }
-
 
     public function destroy($id)
     {
@@ -194,6 +203,6 @@ class DistribusiBarangAdminController extends Controller
         $distribusiBarang = DistribusiBarang::findOrFail($id);
         $distribusiBarang->delete();
 
-        return redirect()->route('admin.distribusi-barang.index')->with('success', 'Distribusi barang berhasil dihapus.');
+        return redirect()->route('gudang.distribusi-barang.index')->with('success', 'Distribusi barang berhasil dihapus.');
     }
 }

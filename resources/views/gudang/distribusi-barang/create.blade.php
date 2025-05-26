@@ -9,37 +9,37 @@
         <div class="mb-6">
             <nav class="text-sm text-gray-500">
                 <ol class="list-reset flex items-center space-x-2">
-                    <li><a href="{{ route('admin.index') }}" class="hover:underline text-blue-600">Admin</a></li>
+                    <li><a href="{{ route('gudang.index') }}" class="hover:underline text-blue-600">Gudang</a></li>
                     <li><span class="text-gray-400">></span></li>
-                    <li><a href="{{ route('admin.distribusi-barang.index') }}"
+                    <li><a href="{{ route('gudang.distribusi-barang.index') }}"
                             class="hover:underline text-blue-600">Distribusi
                             Barang</a>
                     </li>
                     <li><span class="text-gray-400">></span></li>
-                    <li class="text-gray-700 font-semibold">Edit Distribusi Barang</li>
+                    <li class="text-gray-700 font-semibold">Tambah Distribusi Barang</li>
                 </ol>
-                <h1 class="text-3xl font-bold text-gray-800 mt-2">Edit Distribusi Barang</h1>
+                <h1 class="text-3xl font-bold text-gray-800 mt-2">Tambah Barang</h1>
             </nav>
         </div>
 
-        <!-- Form Edit Distribusi Barang -->
+        <!-- Form Tambah Distribusi Barang -->
         <div class="p-6 rounded-lg bg-white shadow-lg border border-gray-200">
-            <form action="{{ route('admin.distribusi-barang.update', $distribusiBarang->id) }}" method="POST"
-                enctype="multipart/form-data" class="space-y-6">
+            <form action="{{ route('gudang.distribusi-barang.store') }}" method="POST" enctype="multipart/form-data"
+                class="space-y-6">
                 @csrf
-                @method('PUT')
-
-                <!-- Permintaan Barang id (disabled) -->
+                <!-- Permintaan Barang id -->
                 <div>
                     <label for="permintaan_id" class="block text-sm font-medium text-gray-700">Permintaan Barang</label>
-
-                    <!-- Input teks hanya untuk tampilan (readonly) -->
-                    <input type="text" id="permintaan_display" readonly
-                        value="{{ $distribusiBarang->permintaanBarang->user->name }} - {{ $distribusiBarang->permintaanBarang->nama_barang }} - {{ $distribusiBarang->permintaanBarang->jumlah }}"
-                        class="mt-1 block w-full p-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm sm:text-sm">
-
-                    <!-- Hidden input untuk submit value ke backend -->
-                    <input type="hidden" name="permintaan_id" value="{{ $distribusiBarang->permintaan_id }}">
+                    <select name="permintaan_id" id="permintaan_id" required
+                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        <option value="">Pilih Permintaan</option>
+                        @foreach ($permintaanList as $permintaan)
+                            <option value="{{ $permintaan->id }}">
+                                {{ $permintaan->user->name }} - {{ $permintaan->nama_barang }} -
+                                {{ $permintaan->jumlah }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <!-- Distributor id -->
@@ -49,8 +49,7 @@
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                         <option value="">Pilih Distributor</option>
                         @foreach ($distributorList as $distributor)
-                            <option value="{{ $distributor->id }}"
-                                {{ old('distributor_id', $distribusiBarang->distributor_id ?? '') == $distributor->id ? 'selected' : '' }}>
+                            <option value="{{ $distributor->id }}">
                                 {{ $distributor->name }}
                             </option>
                         @endforeach
@@ -63,24 +62,15 @@
                     <select name="status" id="status" required
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                         <option value="">Pilih Status</option>
-                        <option value="Proses Pengiriman"
-                            {{ old('status', $distribusiBarang->status ?? '') == 'Proses Pengiriman' ? 'selected' : '' }}>
-                            Proses Pengiriman
-                        </option>
-                        <option value="Selesai"
-                            {{ old('status', $distribusiBarang->status ?? '') == 'Selesai' ? 'selected' : '' }}>
-                            Selesai
-                        </option>
-                        <option value="Gagal"
-                            {{ old('status', $distribusiBarang->status ?? '') == 'Gagal' ? 'selected' : '' }}>
-                            Gagal
-                        </option>
+                        <option value="Proses Pengiriman">Proses Pengiriman</option>
+                        <option value="Selesai">Selesai</option>
+                        <option value="Gagal">Gagal</option>
                     </select>
                 </div>
 
                 <!-- Tombol Submit -->
                 <div class="flex justify-end space-x-4">
-                    <a href="{{ route('admin.stok-barang.index') }}"
+                    <a href="{{ route('gudang.stok-barang.index') }}"
                         class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition duration-200">
                         Batal
                     </a>

@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\StokBarang;
+use App\Models\Laporan;
+use App\Models\User;
 
-class StokBarangController extends Controller
+class StokBarangGudangController extends Controller
 {
     public function index()
     {
@@ -17,11 +19,11 @@ class StokBarangController extends Controller
         }
 
         // Ambil stok barang berdasarkan gudang_id pengguna
-        $stokBarang = StokBarang::where('gudang_id', Auth::user()->gudang_id)
+        $stokBarang = StokBarang::where('gudang_id', Auth::user()->id)
             ->with('user')
             ->get();
 
-        return view('stok-barang.index', [
+        return view('gudang.stok-barang.index', [
             'title' => 'Stok Barang',
             'user' => Auth::user()->name,
             'stokBarang' => $stokBarang,
@@ -34,14 +36,14 @@ class StokBarangController extends Controller
         $jenis = $request->input('jenis');
 
         // Ambil stok barang berdasarkan gudang_id pengguna
-        $stokBarang = StokBarang::where('gudang_id', Auth::user()->gudang_id)
+        $stokBarang = StokBarang::where('gudang_id', Auth::user()->id)
             ->when($jenis, function ($query, $jenis) {
                 return $query->where('jenis', $jenis);
             })
             ->with('user')
             ->get();
 
-        return view('stok-barang.index', [
+        return view('gudang.stok-barang.index', [
             'title' => 'Stok Barang',
             'user' => Auth::user()->name,
             'stokBarang' => $stokBarang,
@@ -53,7 +55,7 @@ class StokBarangController extends Controller
         // Ambil stok barang berdasarkan id
         $stokBarang = StokBarang::findOrFail($id);
 
-        return view('stok-barang.show', [
+        return view('gudang.stok-barang.show', [
             'title' => 'Detail Stok Barang',
             'user' => Auth::user()->name,
             'stokBarang' => $stokBarang,
@@ -62,7 +64,8 @@ class StokBarangController extends Controller
 
     public function create()
     {
-        return view('stok-barang.create', [
+
+        return view('gudang.stok-barang.create', [
             'title' => 'Tambah Stok Barang',
             'user' => Auth::user()->name,
         ]);
@@ -80,13 +83,21 @@ class StokBarangController extends Controller
         ]);
 
         // Simpan stok barang baru
-        StokBarang::create([
-            'gudang_id' => Auth::user()->gudang_id,
+        $stokBarang = StokBarang::create([
+            'gudang_id' => Auth::user()->id,
             'nama_barang' => $request->input('nama_barang'),
             'jenis' => $request->input('jenis'),
             'jumlah' => $request->input('jumlah'),
             'satuan' => $request->input('satuan'),
             'batas_minimal' => $request->input('batas_minimal'),
+        ]);
+
+        // Tambahkan data ke model Laporan dengan status "masuk"
+        Laporan::create([
+            'barang_id' => $stokBarang->id,
+            'nama_barang' => $stokBarang->nama_barang,
+            'jumlah' => $stokBarang->jumlah,
+            'status' => 'masuk',
         ]);
 
         return redirect()->route('gudang.stok-barang.index')->with('success', 'Stok barang berhasil ditambahkan.');
@@ -113,21 +124,42 @@ class StokBarangController extends Controller
             'jumlah' => 'required|integer|min:1',
             'satuan' => 'required|string|max:255',
             'batas_minimal' => 'required|integer|min:1',
+            'status' => 'required|in:masuk,keluar',
         ]);
 
         // Temukan stok barang berdasarkan ID
         $stokBarang = StokBarang::findOrFail($id);
 
+        // Hitung jumlah baru berdasarkan tipe
+        $jumlahBaru = $stokBarang->jumlah;
+        if ($request->input('status') === 'masuk') {
+            $jumlahBaru += $request->input('jumlah');
+        } elseif ($request->input('status') === 'keluar') {
+            // Periksa apakah jumlah baru tidak boleh di bawah batas minimal
+            if ($stokBarang->jumlah - $request->input('jumlah') < $stokBarang->batas_minimal) {
+                return redirect()->back()->with('error', 'Jumlah stok tidak boleh di bawah batas minimal.');
+            }
+            $jumlahBaru -= $request->input('jumlah');
+        }
+
         // Perbarui data stok barang
         $stokBarang->update([
             'nama_barang' => $request->input('nama_barang'),
             'jenis' => $request->input('jenis'),
-            'jumlah' => $request->input('jumlah'),
+            'jumlah' => $jumlahBaru,
             'satuan' => $request->input('satuan'),
             'batas_minimal' => $request->input('batas_minimal'),
         ]);
 
-        return redirect()->route('stok-barang.index')->with('success', 'Stok barang berhasil diperbarui.');
+        // Tambahkan data ke model Laporan berdasarkan status
+        Laporan::create([
+            'barang_id' => $stokBarang->id,
+            'nama_barang' => $stokBarang->nama_barang,
+            'jumlah' => $request->input('jumlah'),
+            'status' => $request->input('status'),
+        ]);
+
+        return redirect()->route('gudang.stok-barang.index')->with('success', 'Stok barang berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -138,6 +170,6 @@ class StokBarangController extends Controller
         // Hapus stok barang
         $stokBarang->delete();
 
-        return redirect()->route('stok-barang.index')->with('success', 'Stok barang berhasil dihapus.');
+        return redirect()->route('gudang.stok-barang.index')->with('success', 'Stok barang berhasil dihapus.');
     }
 }

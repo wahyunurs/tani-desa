@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Gudang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,24 +10,26 @@ use App\Models\StokBarang;
 use App\Models\User;
 use App\Models\DistribusiBarang;
 
-class PermintaanBarangAdminController extends Controller
+class PermintaanBarangGudangController extends Controller
 {
     public function index()
     {
         // Periksa apakah pengguna memiliki role admin
-        if (Auth::user()->role !== 'admin') {
+        if (Auth::user()->role !== 'gudang') {
             return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
         }
 
-        // Ambil semua permintaan barang
-        $permintaanBarang = PermintaanBarang::with('user')->get();
+        // Ambil semua stok_barang_id milik gudang yang login
+        $stokIds = StokBarang::where('gudang_id', Auth::id())->pluck('id');
+
+        // Ambil permintaan barang yang hanya berhubungan dengan stok milik gudang tersebut
+        $permintaanBarang = PermintaanBarang::whereIn('stok_barang_id', $stokIds)->get();
 
         $statusList = PermintaanBarang::select('status')
             ->distinct()
             ->get();
 
-
-        return view('admin.permintaan-barang.index', [
+        return view('gudang.permintaan-barang.index', [
             'title' => 'Permintaan Barang',
             'permintaanBarang' => $permintaanBarang,
             'user' => Auth::user()->name,
@@ -39,15 +41,20 @@ class PermintaanBarangAdminController extends Controller
     {
         $status = $request->input('status');
 
+        // Ambil semua stok_barang_id milik gudang yang login
+        $stokIds = StokBarang::where('gudang_id', Auth::id())->pluck('id');
+
         $permintaanBarang = PermintaanBarang::when($status, function ($query, $status) {
             return $query->where('status', $status);
-        })->whereIn('status', ['Masuk', 'Diproses', 'Selesai'])->get();
+        })
+            ->whereIn('stok_barang_id', $stokIds)
+            ->whereIn('status', ['Masuk', 'Diproses', 'Selesai'])->get();
 
         $statusList = PermintaanBarang::select('status')
             ->distinct()
             ->get();
 
-        return view('admin.permintaan-barang.index', [
+        return view('gudang.permintaan-barang.index', [
             'title' => 'Permintaan Barang',
             'user' => Auth::user()->name,
             'permintaanBarang' => $permintaanBarang,
@@ -60,7 +67,7 @@ class PermintaanBarangAdminController extends Controller
         // Ambil permintaan barang berdasarkan ID
         $permintaanBarang = PermintaanBarang::findOrFail($id);
 
-        return view('admin.permintaan-barang.show', [
+        return view('gudang.permintaan-barang.show', [
             'title' => 'Detail Permintaan Barang',
             'permintaanBarang' => $permintaanBarang,
         ]);
@@ -74,7 +81,7 @@ class PermintaanBarangAdminController extends Controller
         // Ambil semua distributor
         $distributorList = User::where('role', 'distributor')->get();
 
-        return view('admin.permintaan-barang.distribusi', [
+        return view('gudang.permintaan-barang.distribusi', [
             'title' => 'Distribusi Permintaan Barang',
             'user' => Auth::user()->name,
             'permintaanBarang' => $permintaanBarang,
@@ -103,7 +110,7 @@ class PermintaanBarangAdminController extends Controller
             'status' => 'Diproses',
         ]);
 
-        return redirect()->route('admin.permintaan-barang.index')->with('success', 'Permintaan barang berhasil didistribusikan.');
+        return redirect()->route('gudang.permintaan-barang.index')->with('success', 'Permintaan barang berhasil didistribusikan.');
     }
 
     public function create()
@@ -119,7 +126,7 @@ class PermintaanBarangAdminController extends Controller
             ->distinct()
             ->get();
 
-        return view('admin.permintaan-barang.create', [
+        return view('gudang.permintaan-barang.create', [
             'title' => 'Buat Permintaan Barang',
             'stokBarang' => $stokBarang,
             'petaniList' => $petaniList,
@@ -156,7 +163,7 @@ class PermintaanBarangAdminController extends Controller
             'status' => 'Masuk',
         ]);
 
-        return redirect()->route('admin.permintaan-barang.index')->with('success', 'Permintaan barang berhasil ditambahkan.');
+        return redirect()->route('gudang.permintaan-barang.index')->with('success', 'Permintaan barang berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -175,7 +182,7 @@ class PermintaanBarangAdminController extends Controller
             ->distinct()
             ->get();
 
-        return view('admin.permintaan-barang.edit', [
+        return view('gudang.permintaan-barang.edit', [
             'title' => 'Edit Permintaan Barang',
             'permintaanBarang' => $permintaanBarang,
             'stokBarang' => $stokBarang,
@@ -185,12 +192,10 @@ class PermintaanBarangAdminController extends Controller
     }
 
     public function update(Request $request, $id)
-    { 
+    {
         // Validasi input
         $request->validate([
-            'petani_id' => 'required|exists:users,id',
-            'stok_barang_id' => 'required|exists:stok_barangs,id',
-            'jumlah' => 'required|numeric|min:1',
+            'status' => 'required',
         ]);
 
         // Temukan permintaan barang berdasarkan ID
@@ -198,12 +203,10 @@ class PermintaanBarangAdminController extends Controller
 
         // Update status permintaan barang
         $permintaanBarang->update([
-            'petani_id' => $request->petani_id,
-            'stok_barang_id' => $request->stok_barang_id,
-            'jumlah' => $request->jumlah,
+            'status' => $request->input('status'),
         ]);
 
-        return redirect()->route('admin.permintaan-barang.index')->with('success', 'Permintaan barang berhasil diperbarui.');
+        return redirect()->route('gudang.permintaan-barang.index')->with('success', 'Permintaan barang berhasil diperbarui.');
     }
 
     public function destroy($id)

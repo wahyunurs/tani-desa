@@ -114,7 +114,7 @@
                         <span class="flex-1 ms-3 whitespace-nowrap">Stok Barang</span>
                     </a>
                 </li>
-                {{-- <li>
+                <li>
                     <a href="{{ route('gudang.permintaan-barang.index') }}"
                         class="flex items-center p-2 rounded-lg group {{ request()->routeIs('gudang.permintaan-barang.index') ? 'bg-green-600' : 'hover:bg-green-600' }}">
                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -142,10 +142,10 @@
                         </svg>
                         <span class="flex-1 ms-3 whitespace-nowrap">Distribusi Barang</span>
                     </a>
-                </li> --}}
+                </li>
 
                 {{-- Role Distributor --}}
-                {{-- @elseif(auth()->user()->role === 'distributor')
+            @elseif(auth()->user()->role === 'distributor')
                 <li>
                     <a href="{{ route('distributor.index') }}"
                         class="flex items-center p-2 rounded-lg group {{ request()->routeIs('distributor.index') ? 'bg-green-600' : 'hover:bg-green-600' }}">
@@ -171,7 +171,7 @@
                         <span class="flex-1 ms-3 whitespace-nowrap">Permintaan Barang</span>
                     </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{ route('distributor.distribusi-barang.index') }}"
                         class="flex items-center p-2 rounded-lg group {{ request()->routeIs('distributor.distribusi-barang.index') ? 'bg-green-600' : 'hover:bg-green-600' }}">
                         <svg xmlns="http://www.w3.org/2000/svg"

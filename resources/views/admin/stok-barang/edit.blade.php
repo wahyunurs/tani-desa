@@ -1,4 +1,3 @@
-<!-- filepath: d:\laragon\www\pupuk-tani-desa\resources\views\admin\stok-barang\edit.blade.php -->
 <x-app-layout>
     @if (session('error'))
         <script>
@@ -83,7 +82,7 @@
                         Penambahan/Pengurangan</label>
                     <input type="number" name="jumlah" id="jumlah" required
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        placeholder="Masukkan jumlah barang" value="{{ old('jumlah', $stokBarang->jumlah) }}">
+                        placeholder="Masukkan jumlah barang">
                 </div>
 
                 <!-- Satuan -->

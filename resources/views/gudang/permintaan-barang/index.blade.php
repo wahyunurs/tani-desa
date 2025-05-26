@@ -9,9 +9,10 @@
         <div class="mb-4">
             <nav class="text-sm text-gray-500">
                 <ol class="list-reset flex">
-                    <li><a href="{{ route('admin.index') }}" class="hover:underline">Admin</a></li>
+                    <li><a href="{{ route('gudang.index') }}" class="hover:underline">Gudang</a></li>
                     <li><span class="mx-2">></span></li>
-                    <li class="text-gray-700"><a href="{{ route('admin.permintaan-barang.index') }}">Permintaan Barang</a>
+                    <li class="text-gray-700"><a href="{{ route('gudang.permintaan-barang.index') }}">Permintaan
+                            Barang</a>
                     </li>
                 </ol>
                 <h1 class="text-2xl font-bold text-black">Permintaan Barang</h1>
@@ -22,7 +23,7 @@
             <div class="flex items-center justify-between mb-4">
                 <!-- Filter by Status -->
                 <div class="flex items-center justify-between">
-                    <form method="GET" action="{{ route('admin.permintaan-barang.filter') }}"
+                    <form method="GET" action="{{ route('gudang.permintaan-barang.filter') }}"
                         class="flex items-center">
                         <label for="status" class="block text-sm font-medium text-gray-700 mr-2">Filter
                             Status:</label>
@@ -51,7 +52,7 @@
                 </div>
 
                 <!-- Button Tambah -->
-                <a href="{{ route('admin.permintaan-barang.create') }}"
+                <a href="{{ route('gudang.permintaan-barang.create') }}"
                     class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -96,7 +97,7 @@
                                 <td class="px-6 py-4 text-sm text-gray-700">
                                     @if ($permintaan->status == 'Masuk')
                                         <form
-                                            action="{{ route('admin.permintaan-barang.distribusi', $permintaan->id) }}"
+                                            action="{{ route('gudang.permintaan-barang.distribusi', $permintaan->id) }}"
                                             method="GET">
                                             <button type="submit"
                                                 class="text-blue-500 hover:text-blue-700 transition duration-200 ease-in-out">
@@ -109,7 +110,7 @@
                                 </td>
                                 <td class="px-6 py-4 text-center text-sm text-gray-700 flex justify-center space-x-4">
                                     <!-- Tombol Edit -->
-                                    <form action="{{ route('admin.permintaan-barang.edit', $permintaan->id) }}"
+                                    <form action="{{ route('gudang.permintaan-barang.edit', $permintaan->id) }}"
                                         method="GET">
                                         @if ($permintaan->status === 'Masuk')
                                             <button type="submit"
@@ -136,7 +137,7 @@
 
                                     <!-- Tombol Delete -->
                                     <button type="button" data-id="{{ $permintaan->id }}"
-                                        data-url="{{ route('admin.permintaan-barang.destroy', $permintaan->id) }}"
+                                        data-url="{{ route('gudang.permintaan-barang.destroy', $permintaan->id) }}"
                                         class="deleteButton text-red-500 hover:text-red-700 transition duration-200 ease-in-out">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
@@ -146,7 +147,7 @@
                                     </button>
 
                                     {{-- <!-- Tombol Show -->
-                                    <form action="{{ route('admin.permintaan-barang.show', $permintaan->id) }}" method="GET">
+                                    <form action="{{ route('gudang.permintaan-barang.show', $permintaan->id) }}" method="GET">
                                         <button type="submit"
                                             class="text-gray-500 hover:text-gray-700 transition duration-200 ease-in-out">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500"
@@ -162,7 +163,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-6 py-4 text-center text-gray-500">Belum ada permintaan.
+                                <td colspan="4" class="px-6 py-4 text-center text-gray-500">Belum ada permintaan.
                                 </td>
                             </tr>
                         @endforelse
@@ -173,5 +174,5 @@
     </div>
 
     <!-- Modal Konfirmasi Hapus -->
-    @include('admin.permintaan-barang.delete')
+    @include('gudang.permintaan-barang.delete')
 </x-app-layout>
