@@ -21,7 +21,7 @@ class StokBarang extends Model
         'nama_barang',
         'jenis',
         'jumlah',
-        'batas_minimal'
+        'foto',
     ];
 
     public function user()

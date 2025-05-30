@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('jenis', ['Pupuk', 'Bibit', 'Obat']);
             $table->unsignedInteger('jumlah');
             $table->enum('satuan', ['kg', 'liter', 'pcs']);
-            $table->unsignedInteger('batas_minimal')->default(10);
+            $table->string('foto');
             $table->timestamps();
         });
     }

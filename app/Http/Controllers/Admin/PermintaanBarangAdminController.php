@@ -185,7 +185,7 @@ class PermintaanBarangAdminController extends Controller
     }
 
     public function update(Request $request, $id)
-    { 
+    {
         // Validasi input
         $request->validate([
             'petani_id' => 'required|exists:users,id',
@@ -214,6 +214,6 @@ class PermintaanBarangAdminController extends Controller
         // Hapus permintaan barang
         $permintaanBarang->delete();
 
-        return redirect()->route('permintaan-barang.index')->with('success', 'Permintaan barang berhasil dihapus.');
+        return redirect()->route('admin.permintaan-barang.index')->with('success', 'Permintaan barang berhasil dihapus.');
     }
 }

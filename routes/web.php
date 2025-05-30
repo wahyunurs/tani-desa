@@ -16,6 +16,8 @@ use App\Http\Controllers\Distributor\DistributorController;
 use App\Http\Controllers\Distributor\PermintaanBarangDistributorController;
 use App\Http\Controllers\Distributor\DistribusiBarangDistributorController;
 use App\Http\Controllers\Petani\PetaniController;
+use App\Http\Controllers\Petani\BarangPetaniController;
+use App\Http\Controllers\Petani\PermintaanBarangPetaniController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -143,6 +145,17 @@ Route::middleware(['auth', 'role:distributor'])->group(function () {
 
 Route::middleware(['auth', 'role:petani'])->group(function () {
     Route::prefix('petani')->group(function () {
-        Route::get('/', [PetaniController::class, 'index']);
+        Route::get('/', [PetaniController::class, 'index'])->name('petani.index');
+
+        Route::prefix('barang')->group(function () {
+            Route::get('/', [BarangPetaniController::class, 'index'])->name('petani.barang.index');
+            Route::post('/store', [BarangPetaniController::class, 'store'])->name('petani.barang.store');
+        });
+
+        Route::prefix('permintaan')->group(function () {
+            Route::get('/', [PermintaanBarangPetaniController::class, 'index'])->name('petani.permintaan.index');
+            Route::put('/{id}', [PermintaanBarangPetaniController::class, 'update'])->name('petani.permintaan.update');
+            Route::delete('/destroy/{id}', [PermintaanBarangPetaniController::class, 'destroy'])->name('petani.permintaan.destroy');
+        });
     });
 });

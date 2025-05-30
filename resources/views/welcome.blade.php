@@ -1,207 +1,356 @@
-<!-- filepath: d:\laragon\www\pupuk-tani-desa\resources\views\welcome.blade.php -->
-<!DOCTYPE html>
-<html lang="id">
+<x-guest-layout>
+    <!-- Navbar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+        <nav class="container mx-auto p-5 shadow-md">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <img src="{{ asset('images/logo.png') }}" class="h-8 w-8" alt="Logo">
+                    <span class="ml-2 text-xl font-bold text-gray-800">Tani Desa</span>
+                </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pupuk Tani Desa</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        main {
-            flex: 1;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 10;
-        }
-
-        main {
-            padding-top: 80px;
-        }
-    </style>
-</head>
-
-<body class="bg-gradient-to-b from-green-500 to-green-400 text-white font-sans">
-    <!-- Header -->
-    <header class="flex justify-between items-center px-8 py-4 bg-green-600 shadow-md">
-        <div class="flex items-center">
-            <img src="{{ asset('images/logo.png') }}" class="h-11 me-3" alt="Tani Desa Logo" />
-            <span class="self-center text-xl font-bold sm:text-3xl whitespace-nowrap">Tani Desa</span>
-        </div>
-        <nav class="flex items-center space-x-6 text-white font-medium">
-            <a href="#beranda" class="hover:underline hover:text-green-300 transition duration-300">Beranda</a>
-            <a href="#tentang" class="hover:underline hover:text-green-300 transition duration-300">Tentang</a>
-            <a href="#produk" class="hover:underline hover:text-green-300 transition duration-300">Produk</a>
-            <a href="#testimoni" class="hover:underline hover:text-green-300 transition duration-300">Testimoni</a>
-            <a href="#kontak" class="hover:underline hover:text-green-300 transition duration-300">Kontak</a>
-            <a href="{{ route('login') }}"
-                class="border border-white rounded-full px-4 py-1 hover:bg-white hover:text-green-600 transition duration-300">Masuk</a>
-            <a href="{{ route('register') }}"
-                class="bg-white text-green-600 rounded-full px-4 py-1 font-semibold hover:bg-green-100 transition duration-300">Daftar</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#beranda" id="link-beranda" class="pb-1 text-gray-600 hover:text-green-500">
+                        Beranda
+                    </a>
+                    <a href="#tentang" id="link-tentang" class="pb-1 text-gray-600 hover:text-green-500">
+                        Tentang
+                    </a>
+                    <a href="#produk" id="link-produk" class="pb-1 text-gray-600 hover:text-green-500">
+                        Produk
+                    </a>
+                    <a href="#testimoni" id="link-testimoni" class="pb-1 text-gray-600 hover:text-green-500">
+                        Testimoni
+                    </a>
+                    <a href="{{ route('register') }}"
+                        class="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition duration-300">
+                        Registrasi →
+                    </a>
+                </div>
+            </div>
         </nav>
     </header>
 
-    <!-- Main Content -->
-    <main>
+    <!-- Content Section -->
+    <main class="min-h-screen pt-16">
         <!-- Beranda Section -->
-        <section id="beranda" class="px-8 py-20 md:flex md:justify-between md:items-center">
-            <div class="md:w-1/2 space-y-6">
-                <h1
-                    class="text-4xl md:text-5xl font-extrabold leading-tight hover:text-green-300 transition duration-300">
-                    Tani Desa<br>Solusi
-                    Pertanian<br>Modern
-                </h1>
-                <p class="text-lg text-white/90 hover:text-green-200 transition duration-300">Dukung produktivitas
-                    pertanian Anda dengan produk kami yang berkualitas tinggi
-                    yang ramah lingkungan dan terjangkau.</p>
-                <div class="flex gap-4">
-                    <a href="#produk"
-                        class="bg-white text-green-600 font-semibold px-6 py-3 rounded-full hover:bg-green-100 hover:scale-105 transition duration-300">Mulai
-                        Sekarang</a>
-                    <a href="#tentang"
-                        class="border border-white text-white px-6 py-3 rounded-full hover:bg-white hover:text-green-600 hover:scale-105 transition duration-300">Pelajari
-                        Lebih Lanjut</a>
+        <section id="beranda" class="bg-green-50 container mx-auto px-6 h-[calc(100vh-4rem)] flex items-center">
+            <div class="flex flex-col md:flex-row items-center justify-between w-full">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-2">
+                        Tani Desa
+                    </h1>
+                    <h1 class="text-4xl md:text-6xl font-bold text-green-500 mb-6">Solusi Pertanian</h1>
+                    <p class="text-gray-600 text-lg mb-8">
+                        Dukung produktivitas pertanian Anda dengan produk kami yang berkualitas tinggi
+                        yang ramah lingkungan dan terjangkau.
+                    </p>
+                    <button
+                        class="bg-green-500 text-white px-8 py-3 rounded-full hover:bg-green-600 transition duration-300">
+                        <a href="{{ route('login') }}">
+                            Masuk</a>
+                    </button>
                 </div>
-            </div>
-            <div class="mt-12 md:mt-0 md:w-1/2 flex justify-center">
-                <img src="{{ asset('images/pupuk-tani-desa.png') }}" alt="Pupuk Tani"
-                    class="rounded-xl w-[400px] shadow-lg hover:scale-105 transition-transform duration-300">
+
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="{{ asset('images/tani-desa.png') }}" alt="Tani Desa" class="w-4/5 h-auto object-contain">
+                </div>
             </div>
         </section>
 
         <!-- Tentang Section -->
-        <section id="tentang" class="bg-green-100 text-green-800 py-16">
-            <div class="max-w-6xl mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-8 hover:text-green-600 transition duration-300">Tentang
-                    Kami</h2>
-                <p class="text-lg leading-relaxed mb-6">
-                    Website <strong>Pupuk Tani Desa</strong> adalah platform yang dirancang untuk mendukung petani dalam
-                    meningkatkan produktivitas pertanian mereka. Kami menyediakan berbagai fitur dan layanan yang dapat
-                    membantu petani, distributor, dan pihak terkait lainnya untuk mencapai hasil yang optimal.
-                </p>
-                <ul class="list-disc list-inside space-y-4">
-                    <li class="hover:text-green-600 transition duration-300">
-                        <strong>Produk Berkualitas:</strong> Kami menawarkan berbagai macam produk seperti pupuk, bibit,
-                        dan obat tanaman yang dirancang untuk mendukung pertanian modern.
-                    </li>
-                    <li class="hover:text-green-600 transition duration-300">
-                        <strong>Manajemen Permintaan:</strong> Petani dapat dengan mudah mengajukan permintaan barang
-                        melalui sistem kami, yang akan diproses oleh distributor dan petugas gudang.
-                    </li>
-                    <li class="hover:text-green-600 transition duration-300">
-                        <strong>Distribusi Efisien:</strong> Kami membantu mengelola distribusi barang agar sampai ke
-                        petani dengan cepat dan tepat waktu.
-                    </li>
-                    <li class="hover:text-green-600 transition duration-300">
-                        <strong>Informasi Terbaru:</strong> Dapatkan informasi terkini tentang produk, layanan, dan tips
-                        pertanian untuk mendukung keberhasilan Anda.
-                    </li>
-                    <li class="hover:text-green-600 transition duration-300">
-                        <strong>Testimoni:</strong> Dengarkan pengalaman petani lain yang telah menggunakan produk dan
-                        layanan kami.
-                    </li>
-                </ul>
-                <p class="mt-6">
-                    Dengan <strong>Pupuk Tani Desa</strong>, kami berkomitmen untuk mendukung pertanian berkelanjutan
-                    dan membantu petani mencapai hasil panen yang lebih baik. Jelajahi website ini untuk menemukan
-                    solusi terbaik bagi kebutuhan pertanian Anda.
-                </p>
+        <section id="tentang" class="min-h-screen bg-white">
+            <div class="container mx-auto px-6 py-20">
+                <!-- Section Header -->
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Fitur Utama Aplikasi Tani Desa</h2>
+                    <p class="text-xl text-gray-600">Solusi lengkap untuk kebutuhan pertanian Anda</p>
+                </div>
+
+                <!-- Features Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-12">
+                    <!-- Feature 1 -->
+                    <div class="text-center p-6 rounded-lg hover:shadow-xl transition duration-300">
+                        <div class="bg-green-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 3v18h18V3H3zm5 14h10M8 10h10M8 6h10" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Manajemen Stok</h3>
+                        <p class="text-gray-600">
+                            Pantau stok barang pertanian secara real-time dengan notifikasi saat stok hampir habis.
+                        </p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="text-center p-6 rounded-lg hover:shadow-xl transition duration-300">
+                        <div class="bg-green-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm-6 8h12a1 1 0 001-1v-2a4 4 0 00-4-4H9a4 4 0 00-4 4v2a1 1 0 001 1z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Transaksi Barang</h3>
+                        <p class="text-gray-600">
+                            Permudah proses pembelian barang kebutuhan pertanian dengan sistem transaksi yang cepat dan
+                            aman.
+                        </p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="text-center p-6 rounded-lg hover:shadow-xl transition duration-300">
+                        <div class="bg-green-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 10h2l1 2h13a1 1 0 01.98 1.197l-1.5 6A1 1 0 0117.5 20H6.5a1 1 0 01-.98-.803L4 12H3v-2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Distribusi Barang</h3>
+                        <p class="text-gray-600">
+                            Proses distribusi barang pesanan dilakukan secara efisien hingga ke lokasi tujuan.
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Produk Section -->
-        <section id="produk" class="bg-white text-green-600 py-16">
-            <div class="max-w-6xl mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-8 hover:text-green-800 transition duration-300">Produk Kami
-                </h2>
+        <section id="produk" class="min-h-screen bg-green-50">
+            <div class="container mx-auto px-6 py-20">
+                <!-- Section Header -->
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Produk Unggulan Tani Desa</h2>
+                    <p class="text-xl text-gray-600">Temukan produk terbaik kami untuk mendukung pertanian Anda.</p>
+                </div>
+
+                <!-- Produk Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="text-center hover:scale-105 transition-transform duration-300">
-                        <img src="{{ asset('images/pupuk.png') }}" alt="Produk 1" class="rounded-lg shadow-md mb-4">
-                        <h3 class="text-xl font-semibold">Pupuk</h3>
-                        <p>Berbagai macam pupuk berkualitas tinggi untuk meningkatkan kesuburan tanah.</p>
+                    <!-- Produk 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                        <img src="{{ asset('images/pupuk.png') }}" alt="Produk 1" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">Pupuk Organik</h3>
+                            <p class="text-gray-600 mb-4">
+                                Pupuk organik berkualitas tinggi untuk meningkatkan hasil panen secara alami.
+                            </p>
+                            <a href="#" class="text-green-500 font-semibold hover:underline">
+                                Selengkapnya →
+                            </a>
+                        </div>
                     </div>
-                    <div class="text-center hover:scale-105 transition-transform duration-300">
-                        <img src="{{ asset('images/bibit.png') }}" alt="Produk 2" class="rounded-lg shadow-md mb-4">
-                        <h3 class="text-xl font-semibold">Bibit</h3>
-                        <p>Benih unggul yang dirancang untuk menghasilkan tanaman yang lebih sehat dan produktif.</p>
+
+                    <!-- Produk 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                        <img src="{{ asset('images/bibit.png') }}" alt="Produk 2" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">Bibit Unggul</h3>
+                            <p class="text-gray-600 mb-4">
+                                Bibit unggul dengan daya tumbuh tinggi untuk hasil panen yang maksimal.
+                            </p>
+                            <a href="#" class="text-green-500 font-semibold hover:underline">
+                                Selengkapnya →
+                            </a>
+                        </div>
                     </div>
-                    <div class="text-center hover:scale-105 transition-transform duration-300">
-                        <img src="{{ asset('images/obat.png') }}" alt="Produk 3" class="rounded-lg shadow-md mb-4">
-                        <h3 class="text-xl font-semibold">Obat</h3>
-                        <p>Solusi perlindungan tanaman dari hama dan penyakit untuk hasil panen yang optimal.</p>
+
+                    <!-- Produk 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                        <img src="{{ asset('images/obat.png') }}" alt="Produk 3" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">Obat Hama</h3>
+                            <p class="text-gray-600 mb-4">
+                                Obat pertanian yang efektif untuk mengendalikan hama dan penyakit tanaman.
+                            </p>
+                            <a href="#" class="text-green-500 font-semibold hover:underline">
+                                Selengkapnya →
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Testimoni Section -->
-        <section id="testimoni" class="bg-white text-green-600 py-16">
-            <div class="max-w-6xl mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-8 hover:text-green-800 transition duration-300">Apa Kata
-                    Mereka?</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-green-50 p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-                        <p class="italic">"Pupuk Tani Desa sangat membantu meningkatkan hasil panen saya. Tanaman
-                            menjadi
-                            lebih subur dan sehat."</p>
-                        <p class="mt-4 font-semibold">- Budi, Petani Jagung</p>
+        <section id="testimoni" class="min-h-screen bg-white">
+            <div class="container mx-auto px-6 py-20">
+                <!-- Section Header -->
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Apa Kata Mereka?</h2>
+                    <p class="text-xl text-gray-600">Testimoni dari para pengguna Tani Desa yang telah merasakan
+                        manfaatnya.</p>
+                </div>
+
+                <!-- Testimoni Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimoni 1 -->
+                    <div
+                        class="bg-green-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 p-6">
+                        <div class="flex items-center mb-4">
+                            <img src="{{ asset('images/user1.jpg') }}" alt="User 1"
+                                class="w-12 h-12 rounded-full object-cover">
+                            <div class="ml-4">
+                                <h3 class="text-lg font-bold text-gray-900">Budi Santoso</h3>
+                                <p class="text-sm text-gray-600">Petani Padi</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">
+                            "Dengan Tani Desa, saya bisa memantau stok pupuk dan benih dengan mudah. Hasil panen saya
+                            meningkat
+                            berkat produk berkualitas mereka."
+                        </p>
                     </div>
-                    <div class="bg-green-50 p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-                        <p class="italic">"Produk ini benar-benar ramah lingkungan. Saya sangat merekomendasikannya
-                            untuk
-                            petani lain."</p>
-                        <p class="mt-4 font-semibold">- Siti, Petani Sayur</p>
+
+                    <!-- Testimoni 2 -->
+                    <div
+                        class="bg-green-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 p-6">
+                        <div class="flex items-center mb-4">
+                            <img src="{{ asset('images/user2.jpg') }}" alt="User 2"
+                                class="w-12 h-12 rounded-full object-cover">
+                            <div class="ml-4">
+                                <h3 class="text-lg font-bold text-gray-900">Siti Aminah</h3>
+                                <p class="text-sm text-gray-600">Distributor</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">
+                            "Platform distribusi Tani Desa sangat membantu saya dalam mengelola pengiriman barang ke
+                            petani.
+                            Sistemnya mudah digunakan dan efisien."
+                        </p>
                     </div>
-                    <div class="bg-green-50 p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-                        <p class="italic">"Bibit unggul dari Tani Desa membuat hasil panen saya meningkat pesat."</p>
-                        <p class="mt-4 font-semibold">- Andi, Petani Padi</p>
-                    </div>
-                    <div class="bg-green-50 p-6 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
-                        <p class="italic">"Obat tanaman dari Tani Desa sangat efektif melindungi tanaman saya dari
-                            hama."</p>
-                        <p class="mt-4 font-semibold">- Dewi, Petani Buah</p>
+
+                    <!-- Testimoni 3 -->
+                    <div
+                        class="bg-green-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 p-6">
+                        <div class="flex items-center mb-4">
+                            <img src="{{ asset('images/user3.jpg') }}" alt="User 3"
+                                class="w-12 h-12 rounded-full object-cover">
+                            <div class="ml-4">
+                                <h3 class="text-lg font-bold text-gray-900">Ahmad Fauzi</h3>
+                                <p class="text-sm text-gray-600">Kelompok Tani</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">
+                            "Tani Desa mempermudah koordinasi antar anggota kelompok tani kami. Kami bisa berbagi
+                            informasi dan
+                            memesan kebutuhan pertanian dengan cepat."
+                        </p>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Kontak Section -->
-        <section id="kontak" class="bg-green-600 text-white py-16">
-            <div class="max-w-6xl mx-auto px-6 text-center">
-                <h2 class="text-3xl font-bold mb-8 hover:text-green-300 transition duration-300">Hubungi Kami</h2>
-                <p class="mb-4 hover:text-green-200 transition duration-300">Jika Anda memiliki pertanyaan atau ingin
-                    memesan produk kami, jangan ragu untuk menghubungi kami.</p>
-                <p class="mb-4">Telepon: <a href="tel:+6281234567890" class="hover:text-green-300">+62 812 3456
-                        7890</a></p>
-                <p class="mb-4">Email: <a href="mailto:info@pupuktanidesa.com"
-                        class="hover:text-green-300">info@pupuktanidesa.com</a></p>
-                <p>Alamat: Jl. Pertanian No. 123, Desa Makmur, Indonesia</p>
-                <a href="mailto:info@pupuktanidesa.com"
-                    class="bg-white text-green-600 px-6 py-3 rounded-full font-semibold hover:bg-green-100 hover:scale-105 transition duration-300">Email
-                    Kami</a>
-
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-green-700 text-white py-8">
-        <div class="max-w-4xl mx-auto text-center">
-            <p class="text-sm hover:text-green-300 transition duration-300">&copy; 2025 Pupuk Tani Desa. Semua Hak
-                Dilindungi.</p>
+    <footer class="bg-gray-900 text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Logo and Copyright -->
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-8 w-8">
+                        <span class="ml-2 text-xl font-bold">Tani Desa</span>
+                    </div>
+                    <p class="text-gray-400">Copyright © {{ date('Y') }} Tani Desa. All rights reserved.</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.723-.951.564-2.005.974-3.127 1.195-.897-.956-2.178-1.555-3.594-1.555-2.717 0-4.92 2.203-4.92 4.917 0 .386.044.762.128 1.124-4.087-.205-7.713-2.164-10.141-5.144-.423.725-.666 1.562-.666 2.457 0 1.694.863 3.188 2.175 4.065-.802-.026-1.555-.246-2.213-.616v.062c0 2.366 1.683 4.342 3.918 4.788-.41.111-.843.171-1.287.171-.315 0-.623-.03-.924-.086.624 1.951 2.434 3.374 4.576 3.414-1.68 1.318-3.809 2.105-6.115 2.105-.398 0-.79-.023-1.175-.068 2.179 1.396 4.768 2.21 7.548 2.21 9.057 0 14.01-7.506 14.01-14.01 0-.213-.005-.426-.014-.637.961-.694 1.797-1.562 2.457-2.549z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c-5.488 0-9.837 4.349-9.837 9.837 0 4.355 2.82 8.065 6.737 9.387-.093-.797-.177-2.021.037-2.894.193-.812 1.243-5.165 1.243-5.165s-.317-.634-.317-1.571c0-1.471.854-2.568 1.918-2.568.905 0 1.342.678 1.342 1.491 0 .908-.579 2.265-.879 3.526-.249 1.048.528 1.902 1.566 1.902 1.879 0 3.324-1.981 3.324-4.835 0-2.527-1.815-4.292-4.408-4.292-3.006 0-4.771 2.254-4.771 4.579 0 .908.349 1.883.785 2.411.087.105.1.197.075.302-.082.348-.267 1.105-.303 1.257-.048.197-.157.239-.364.145-1.354-.63-2.2-2.608-2.2-4.198 0-3.417 2.482-6.56 7.166-6.56 3.759 0 6.678 2.678 6.678 6.25 0 3.73-2.344 6.745-5.594 6.745-1.091 0-2.118-.567-2.468-1.238l-.672 2.556c-.243.926-.905 2.086-1.353 2.79 1.019.314 2.093.485 3.211.485 5.488 0 9.837-4.349 9.837-9.837s-4.349-9.837-9.837-9.837z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M19.615 3.184c-1.2-.045-4.2-.045-5.4 0-1.2.045-2.4.3-3.6.9-1.2.6-2.1 1.5-2.7 2.7-.6 1.2-.855 2.4-.9 3.6-.045 1.2-.045 4.2 0 5.4.045 1.2.3 2.4.9 3.6.6 1.2 1.5 2.1 2.7 2.7 1.2.6 2.4.855 3.6.9 1.2.045 4.2.045 5.4 0 1.2-.045 2.4-.3 3.6-.9 1.2-.6 2.1-1.5 2.7-2.7.6-1.2.855-2.4.9-3.6.045-1.2.045-4.2 0-5.4-.045-1.2-.3-2.4-.9-3.6-.6-1.2-1.5-2.1-2.7-2.7-1.2-.6-2.4-.855-3.6-.9zm-7.615 8.816v-4.8l4.8 2.4-4.8 2.4z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Company Links -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Testimonials</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support Links -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Legal</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Status</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Stay up to date</h3>
+                    <form action="#" method="POST" class="flex items-center space-x-2">
+                        <input type="email" placeholder="Your email address" required
+                            class="w-full p-3 rounded-md bg-gray-800 text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <button type="submit"
+                            class="p-3 bg-green-500 rounded-md text-white hover:bg-green-600 transition duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14.752 11.168l-9.193-5.333A1 1 0 004 6.667v10.666a1 1 0 001.559.829l9.193-5.333a1 1 0 000-1.658z" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </footer>
-</body>
 
-</html>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('.md\\:flex a'); // Pilih semua link di navbar
+            const sections = ['beranda', 'tentang', 'produk', 'testimoni']; // ID section yang sesuai dengan hash
+
+            function setActiveLink() {
+                const hash = window.location.hash.substring(1); // Ambil hash tanpa tanda #
+                links.forEach(link => {
+                    link.classList.remove('text-green-600', 'border-b-2',
+                        'border-green-600'); // Hapus kelas aktif
+                    link.classList.add('text-gray-600'); // Tambahkan kelas default
+                });
+
+                if (sections.includes(hash)) {
+                    const activeLink = document.querySelector(`#link-${hash}`);
+                    if (activeLink) {
+                        activeLink.classList.add('text-green-600', 'border-b-2',
+                            'border-green-600'); // Tambahkan kelas aktif
+                        activeLink.classList.remove('text-gray-600'); // Hapus kelas default
+                    }
+                }
+            }
+
+            // Jalankan saat halaman dimuat
+            setActiveLink();
+
+            // Jalankan saat hash berubah
+            window.addEventListener('hashchange', setActiveLink);
+        });
+    </script>
+</x-guest-layout>
