@@ -18,8 +18,7 @@ class StokBarangSeeder extends Seeder
             'nama_barang' => 'Pupuk NPK',
             'jenis' => 'Pupuk',
             'jumlah' => 100,
-            'satuan' => 'kg',
-            'foto' => 'pupuk_npk.png',
+            'satuan' => 'Kg',
         ]);
 
         StokBarang::create([
@@ -27,8 +26,7 @@ class StokBarangSeeder extends Seeder
             'nama_barang' => 'Bibit Jagung',
             'jenis' => 'Bibit',
             'jumlah' => 200,
-            'satuan' => 'pcs',
-            'foto' => 'bibit_jagung.png',
+            'satuan' => 'Pcs',
         ]);
 
         StokBarang::create([
@@ -36,8 +34,7 @@ class StokBarangSeeder extends Seeder
             'nama_barang' => 'Obat Hama',
             'jenis' => 'Obat',
             'jumlah' => 50,
-            'satuan' => 'liter',
-            'foto' => 'obat_hama.png',
+            'satuan' => 'Liter',
         ]);
     }
 }

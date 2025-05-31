@@ -62,6 +62,9 @@
                             <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">
                                 No
                             </th>
+                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Foto
+                                Barang
+                            </th>
                             <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Nama
                                 Barang
                             </th>
@@ -71,9 +74,6 @@
                             </th>
                             <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Satuan
                             </th>
-                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Batas
-                                Minimal
-                            </th>
                             <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">Aksi
                             </th>
                         </tr>
@@ -82,12 +82,15 @@
                         @forelse ($stokBarang as $barang)
                             <tr class="hover:bg-green-50 hover:shadow-md transition duration-200 ease-in-out">
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $loop->iteration }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-700">
+                                    <img src="{{ asset('storage/foto-barang/' . $barang->foto) }}"
+                                        alt="{{ $barang->nama_barang }}" class="w-12 h-12 rounded-full">
+                                </td>
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $barang->nama_barang }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-700">
                                     {{ $barang->jenis }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $barang->jumlah }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $barang->satuan }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-700">{{ $barang->batas_minimal }}</td>
                                 </td>
                                 <td class="px-6 py-4 text-center text-sm text-gray-700 flex justify-center space-x-4">
                                     <!-- Tombol Edit -->

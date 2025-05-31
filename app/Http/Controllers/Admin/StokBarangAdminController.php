@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Models\StokBarang;
 use App\Models\Laporan;
 
@@ -92,21 +93,30 @@ class StokBarangAdminController extends Controller
         // Validasi input
         $request->validate([
             'gudang_id' => 'required|exists:users,id',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'nama_barang' => 'required|string|max:255',
             'jenis' => 'required|string|max:255',
             'jumlah' => 'required|integer|min:1',
             'satuan' => 'required|string|max:255',
-            'batas_minimal' => 'required|integer|min:1',
         ]);
+
+        // Jika ada foto yang diunggah, simpan foto tersebut
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $filename = date('Y-m-d-') . $foto->getClientOriginalName();
+            $path = 'foto-barang/' . $filename;
+
+            Storage::disk('public')->put($path, file_get_contents($foto));
+        }
 
         // Buat stok barang baru
         $stokBarang = StokBarang::create([
             'gudang_id' => $request->input('gudang_id'),
+            'foto' => $filename ?? null,
             'nama_barang' => $request->input('nama_barang'),
             'jenis' => $request->input('jenis'),
             'jumlah' => $request->input('jumlah'),
             'satuan' => $request->input('satuan'),
-            'batas_minimal' => $request->input('batas_minimal'),
         ]);
 
         // Tambahkan data ke model Laporan dengan status "masuk"
@@ -143,11 +153,11 @@ class StokBarangAdminController extends Controller
         // Validasi input
         $request->validate([
             'gudang_id' => 'required|exists:users,id',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'nama_barang' => 'required|string|max:255',
             'jenis' => 'required|string|max:255',
             'jumlah' => 'required|integer|min:1',
             'satuan' => 'required|string|max:255',
-            'batas_minimal' => 'required|integer|min:1',
             'status' => 'required|in:masuk,keluar',
         ]);
 
@@ -166,9 +176,29 @@ class StokBarangAdminController extends Controller
             $jumlahBaru -= $request->input('jumlah');
         }
 
+        $newFoto = $stokBarang->foto;
+
+        // If the foto is updated
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $filename = date('Y-m-d-') . $foto->getClientOriginalName();
+            $path       = 'foto-barang/' . $filename;
+
+            // Store the new foto
+            Storage::disk('public')->put($path, file_get_contents($foto));
+
+            // Delete the foto from storage
+            if ($stokBarang->foto) {
+                Storage::disk('public')->delete('foto-barang/' . $stokBarang->foto);
+            }
+
+            $newFoto = $filename;
+        }
+
         // Update stok barang
         $stokBarang->update([
             'gudang_id' => $request->input('gudang_id'),
+            'foto' => $newFoto,
             'nama_barang' => $request->input('nama_barang'),
             'jenis' => $request->input('jenis'),
             'jumlah' => $jumlahBaru,
@@ -191,6 +221,11 @@ class StokBarangAdminController extends Controller
     {
         // Temukan stok barang berdasarkan ID
         $stokBarang = StokBarang::findOrFail($id);
+
+        // Hapus foto dari storage
+        if ($stokBarang->foto) {
+            Storage::delete('public/foto-barang/' . $stokBarang->foto);
+        }
 
         // Hapus stok barang
         $stokBarang->delete();

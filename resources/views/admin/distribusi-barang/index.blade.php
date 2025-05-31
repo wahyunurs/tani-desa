@@ -65,6 +65,8 @@
                 <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
                     <thead class="bg-gradient-to-r from-green-400 to-green-600 text-white">
                         <tr>
+                            <th class="px-4 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">No
+                            </th>
                             <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Id
                                 Permintaan
                             </th>
@@ -83,6 +85,9 @@
                     <tbody class="divide-y divide-gray-200">
                         @forelse ($distribusiBarang as $distribusi)
                             <tr class="hover:bg-green-50 hover:shadow-md transition duration-200 ease-in-out">
+                                <td class="px-6 py-4 text-sm text-gray-700">
+                                    {{ $loop->iteration }}
+                                </td>
                                 <td class="px-6 py-4 text-sm text-gray-700">
                                     {{ $distribusi->permintaan_id }}
                                 </td>
@@ -148,7 +153,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="px-6 py-4 text-center text-gray-500">Belum ada distribusi.
+                                <td colspan="6" class="px-6 py-4 text-center text-gray-500">Belum ada distribusi.
                                 </td>
                             </tr>
                         @endforelse

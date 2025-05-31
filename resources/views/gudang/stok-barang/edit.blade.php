@@ -28,6 +28,24 @@
                 @csrf
                 @method('PUT')
 
+                <!-- Foto -->
+                <div>
+                    <label for="foto" class="block text-sm font-medium text-gray-700">Foto Barang</label>
+                    <input type="file" name="foto" id="foto" accept="image/*"
+                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    <p class="text-sm italic text-gray-500 mt-1">Format yang diperbolehkan: jpeg, png, jpg.
+                        Maksimal
+                        ukuran: 2MB.</p>
+                </div>
+
+                <!-- Nama Barang -->
+                <div>
+                    <label for="nama_barang" class="block text-sm font-medium text-gray-700">Nama Barang</label>
+                    <input type="text" name="nama_barang" id="nama_barang" required
+                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        placeholder="Masukkan nama barang" value="{{ old('nama_barang', $stokBarang->nama_barang) }}">
+                </div>
+
                 <!-- Jenis -->
                 <div>
                     <label for="jenis" class="block text-sm font-medium text-gray-700">Jenis</label>
@@ -41,14 +59,6 @@
                         <option value="Obat" {{ old('jenis', $stokBarang->jenis) == 'Obat' ? 'selected' : '' }}>Obat
                         </option>
                     </select>
-                </div>
-
-                <!-- Nama Barang -->
-                <div>
-                    <label for="nama_barang" class="block text-sm font-medium text-gray-700">Nama Barang</label>
-                    <input type="text" name="nama_barang" id="nama_barang" required
-                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        placeholder="Masukkan nama barang" value="{{ old('nama_barang', $stokBarang->nama_barang) }}">
                 </div>
 
                 <!-- Tipe -->
@@ -76,22 +86,13 @@
                     <select name="satuan" id="satuan" required
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                         <option value="">Pilih Satuan</option>
-                        <option value="kg" {{ old('satuan', $stokBarang->satuan) == 'kg' ? 'selected' : '' }}>
-                            Kilogram</option>
-                        <option value="liter" {{ old('satuan', $stokBarang->satuan) == 'liter' ? 'selected' : '' }}>
+                        <option value="Kg" {{ old('satuan', $stokBarang->satuan) == 'Kg' ? 'selected' : '' }}>
+                            Kg</option>
+                        <option value="Liter" {{ old('satuan', $stokBarang->satuan) == 'Liter' ? 'selected' : '' }}>
                             Liter</option>
-                        <option value="pcs" {{ old('satuan', $stokBarang->satuan) == 'pcs' ? 'selected' : '' }}>Pcs
+                        <option value="Pcs" {{ old('satuan', $stokBarang->satuan) == 'Pcs' ? 'selected' : '' }}>Pcs
                         </option>
                     </select>
-                </div>
-
-                <!-- Batas Minimal -->
-                <div>
-                    <label for="batas_minimal" class="block text-sm font-medium text-gray-700">Batas Minimal</label>
-                    <input type="number" name="batas_minimal" id="batas_minimal" required
-                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        placeholder="Masukkan batas minimal barang"
-                        value="{{ old('batas_minimal', $stokBarang->batas_minimal) }}">
                 </div>
 
                 <!-- Tombol Submit -->
