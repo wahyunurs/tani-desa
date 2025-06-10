@@ -23,7 +23,7 @@
                     </button>
                 </div>
 
-                <div class="md:w-1/2 flex justify-center">
+                <div class="md:w-1/2 flex justify-center hidden md:block">
                     <img src="{{ asset('images/tani-desa.png') }}" alt="Tani Desa" class="w-4/5 h-auto object-contain">
                 </div>
             </div>

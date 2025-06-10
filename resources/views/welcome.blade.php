@@ -3,11 +3,13 @@
     <header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
         <nav class="container mx-auto p-5 shadow-md">
             <div class="flex justify-between items-center">
+                <!-- Logo -->
                 <div class="flex items-center">
-                    <img src="{{ asset('images/logo.png') }}" class="h-8 w-8" alt="Logo">
+                    <img src="{{ asset('images/logo.png') }}" class="h-8 w-8 sm:block" alt="Logo">
                     <span class="ml-2 text-xl font-bold text-gray-800">Tani Desa</span>
                 </div>
 
+                <!-- Menu untuk Desktop -->
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#beranda" id="link-beranda" class="pb-1 text-gray-600 hover:text-green-500">
                         Beranda
@@ -26,14 +28,50 @@
                         Registrasi →
                     </a>
                 </div>
+
+                <!-- Button Garis Tiga untuk Mobile -->
+                <button id="menu-button" class="md:hidden text-gray-600 hover:text-green-500 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
             </div>
         </nav>
+
+        <!-- Sidebar -->
+        <div id="sidebar"
+            class="fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+            <div class="p-5">
+                <button id="close-sidebar" class="text-gray-600 hover:text-red-500 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <ul class="mt-8 space-y-4">
+                    <li><a href="#beranda" class="block text-gray-600 hover:text-green-500">Beranda</a></li>
+                    <li><a href="#tentang" class="block text-gray-600 hover:text-green-500">Tentang</a></li>
+                    <li><a href="#produk" class="block text-gray-600 hover:text-green-500">Produk</a></li>
+                    <li><a href="#testimoni" class="block text-gray-600 hover:text-green-500">Testimoni</a></li>
+                    <li>
+                        <a href="{{ route('register') }}"
+                            class="block bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition duration-300 text-center">
+                            Registrasi →
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </header>
 
     <!-- Content Section -->
     <main class="min-h-screen pt-16">
         <!-- Beranda Section -->
-        <section id="beranda" class="bg-green-50 container mx-auto px-6 h-[calc(100vh-4rem)] flex items-center">
+        <section id="beranda"
+            class="bg-green-50 container mx-auto px-6 py-16 md:py-20 h-[calc(100vh-4rem)] flex items-center">
             <div class="flex flex-col md:flex-row items-center justify-between w-full">
                 <div class="md:w-1/2 mb-8 md:mb-0">
                     <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-2">
@@ -51,14 +89,15 @@
                     </button>
                 </div>
 
-                <div class="md:w-1/2 flex justify-center">
+                <!-- Image Tani Desa -->
+                <div class="md:w-1/2 flex justify-center hidden md:block">
                     <img src="{{ asset('images/tani-desa.png') }}" alt="Tani Desa" class="w-4/5 h-auto object-contain">
                 </div>
             </div>
         </section>
 
         <!-- Tentang Section -->
-        <section id="tentang" class="min-h-screen bg-white">
+        <section id="tentang" class="bg-white py-12 md:py-16">
             <div class="container mx-auto px-6 py-20">
                 <!-- Section Header -->
                 <div class="text-center mb-16">
@@ -71,10 +110,11 @@
                     <!-- Feature 1 -->
                     <div class="text-center p-6 rounded-lg hover:shadow-xl transition duration-300">
                         <div class="bg-green-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 3v18h18V3H3zm5 14h10M8 10h10M8 6h10" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                <path d="M3 9h18M9 21V9" />
                             </svg>
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-4">Manajemen Stok</h3>
@@ -88,8 +128,10 @@
                         <div class="bg-green-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <circle cx="9" cy="21" r="1" />
+                                <circle cx="20" cy="21" r="1" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm-6 8h12a1 1 0 001-1v-2a4 4 0 00-4-4H9a4 4 0 00-4 4v2a1 1 0 001 1z" />
+                                    d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.99-1.73L23 6H6" />
                             </svg>
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-4">Transaksi Barang</h3>
@@ -102,10 +144,13 @@
                     <!-- Feature 3 -->
                     <div class="text-center p-6 rounded-lg hover:shadow-xl transition duration-300">
                         <div class="bg-green-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 10h2l1 2h13a1 1 0 01.98 1.197l-1.5 6A1 1 0 0117.5 20H6.5a1 1 0 01-.98-.803L4 12H3v-2z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="1" y="3" width="15" height="13" rx="2" ry="2" />
+                                <path d="M16 8h4l3 3v5a2 2 0 0 1-2 2h-1.5a2 2 0 0 1-2-2v-1H16V8z" />
+                                <circle cx="5.5" cy="18.5" r="1.5" />
+                                <circle cx="18.5" cy="18.5" r="1.5" />
                             </svg>
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-4">Distribusi Barang</h3>
@@ -118,7 +163,7 @@
         </section>
 
         <!-- Produk Section -->
-        <section id="produk" class="min-h-screen bg-green-50">
+        <section id="produk" class="bg-green-50 py-12 md:py-16">">
             <div class="container mx-auto px-6 py-20">
                 <!-- Section Header -->
                 <div class="text-center mb-16">
@@ -174,7 +219,7 @@
         </section>
 
         <!-- Testimoni Section -->
-        <section id="testimoni" class="min-h-screen bg-white">
+        <section id="testimoni" class="bg-white py-12 md:py-16">">
             <div class="container mx-auto px-6 py-20">
                 <!-- Section Header -->
                 <div class="text-center mb-16">
@@ -323,6 +368,7 @@
         </div>
     </footer>
 
+    <!-- JavaScript untuk mengatur link aktif di navbar -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const links = document.querySelectorAll('.md\\:flex a'); // Pilih semua link di navbar
@@ -351,6 +397,25 @@
 
             // Jalankan saat hash berubah
             window.addEventListener('hashchange', setActiveLink);
+        });
+    </script>
+
+    <!-- JavaScript untuk sidebar -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.getElementById('menu-button');
+            const sidebar = document.getElementById('sidebar');
+            const closeSidebar = document.getElementById('close-sidebar');
+
+            // Tampilkan sidebar saat tombol garis tiga diklik
+            menuButton.addEventListener('click', function() {
+                sidebar.classList.remove('translate-x-full');
+            });
+
+            // Sembunyikan sidebar saat tombol close diklik
+            closeSidebar.addEventListener('click', function() {
+                sidebar.classList.add('translate-x-full');
+            });
         });
     </script>
 </x-guest-layout>

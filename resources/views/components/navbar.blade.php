@@ -39,7 +39,7 @@
                             @csrf
                             <button type="submit"
                                 class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-100 hover:text-red-700 transition duration-200">
-                                Logout
+                                Keluar
                             </button>
                         </form>
                     </li>

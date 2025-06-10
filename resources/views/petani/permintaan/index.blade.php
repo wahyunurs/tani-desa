@@ -64,9 +64,9 @@
                 <!-- Permintaan Items -->
                 <div class="bg-white rounded-lg shadow-md p-5">
                     @forelse ($permintaanBarangs as $permintaan)
-                        <div class="flex items-center justify-between border-b border-gray-200 py-4">
+                        <div class="flex flex-wrap items-center justify-between border-b border-gray-200 py-4">
                             <!-- Gambar Barang -->
-                            <div class="flex items-center space-x-4">
+                            <div class="flex items-center space-x-4 w-full md:w-auto mb-4 md:mb-0">
                                 <img src="{{ asset('images/' . $permintaan->stokBarang->gambar ?? 'default.png') }}"
                                     alt="{{ $permintaan->nama_barang }}" class="w-20 h-20 object-cover rounded-lg">
                                 <div>
@@ -74,29 +74,33 @@
                                     <!-- Status -->
                                     <span
                                         class="px-3 py-1 rounded-full text-sm font-semibold 
-                                        {{ $permintaan->status === 'Masuk' ? 'bg-blue-100 text-blue-600' : '' }}
-                                        {{ $permintaan->status === 'Diproses' ? 'bg-yellow-100 text-yellow-600' : '' }}
-                                        {{ $permintaan->status === 'Selesai' ? 'bg-green-100 text-green-600' : '' }}
-                                        {{ $permintaan->status === 'Gagal' ? 'bg-red-100 text-red-600' : '' }}">
+                        {{ $permintaan->status === 'Masuk' ? 'bg-blue-100 text-blue-600' : '' }}
+                        {{ $permintaan->status === 'Diproses' ? 'bg-yellow-100 text-yellow-600' : '' }}
+                        {{ $permintaan->status === 'Selesai' ? 'bg-green-100 text-green-600' : '' }}
+                        {{ $permintaan->status === 'Gagal' ? 'bg-red-100 text-red-600' : '' }}">
                                         {{ $permintaan->status }}
                                     </span>
                                 </div>
                             </div>
 
-                            <!-- Input Jumlah -->
-                            <div class="flex items-center space-x-2">
-                                <button onclick="decreaseQuantity({{ $permintaan->id }})"
-                                    class="text-gray-900 px-3 py-2 rounded-lg hover:bg-gray-300 transition duration-300">-</button>
-                                <input id="quantity-{{ $permintaan->id }}" name="jumlah" type="text"
-                                    value="{{ $permintaan->jumlah }}"
-                                    class="w-12 text-center border border-gray-300 rounded-lg" readonly>
-                                <button onclick="increaseQuantity({{ $permintaan->id }})"
-                                    class="text-gray-900 px-3 py-2 rounded-lg hover:bg-gray-300 transition duration-300">+</button>
-                            </div>
+                            <!-- Input Jumlah dan Tombol -->
+                            <div class="flex items-center space-x-4 w-full md:w-auto mb-4 md:mb-0">
+                                <!-- Input Jumlah -->
+                                <div class="flex items-center space-x-2">
+                                    <button onclick="decreaseQuantity({{ $permintaan->id }})"
+                                        class="text-gray-900 px-3 py-2 rounded-lg hover:bg-gray-300 transition duration-300">
+                                        -
+                                    </button>
+                                    <input id="quantity-{{ $permintaan->id }}" name="jumlah" type="text"
+                                        value="{{ $permintaan->jumlah }}"
+                                        class="w-16 text-center border border-gray-300 rounded-lg" readonly>
+                                    <button onclick="increaseQuantity({{ $permintaan->id }})"
+                                        class="text-gray-900 px-3 py-2 rounded-lg hover:bg-gray-300 transition duration-300">
+                                        +
+                                    </button>
+                                </div>
 
-                            <!-- Tombol Edit dan Hapus -->
-                            <div class="flex items-center space-x-2">
-                                <!-- Form Update Jumlah -->
+                                <!-- Tombol Edit -->
                                 <form method="POST" action="{{ route('petani.permintaan.update', $permintaan->id) }}"
                                     onsubmit="return syncQuantityBeforeSubmit({{ $permintaan->id }})">
                                     @csrf

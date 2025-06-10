@@ -28,7 +28,11 @@
                         </option>
                     </select>
                     <button type="submit"
-                        class="ml-2 px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 flex items-center">
+                        class="ml-2 px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
                         Filter
                     </button>
                 </form>

@@ -15,15 +15,16 @@
         </div>
 
         <div class="p-4 rounded-lg bg-white border border-gray-200 mb-4">
-            <div class="flex items-center justify-between mb-4">
+            <div
+                class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 space-y-4 sm:space-y-0 sm:space-x-4">
                 <!-- Form Filter -->
                 <form method="GET" action="{{ route('gudang.stok-barang.filter') }}"
-                    class="flex items-center space-x-4">
+                    class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full">
                     <!-- Filter Jenis -->
-                    <div>
+                    <div class="w-full sm:w-auto">
                         <label for="jenis" class="block text-sm font-medium text-gray-700">Jenis Barang</label>
                         <select name="jenis" id="jenis"
-                            class="mt-1 block w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            class="mt-1 block w-full sm:w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             <option value="">Semua</option>
                             <option value="Pupuk" {{ request('jenis') == 'Pupuk' ? 'selected' : '' }}>Pupuk</option>
                             <option value="Bibit" {{ request('jenis') == 'Bibit' ? 'selected' : '' }}>Bibit</option>
@@ -32,9 +33,14 @@
                     </div>
 
                     <!-- Tombol Filter -->
-                    <div class="flex self-end">
+                    <div class="w-full sm:w-auto">
                         <button type="submit"
-                            class="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200">
+                            class="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200 flex items-center justify-center w-full sm:w-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
                             Filter
                         </button>
                     </div>
@@ -42,7 +48,7 @@
 
                 <!-- Button Tambah -->
                 <a href="{{ route('gudang.stok-barang.create') }}"
-                    class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center">
+                    class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center justify-center w-full sm:w-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -77,7 +83,8 @@
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         @forelse ($stokBarang as $barang)
-                            <tr class="hover:bg-green-50 hover:shadow-md transition duration-200 ease-in-out">
+                            <tr
+                                class="@if ($barang->jumlah <= 10) bg-red-400/20 hover:bg-red-400/70 @else hover:bg-green-50 @endif hover:shadow-md transition duration-200 ease-in-out">
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $loop->iteration }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-700">
                                     <img src="{{ asset('storage/foto-barang/' . $barang->foto) }}"

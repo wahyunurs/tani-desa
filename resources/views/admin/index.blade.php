@@ -228,6 +228,4 @@
             }
         });
     </script>
-
-
 </x-app-layout>

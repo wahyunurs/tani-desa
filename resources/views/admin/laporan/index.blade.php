@@ -42,7 +42,12 @@
                     <!-- Tombol Filter -->
                     <div class="w-full sm:w-auto">
                         <button type="submit"
-                            class="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200 w-full sm:w-auto">
+                            class="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200 flex items-center justify-center w-full sm:w-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
                             Filter
                         </button>
                     </div>
@@ -50,10 +55,14 @@
 
                 <!-- Button Ekspor -->
                 <a href="{{ route('admin.laporan.export', ['status' => request('status'), 'bulan' => request('bulan')]) }}"
-                    class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center w-full sm:w-auto">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center justify-center w-full sm:w-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-arrow-up-from-line-icon lucide-arrow-up-from-line w-4 h-4 mr-1">
+                        <path d="m18 9-6-6-6 6" />
+                        <path d="M12 3v14" />
+                        <path d="M5 21h14" />
                     </svg>
                     Ekspor Laporan
                 </a>
