@@ -3,6 +3,8 @@
 
     <!-- Content Section -->
     <main class="bg-green-50 min-h-screen pt-16">
+        <x-session-modal />
+
         <section class="container mx-auto px-6 h-[calc(100vh-4rem)] flex items-center">
             <div class="flex flex-col md:flex-row items-center justify-between w-full">
                 <div class="md:w-1/2 mb-8 md:mb-0">

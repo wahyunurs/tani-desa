@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Laporan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use App\Models\Laporan;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class LaporanAdminController extends Controller
 {
@@ -41,37 +42,35 @@ class LaporanAdminController extends Controller
         ]);
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        // Ambil semua data laporan
-        $laporan = Laporan::orderBy('updated_at', 'desc')->get();
+        // Ambil data laporan berdasarkan filter bulan dan status
+        $query = Laporan::query();
 
-        // Buat file CSV
-        $filename = 'laporan_' . now()->format('Ymd_His') . '.csv';
-        $headers = [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => "attachment; filename=\"$filename\"",
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->has('bulan') && $request->bulan != '') {
+            $query->whereMonth('updated_at', Carbon::parse($request->bulan)->month)
+                ->whereYear('updated_at', Carbon::parse($request->bulan)->year);
+        }
+
+        $laporan = $query->orderBy('updated_at', 'desc')->get();
+
+        // Data untuk PDF
+        $data = [
+            'laporan' => $laporan,
+            'bulan' => $request->bulan ? Carbon::parse($request->bulan)->translatedFormat('F Y') : 'Semua Bulan',
+            'tanggal_export' => now()->translatedFormat('d F Y H:i:s'),
         ];
 
-        $callback = function () use ($laporan) {
-            $file = fopen('php://output', 'w');
-            // Header kolom
-            fputcsv($file, ['ID', 'Nama Barang', 'Jumlah', 'Status', 'Tanggal']);
+        // Generate PDF
+        $pdf = Pdf::loadView('admin.laporan.template', $data);
 
-            // Data laporan
-            foreach ($laporan as $item) {
-                fputcsv($file, [
-                    $item->id,
-                    $item->nama_barang,
-                    $item->jumlah,
-                    $item->status,
-                    $item->updated_at->format('Y-m-d H:i:s'),
-                ]);
-            }
+        // Nama file PDF
+        $filename = 'laporan_' . now()->format('Ymd_His') . '.pdf';
 
-            fclose($file);
-        };
-
-        return response()->stream($callback, 200, $headers);
+        return $pdf->download($filename);
     }
 }

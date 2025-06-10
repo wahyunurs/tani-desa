@@ -1,9 +1,6 @@
 <x-app-layout>
-    @if (session('error'))
-        <script>
-            alert("{{ session('error') }}");
-        </script>
-    @endif
+    <x-session-modal />
+
     <div class="p-4 sm">
         <!-- Heading dan Breadcrumb -->
         <div class="mb-4">
@@ -19,7 +16,7 @@
 
         <div class="p-4 rounded-lg bg-white border border-gray-200">
             <!-- Filter by Role -->
-            <div class="flex items-center justify-between mb-4">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4">
                 <form method="GET" action="{{ route('admin.pengguna.filter') }}" class="flex items-center">
                     <label for="role" class="block text-sm font-medium text-gray-700 mr-2">Filter Role:</label>
                     <select name="role" id="role"
@@ -32,10 +29,6 @@
                     </select>
                     <button type="submit"
                         class="ml-2 px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
                         Filter
                     </button>
                 </form>
@@ -66,11 +59,12 @@
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $user->email }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-700">
                                     @if ($user->role == 'gudang')
-                                        Gudang
+                                        <span class="px-2 py-1 rounded-full text-white bg-blue-500"> Gudang </span>
                                     @elseif ($user->role == 'petani')
-                                        Petani
+                                        <span class="px-2 py-1 rounded-full text-white bg-red-500"> Petani </span>
                                     @elseif ($user->role == 'distributor')
-                                        Distributor
+                                        <span class="px-2 py-1 rounded-full text-white bg-yellow-500"> Distributor
+                                        </span>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-700">

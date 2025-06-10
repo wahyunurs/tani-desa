@@ -1,9 +1,6 @@
 <x-app-layout>
-    @if (session('error'))
-        <script>
-            alert("{{ session('error') }}");
-        </script>
-    @endif
+    <x-session-modal />
+
     <div class="p-4 sm">
         <!-- Heading dan Breadcrumb -->
         <div class="mb-4">

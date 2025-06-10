@@ -42,12 +42,20 @@ class AdminController extends Controller
             ->take(5)
             ->get();
 
+        // Periksa stok barang yang menipis
+        $stokMenipis = StokBarang::where('jumlah', '<=', 10)->get();
+
+        if ($stokMenipis->isNotEmpty()) {
+            session()->flash('warning', 'Ada stok barang yang hampir habis.');
+        }
+
         return view('admin.index', [
             'title' => 'Dashboard Admin',
             'user' => Auth::user()->name,
             'gudangCount' => $gudangCount ?? 0,
             'petaniCount' => $petaniCount ?? 0,
             'distributorCount' => $distributorCount ?? 0,
+            'totalStokBarang' => $totalStokBarang ?? 0,
             'pupukCount' => $pupukCount ?? 0,
             'bibitCount' => $bibitCount ?? 0,
             'obatCount' => $obatCount ?? 0,

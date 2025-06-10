@@ -169,10 +169,6 @@ class StokBarangAdminController extends Controller
         if ($request->input('status') === 'masuk') {
             $jumlahBaru += $request->input('jumlah');
         } elseif ($request->input('status') === 'keluar') {
-            // Periksa apakah jumlah baru tidak boleh di bawah batas minimal
-            if ($stokBarang->jumlah - $request->input('jumlah') < $stokBarang->batas_minimal) {
-                return redirect()->back()->with('error', 'Jumlah stok tidak boleh di bawah batas minimal.');
-            }
             $jumlahBaru -= $request->input('jumlah');
         }
 

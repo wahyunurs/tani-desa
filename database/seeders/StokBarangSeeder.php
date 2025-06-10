@@ -33,7 +33,7 @@ class StokBarangSeeder extends Seeder
             'gudang_id' => 2,
             'nama_barang' => 'Obat Hama',
             'jenis' => 'Obat',
-            'jumlah' => 50,
+            'jumlah' => 9,
             'satuan' => 'Liter',
         ]);
     }

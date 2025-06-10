@@ -1,6 +1,8 @@
 <x-guest-layout>
     <x-navbar-petani />
     <main class="min-h-screen">
+        <x-session-modal />
+
         <!-- Barang Section -->
         <section id="barang" class="min-h-screen bg-green-50">
             <div class="container mx-auto px-5 py-5">

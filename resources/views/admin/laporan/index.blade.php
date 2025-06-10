@@ -1,5 +1,6 @@
-<!-- filepath: d:\laragon\www\pupuk-tani-desa\resources\views\admin\laporan\index.blade.php -->
 <x-app-layout>
+    <x-session-modal />
+
     <div class="p-4 sm">
         <!-- Heading dan Breadcrumb -->
         <div class="mb-4">
@@ -14,14 +15,16 @@
         </div>
 
         <div class="p-4 rounded-lg bg-white border border-gray-200 mb-4">
-            <div class="flex items-center justify-between mb-4">
-                <!-- Form Filter -->
-                <form method="GET" action="{{ route('admin.laporan.filter') }}" class="flex items-center space-x-4">
+            <!-- Form Filter -->
+            <div
+                class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 space-y-4 sm:space-y-0 sm:space-x-4">
+                <form method="GET" action="{{ route('admin.laporan.filter') }}"
+                    class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full">
                     <!-- Filter Status -->
-                    <div>
+                    <div class="w-full sm:w-auto">
                         <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
                         <select name="status" id="status"
-                            class="mt-1 block w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            class="mt-1 block w-full sm:w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             <option value="">Semua</option>
                             <option value="masuk" {{ request('status') == 'masuk' ? 'selected' : '' }}>Masuk</option>
                             <option value="keluar" {{ request('status') == 'keluar' ? 'selected' : '' }}>Keluar</option>
@@ -29,25 +32,29 @@
                     </div>
 
                     <!-- Filter Bulan -->
-                    <div>
+                    <div class="w-full sm:w-auto">
                         <label for="bulan" class="block text-sm font-medium text-gray-700">Bulan</label>
                         <input type="month" name="bulan" id="bulan"
-                            class="mt-1 block w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            class="mt-1 block w-full sm:w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             value="{{ request('bulan') }}">
                     </div>
 
                     <!-- Tombol Filter -->
-                    <div class="flex self-end">
+                    <div class="w-full sm:w-auto">
                         <button type="submit"
-                            class="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200">
+                            class="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200 w-full sm:w-auto">
                             Filter
                         </button>
                     </div>
                 </form>
 
                 <!-- Button Ekspor -->
-                <a href="{{ route('admin.laporan.export') }}"
-                    class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center">
+                <a href="{{ route('admin.laporan.export', ['status' => request('status'), 'bulan' => request('bulan')]) }}"
+                    class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center w-full sm:w-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
                     Ekspor Laporan
                 </a>
             </div>
