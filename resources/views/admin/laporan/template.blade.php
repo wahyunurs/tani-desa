@@ -83,6 +83,7 @@
                     <td>{{ $item->nama_barang }}</td>
                     <td>{{ $item->jumlah }}</td>
                     <td>{{ $item->status }}</td>
+                    <td>{{ $item->created_at->format('d-m-Y H:i') }}</td>
                 </tr>
             @empty
                 <tr>

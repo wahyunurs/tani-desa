@@ -21,8 +21,7 @@ class PermintaanBarangDistributorController extends Controller
         }
 
         // Ambil semua permintaan_id dari distribusi_barang milik distributor yang sedang login
-        $permintaanIds = DB::table('distribusi_barangs')
-            ->where('distributor_id', Auth::id())
+        $permintaanIds = DistribusiBarang::where('distributor_id', Auth::id())
             ->pluck('permintaan_id');
 
         // Ambil semua permintaan barang berdasarkan ID tersebut
