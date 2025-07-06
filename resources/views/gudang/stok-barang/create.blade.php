@@ -34,7 +34,7 @@
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     <p class="text-sm italic text-gray-500 mt-1">Format yang diperbolehkan: jpeg, png, jpg.
                         Maksimal
-                        ukuran: 2MB.</p>
+                        ukuran: 5MB.</p>
                 </div>
 
                 <!-- Nama Barang -->

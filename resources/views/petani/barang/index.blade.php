@@ -55,8 +55,9 @@
                             class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 item {{ $barang->jenis }} {{ $barang->jumlah === 0 ? 'opacity-50 cursor-not-allowed' : '' }}">
                             <!-- Gambar Barang -->
                             <div class="relative">
-                                <img src="{{ asset('images/pupuk.png') }}" alt="{{ $barang->nama_barang }}"
+                                <img src="{{ asset('storage/foto-barang/' . $barang->foto) }}" alt="{{ $barang->nama_barang }}"
                                     class="w-full h-52 object-cover">
+                                <p class="text-xs text-gray-500 px-2 py-1 bg-white bg-opacity-80 absolute bottom-0 left-0">{{ $barang->foto }}</p>
                             </div>
 
                             <!-- Konten Card -->

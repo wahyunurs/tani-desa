@@ -36,7 +36,6 @@ class RegisteredUserController extends Controller
             'desa' => ['required', 'string', 'max:255'],
             'nomor_telepon' => ['required', 'string', 'max:15', 'regex:/^[0-9]+$/'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'string', 'in:admin,user'], // Sesuaikan dengan role yang diizinkan
         ]);
 
         $user = User::create([
@@ -46,13 +45,9 @@ class RegisteredUserController extends Controller
             'desa' => $request->desa,
             'nomor_telepon' => $request->nomor_telepon,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
+            'role' => 'petani',
         ]);
 
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('login'));
     }
 }

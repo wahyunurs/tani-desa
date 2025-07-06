@@ -96,43 +96,47 @@
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $barang->jumlah }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $barang->satuan }}</td>
                                 </td>
-                                <td class="px-6 py-4 text-center text-sm text-gray-700 flex justify-center space-x-4">
-                                    <!-- Tombol Edit -->
-                                    <form action="{{ route('gudang.stok-barang.edit', $barang->id) }}" method="GET">
-                                        <button type="submit"
-                                            class="text-yellow-500 hover:text-yellow-700 transition duration-200 ease-in-out">
+                                <td
+                                    class="px-6 py-4 text-center text-sm text-gray-700"
+                                    style="vertical-align: middle;">
+                                    <div class="flex justify-center items-center space-x-4">
+                                        <!-- Tombol Edit -->
+                                        <form action="{{ route('gudang.stok-barang.edit', $barang->id) }}" method="GET">
+                                            <button type="submit"
+                                                class="text-yellow-500 hover:text-yellow-700 transition duration-200 ease-in-out">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M15.232 5.232l3.536 3.536M9 11l6.364-6.364a2 2 0 012.828 0l1.172 1.172a2 2 0 010 2.828L13 15l-4 1 1-4z" />
+                                                </svg>
+                                            </button>
+                                        </form>
+
+                                        <!-- Tombol Delete -->
+                                        <button type="button" data-id="{{ $barang->id }}"
+                                            data-url="{{ route('gudang.stok-barang.destroy', $barang->id) }}"
+                                            class="deleteButton text-red-500 hover:text-red-700 transition duration-200 ease-in-out">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15.232 5.232l3.536 3.536M9 11l6.364-6.364a2 2 0 012.828 0l1.172 1.172a2 2 0 010 2.828L13 15l-4 1 1-4z" />
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3m5 0H6" />
                                             </svg>
                                         </button>
-                                    </form>
 
-                                    <!-- Tombol Delete -->
-                                    <button type="button" data-id="{{ $barang->id }}"
-                                        data-url="{{ route('gudang.stok-barang.destroy', $barang->id) }}"
-                                        class="deleteButton text-red-500 hover:text-red-700 transition duration-200 ease-in-out">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3m5 0H6" />
-                                        </svg>
-                                    </button>
-
-                                    {{-- <!-- Tombol Show -->
-                                    <form action="{{ route('gudang.stok-barang.show', $barang->id) }}" method="GET">
-                                        <button type="submit"
-                                            class="text-gray-500 hover:text-gray-700 transition duration-200 ease-in-out">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M2.458 12C3.732 7.943 7.522 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7s-8.268-2.943-9.542-7z" />
-                                            </svg>
-                                        </button>
-                                    </form> --}}
+                                        {{-- <!-- Tombol Show -->
+                                        <form action="{{ route('gudang.stok-barang.show', $barang->id) }}" method="GET">
+                                            <button type="submit"
+                                                class="text-gray-500 hover:text-gray-700 transition duration-200 ease-in-out">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500"
+                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M2.458 12C3.732 7.943 7.522 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7s-8.268-2.943-9.542-7z" />
+                                                </svg>
+                                            </button>
+                                        </form> --}}
+                                    </div>
                                 </td>
                             </tr>
                         @empty

@@ -78,12 +78,21 @@ class StokBarangGudangController extends Controller
 
         // Validasi input
         $request->validate([
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
             'nama_barang' => 'required|string|max:255',
             'jenis' => 'required|string|max:255',
             'jumlah' => 'required|integer|min:1',
             'satuan' => 'required|string|max:255',
         ]);
+
+        // Jika ada file foto, cek ukuran manual (dalam MB)
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $maxMb = 5;
+            if ($foto->getSize() > ($maxMb * 1024 * 1024)) {
+                return redirect()->back()->withErrors(['foto' => 'Ukuran foto tidak boleh lebih dari ' . $maxMb . ' MB.'])->withInput();
+            }
+        }
 
         // Jika ada foto yang diunggah, simpan foto tersebut
         if ($request->hasFile('foto')) {
@@ -133,27 +142,44 @@ class StokBarangGudangController extends Controller
 
         // Validasi input
         $request->validate([
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
             'nama_barang' => 'required|string|max:255',
             'jenis' => 'required|string|max:255',
-            'jumlah' => 'required|integer|min:1',
             'satuan' => 'required|string|max:255',
-            'status' => 'required|in:masuk,keluar',
+            'tambah_stok' => 'nullable|integer|min:0',
+            'kurang_stok' => 'nullable|integer|min:0',
         ]);
+
+        // Jika ada file foto, cek ukuran manual (dalam MB)
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $maxMb = 5;
+            if ($foto->getSize() > ($maxMb * 1024 * 1024)) {
+                return redirect()->back()->withErrors(['foto' => 'Ukuran foto tidak boleh lebih dari ' . $maxMb . ' MB.'])->withInput();
+            }
+        }
 
         // Temukan stok barang berdasarkan ID
         $stokBarang = StokBarang::findOrFail($id);
 
-        // Hitung jumlah baru berdasarkan tipe
+        // Hitung jumlah baru berdasarkan field tambah_stok atau kurang_stok
         $jumlahBaru = $stokBarang->jumlah;
-        if ($request->input('status') === 'masuk') {
-            $jumlahBaru += $request->input('jumlah');
-        } elseif ($request->input('status') === 'keluar') {
-            // Periksa apakah jumlah baru tidak boleh di bawah batas minimal
-            if ($stokBarang->jumlah - $request->input('jumlah') < $stokBarang->batas_minimal) {
-                return redirect()->back()->with('error', 'Jumlah stok tidak boleh di bawah batas minimal.');
+        $status = null;
+        $jumlahPerubahan = 0;
+
+        if ($request->input('tambah_stok') && $request->input('tambah_stok') > 0) {
+            $jumlahPerubahan = $request->input('tambah_stok');
+            $jumlahBaru += $jumlahPerubahan;
+            $status = 'masuk';
+        } elseif ($request->input('kurang_stok') && $request->input('kurang_stok') > 0) {
+            $jumlahPerubahan = $request->input('kurang_stok');
+            $jumlahBaru -= $jumlahPerubahan;
+            $status = 'keluar';
+
+            // Pastikan stok tidak negatif
+            if ($jumlahBaru < 0) {
+                return redirect()->back()->withErrors(['kurang_stok' => 'Stok tidak mencukupi. Stok saat ini: ' . $stokBarang->jumlah])->withInput();
             }
-            $jumlahBaru -= $request->input('jumlah');
         }
 
         $newFoto = $stokBarang->foto;
@@ -162,12 +188,12 @@ class StokBarangGudangController extends Controller
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
             $filename = date('Y-m-d-') . $foto->getClientOriginalName();
-            $path       = 'foto-barang/' . $filename;
+            $path = 'foto-barang/' . $filename;
 
             // Store the new foto
             Storage::disk('public')->put($path, file_get_contents($foto));
 
-            // Delete the foto from storage
+            // Delete the old foto from storage
             if ($stokBarang->foto) {
                 Storage::disk('public')->delete('foto-barang/' . $stokBarang->foto);
             }
@@ -183,16 +209,17 @@ class StokBarangGudangController extends Controller
             'jenis' => $request->input('jenis'),
             'jumlah' => $jumlahBaru,
             'satuan' => $request->input('satuan'),
-            'batas_minimal' => $request->input('batas_minimal'),
         ]);
 
-        // Tambahkan data ke model Laporan berdasarkan status
-        Laporan::create([
-            'barang_id' => $stokBarang->id,
-            'nama_barang' => $stokBarang->nama_barang,
-            'jumlah' => $request->input('jumlah'),
-            'status' => $request->input('status'),
-        ]);
+        // Tambahkan data ke model Laporan jika ada perubahan stok
+        if ($status && $jumlahPerubahan > 0) {
+            Laporan::create([
+                'barang_id' => $stokBarang->id,
+                'nama_barang' => $stokBarang->nama_barang,
+                'jumlah' => $jumlahPerubahan,
+                'status' => $status,
+            ]);
+        }
 
         return redirect()->route('gudang.stok-barang.index')->with('success', 'Stok barang berhasil diperbarui.');
     }

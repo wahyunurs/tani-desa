@@ -22,6 +22,7 @@ class StokBarang extends Model
         'jenis',
         'jumlah',
         'foto',
+        'satuan',
     ];
 
     public function user()
@@ -29,7 +30,7 @@ class StokBarang extends Model
         return $this->belongsTo(User::class, 'gudang_id');
     }
 
-    public function permintaanBarangs()
+    public function permintaanBarang()
     {
         return $this->hasMany(PermintaanBarang::class);
     }

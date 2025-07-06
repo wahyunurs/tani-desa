@@ -42,6 +42,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::prefix('pengguna')->group(function () {
             Route::get('/', [PenggunaAdminController::class, 'index'])->name('admin.pengguna.index');
             Route::get('/filter', [PenggunaAdminController::class, 'filter'])->name('admin.pengguna.filter');
+            Route::get('/show/{id}', [PenggunaAdminController::class, 'show'])->name('admin.pengguna.show');
+            Route::get('/create', [PenggunaAdminController::class, 'create'])->name('admin.pengguna.create');
+            Route::post('/store', [PenggunaAdminController::class, 'store'])->name('admin.pengguna.store');
+            Route::get('/edit/{id}', [PenggunaAdminController::class, 'edit'])->name('admin.pengguna.edit');
+            Route::put('/update/{id}', [PenggunaAdminController::class, 'update'])->name('admin.pengguna.update');
+            Route::delete('/destroy/{id}', [PenggunaAdminController::class, 'destroy'])->name('admin.pengguna.destroy');
         });
         Route::prefix('stok-barang')->group(function () {
             Route::get('/', [StokBarangAdminController::class, 'index'])->name('admin.stok-barang.index');

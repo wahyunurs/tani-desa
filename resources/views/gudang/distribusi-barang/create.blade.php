@@ -16,9 +16,9 @@
                             Barang</a>
                     </li>
                     <li><span class="text-gray-400">></span></li>
-                    <li class="text-gray-700 font-semibold">Tambah Distribusi Barang</li>
+                    <li class="text-gray-700 font-semibold">Tambah DistribusiS</li>
                 </ol>
-                <h1 class="text-3xl font-bold text-gray-800 mt-2">Tambah Barang</h1>
+                <h1 class="text-3xl font-bold text-gray-800 mt-2">Tambah Distribusi</h1>
             </nav>
         </div>
 

@@ -35,7 +35,7 @@
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     <p class="text-sm italic text-gray-500 mt-1">Format yang diperbolehkan: jpeg, png, jpg.
                         Maksimal
-                        ukuran: 2MB.</p>
+                        ukuran: 5MB.</p>
                 </div>
 
                 <!-- Nama Barang -->
@@ -61,23 +61,28 @@
                     </select>
                 </div>
 
-                <!-- Tipe -->
+                <!-- Tambah Stok dan Kurang Stok -->
                 <div>
-                    <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                    <select name="status" id="status" required
-                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        <option value="masuk" {{ old('tipe') == 'masuk' ? 'selected' : '' }}>Tambah</option>
-                        <option value="keluar" {{ old('tipe') == 'keluar' ? 'selected' : '' }}>Kurang</option>
-                    </select>
-                </div>
-
-                <!-- Jumlah Penambahan/Pengurangan -->
-                <div>
-                    <label for="jumlah" class="block text-sm font-medium text-gray-700">Jumlah
-                        Penambahan/Pengurangan</label>
-                    <input type="number" name="jumlah" id="jumlah" required
-                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                        placeholder="Masukkan jumlah barang">
+                    <div class="flex space-x-4">
+                        <div class="w-1/2">
+                            <label for="tambah_stok" class="block text-sm font-medium text-gray-700">Tambah Stok</label>
+                            <input type="number" name="tambah_stok" id="tambah_stok" min="0"
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                placeholder="Masukkan jumlah tambah stok" value="{{ old('tambah_stok', '') }}">
+                        </div>
+                        <div class="w-1/2">
+                            <label for="kurang_stok" class="block text-sm font-medium text-gray-700">Kurang Stok</label>
+                            <input type="number" name="kurang_stok" id="kurang_stok" min="0"
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                placeholder="Masukkan jumlah kurang stok" value="{{ old('kurang_stok', '') }}">
+                        </div>
+                    </div>
+                    <p class="text-sm italic text-gray-500 mt-1">Stok Saat Ini: <span
+                            class="font-semibold">{{ $stokBarang->jumlah ?? 0 }} {{ $stokBarang->satuan }}</span></p>
+                    <p class="text-xs text-amber-600 mt-1">
+                        <strong>Catatan:</strong> Isi salah satu field saja (Tambah Stok ATAU Kurang Stok), jangan
+                        keduanya.
+                    </p>
                 </div>
 
                 <!-- Satuan -->

@@ -1,37 +1,37 @@
 <x-guest-layout>
     <!-- Navbar -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
-        <nav class="container mx-auto p-5 shadow-md">
-            <div class="flex justify-between items-center">
+        <nav class="w-full px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-5 shadow-md">
+            <div class="flex justify-between items-center max-w-7xl mx-auto">
                 <!-- Logo -->
-                <div class="flex items-center">
-                    <img src="{{ asset('images/logo.png') }}" class="h-8 w-8 sm:block" alt="Logo">
-                    <span class="ml-2 text-xl font-bold text-gray-800">Tani Desa</span>
+                <div class="flex items-center flex-shrink-0">
+                    <img src="{{ asset('images/logo.png') }}" class="h-6 w-6 sm:h-8 sm:w-8" alt="Logo">
+                    <span class="ml-2 text-lg sm:text-xl font-bold text-gray-800">Tani Desa</span>
                 </div>
 
                 <!-- Menu untuk Desktop -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#beranda" id="link-beranda" class="pb-1 text-gray-600 hover:text-green-500">
+                <div class="hidden lg:flex items-center space-x-6 xl:space-x-8">
+                    <a href="#beranda" id="link-beranda" class="pb-1 text-sm xl:text-base text-gray-600 hover:text-green-500 transition-colors duration-200">
                         Beranda
                     </a>
-                    <a href="#tentang" id="link-tentang" class="pb-1 text-gray-600 hover:text-green-500">
+                    <a href="#tentang" id="link-tentang" class="pb-1 text-sm xl:text-base text-gray-600 hover:text-green-500 transition-colors duration-200">
                         Tentang
                     </a>
-                    <a href="#produk" id="link-produk" class="pb-1 text-gray-600 hover:text-green-500">
+                    <a href="#produk" id="link-produk" class="pb-1 text-sm xl:text-base text-gray-600 hover:text-green-500 transition-colors duration-200">
                         Produk
                     </a>
-                    <a href="#testimoni" id="link-testimoni" class="pb-1 text-gray-600 hover:text-green-500">
+                    <a href="#testimoni" id="link-testimoni" class="pb-1 text-sm xl:text-base text-gray-600 hover:text-green-500 transition-colors duration-200">
                         Testimoni
                     </a>
                     <a href="{{ route('register') }}"
-                        class="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition duration-300">
+                        class="bg-green-500 text-white px-4 xl:px-6 py-2 text-sm xl:text-base rounded-full hover:bg-green-600 transition duration-300 whitespace-nowrap">
                         Registrasi →
                     </a>
                 </div>
 
                 <!-- Button Garis Tiga untuk Mobile -->
-                <button id="menu-button" class="md:hidden text-gray-600 hover:text-green-500 focus:outline-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                <button id="menu-button" class="lg:hidden text-gray-600 hover:text-green-500 focus:outline-none p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
@@ -42,23 +42,23 @@
 
         <!-- Sidebar -->
         <div id="sidebar"
-            class="fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50">
-            <div class="p-5">
-                <button id="close-sidebar" class="text-gray-600 hover:text-red-500 focus:outline-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+            class="fixed top-0 right-0 w-64 sm:w-72 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+            <div class="p-4 sm:p-6">
+                <button id="close-sidebar" class="text-gray-600 hover:text-red-500 focus:outline-none p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-                <ul class="mt-8 space-y-4">
-                    <li><a href="#beranda" class="block text-gray-600 hover:text-green-500">Beranda</a></li>
-                    <li><a href="#tentang" class="block text-gray-600 hover:text-green-500">Tentang</a></li>
-                    <li><a href="#produk" class="block text-gray-600 hover:text-green-500">Produk</a></li>
-                    <li><a href="#testimoni" class="block text-gray-600 hover:text-green-500">Testimoni</a></li>
+                <ul class="mt-6 sm:mt-8 space-y-4">
+                    <li><a href="#beranda" class="block text-gray-600 hover:text-green-500 py-2 text-base">Beranda</a></li>
+                    <li><a href="#tentang" class="block text-gray-600 hover:text-green-500 py-2 text-base">Tentang</a></li>
+                    <li><a href="#produk" class="block text-gray-600 hover:text-green-500 py-2 text-base">Produk</a></li>
+                    <li><a href="#testimoni" class="block text-gray-600 hover:text-green-500 py-2 text-base">Testimoni</a></li>
                     <li>
                         <a href="{{ route('register') }}"
-                            class="block bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition duration-300 text-center">
+                            class="block bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition duration-300 text-center mt-4">
                             Registrasi →
                         </a>
                     </li>
@@ -68,45 +68,51 @@
     </header>
 
     <!-- Content Section -->
-    <main class="min-h-screen pt-16">
+    <main class="min-h-screen pt-14 sm:pt-16 lg:pt-20">
         <!-- Beranda Section -->
         <section id="beranda"
-            class="bg-green-50 container mx-auto px-6 py-16 md:py-20 h-[calc(100vh-4rem)] flex items-center">
-            <div class="flex flex-col md:flex-row items-center justify-between w-full">
-                <div class="md:w-1/2 mb-8 md:mb-0">
-                    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-2">
-                        Tani Desa
-                    </h1>
-                    <h1 class="text-4xl md:text-6xl font-bold text-green-500 mb-6">Solusi Pertanian</h1>
-                    <p class="text-gray-600 text-lg mb-8">
-                        Dukung produktivitas pertanian Anda dengan produk kami yang berkualitas tinggi
-                        yang ramah lingkungan dan terjangkau.
-                    </p>
-                    <button
-                        class="bg-green-500 text-white px-8 py-3 rounded-full hover:bg-green-600 transition duration-300">
-                        <a href="{{ route('login') }}">
-                            Masuk</a>
-                    </button>
-                </div>
+            class="bg-green-50 w-full min-h-[calc(100vh-3.5rem)] sm:min-h-[calc(100vh-4rem)] lg:min-h-[calc(100vh-5rem)] flex items-center">
+            <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
+                <div class="flex flex-col lg:flex-row items-center justify-between w-full gap-8 lg:gap-12">
+                    <div class="w-full lg:w-1/2 text-center lg:text-left">
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-2 leading-tight">
+                            Tani Desa
+                        </h1>
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-green-500 mb-4 sm:mb-6 leading-tight">
+                            Solusi Pertanian
+                        </h1>
+                        <p class="text-gray-600 text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                            Dukung produktivitas pertanian Anda dengan produk kami yang berkualitas tinggi
+                            yang ramah lingkungan dan terjangkau.
+                        </p>
+                        <button
+                            class="bg-green-500 text-white px-6 sm:px-8 py-3 rounded-full hover:bg-green-600 transition duration-300 text-base sm:text-lg font-medium">
+                            <a href="{{ route('login') }}">
+                                Masuk
+                            </a>
+                        </button>
+                    </div>
 
-                <!-- Image Tani Desa -->
-                <div class="md:w-1/2 flex justify-center hidden md:block">
-                    <img src="{{ asset('images/tani-desa.png') }}" alt="Tani Desa" class="w-4/5 h-auto object-contain">
+                    <!-- Image Tani Desa -->
+                    <div class="w-full lg:w-1/2 flex justify-center">
+                        <img src="{{ asset('images/tani-desa.png') }}" alt="Tani Desa" 
+                             class="w-full max-w-md sm:max-w-lg lg:max-w-full h-auto object-contain">
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Tentang Section -->
-        <section id="tentang" class="bg-white py-12 md:py-16">
-            <div class="container mx-auto px-6 py-20">
+        <section id="tentang" class="bg-white py-12 sm:py-16 lg:py-20">
+            <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Section Header -->
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Fitur Utama Aplikasi Tani Desa</h2>
-                    <p class="text-xl text-gray-600">Solusi lengkap untuk kebutuhan pertanian Anda</p>
+                <div class="text-center mb-12 sm:mb-16">
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Fitur Utama Aplikasi Tani Desa</h2>
+                    <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">Solusi lengkap untuk kebutuhan pertanian Anda</p>
                 </div>
 
                 <!-- Features Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
                     <!-- Feature 1 -->
                     <div class="text-center p-6 rounded-lg hover:shadow-xl transition duration-300">
                         <div class="bg-green-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -117,8 +123,8 @@
                                 <path d="M3 9h18M9 21V9" />
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Manajemen Stok</h3>
-                        <p class="text-gray-600">
+                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Manajemen Stok</h3>
+                        <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
                             Pantau stok barang pertanian secara real-time dengan notifikasi saat stok hampir habis.
                         </p>
                     </div>
@@ -134,15 +140,15 @@
                                     d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.99-1.73L23 6H6" />
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Transaksi Barang</h3>
-                        <p class="text-gray-600">
+                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Transaksi Barang</h3>
+                        <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
                             Permudah proses pembelian barang kebutuhan pertanian dengan sistem transaksi yang cepat dan
                             aman.
                         </p>
                     </div>
 
                     <!-- Feature 3 -->
-                    <div class="text-center p-6 rounded-lg hover:shadow-xl transition duration-300">
+                    <div class="text-center p-6 rounded-lg hover:shadow-xl transition duration-300 md:col-span-2 lg:col-span-1">
                         <div class="bg-green-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -153,8 +159,8 @@
                                 <circle cx="18.5" cy="18.5" r="1.5" />
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Distribusi Barang</h3>
-                        <p class="text-gray-600">
+                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Distribusi Barang</h3>
+                        <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
                             Proses distribusi barang pesanan dilakukan secara efisien hingga ke lokasi tujuan.
                         </p>
                     </div>
@@ -371,7 +377,7 @@
     <!-- JavaScript untuk mengatur link aktif di navbar -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const links = document.querySelectorAll('.md\\:flex a'); // Pilih semua link di navbar
+            const links = document.querySelectorAll('.lg\\:flex a, .md\\:flex a'); // Pilih semua link di navbar
             const sections = ['beranda', 'tentang', 'produk', 'testimoni']; // ID section yang sesuai dengan hash
 
             function setActiveLink() {
@@ -406,6 +412,7 @@
             const menuButton = document.getElementById('menu-button');
             const sidebar = document.getElementById('sidebar');
             const closeSidebar = document.getElementById('close-sidebar');
+            const sidebarLinks = sidebar.querySelectorAll('a');
 
             // Tampilkan sidebar saat tombol garis tiga diklik
             menuButton.addEventListener('click', function() {
@@ -415,6 +422,20 @@
             // Sembunyikan sidebar saat tombol close diklik
             closeSidebar.addEventListener('click', function() {
                 sidebar.classList.add('translate-x-full');
+            });
+
+            // Sembunyikan sidebar saat link diklik (untuk mobile)
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    sidebar.classList.add('translate-x-full');
+                });
+            });
+
+            // Sembunyikan sidebar saat klik di luar sidebar
+            document.addEventListener('click', function(e) {
+                if (!sidebar.contains(e.target) && !menuButton.contains(e.target)) {
+                    sidebar.classList.add('translate-x-full');
+                }
             });
         });
     </script>

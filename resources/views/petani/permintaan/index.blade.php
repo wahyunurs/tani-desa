@@ -67,7 +67,7 @@
                         <div class="flex flex-wrap items-center justify-between border-b border-gray-200 py-4">
                             <!-- Gambar Barang -->
                             <div class="flex items-center space-x-4 w-full md:w-auto mb-4 md:mb-0">
-                                <img src="{{ asset('images/' . $permintaan->stokBarang->gambar ?? 'default.png') }}"
+                                <img src="{{ asset('storage/foto-barang/' . $permintaan->stokBarang->foto ?? 'default.png') }}"
                                     alt="{{ $permintaan->nama_barang }}" class="w-20 h-20 object-cover rounded-lg">
                                 <div>
                                     <h3 class="text-lg font-bold text-gray-900">{{ $permintaan->nama_barang }}</h3>

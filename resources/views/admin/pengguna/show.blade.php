@@ -1,5 +1,3 @@
-<!-- filepath: d:\laragon\www\pupuk-tani-desa\resources\views\admin\pengguna\show.blade.php -->
-<!-- Modal -->
 <div id="userDetailModal"
     class="fixed inset-0 z-50 {{ isset($selectedUser) ? '' : 'hidden' }} bg-black bg-opacity-50 flex items-center justify-center">
     <div class="bg-white w-full max-w-lg rounded-lg shadow-lg relative">
@@ -29,15 +27,15 @@
                     </div>
                     <div class="grid grid-cols-2 gap-x-4 items-center">
                         <h3 class="text-sm font-semibold text-gray-800">Alamat</h3>
-                        <p class="text-gray-600 ml-4">{{ $selectedUser->alamat }}</p>
+                        <p class="text-gray-600 ml-4">{{ $selectedUser->alamat ?? 'Tidak ada data' }}</p>
                     </div>
                     <div class="grid grid-cols-2 gap-x-4 items-center">
                         <h3 class="text-sm font-semibold text-gray-800">Desa</h3>
-                        <p class="text-gray-600 ml-4">{{ $selectedUser->desa }}</p>
+                        <p class="text-gray-600 ml-4">{{ $selectedUser->desa ?? 'Tidak ada data' }}</p>
                     </div>
                     <div class="grid grid-cols-2 gap-x-4 items-center">
                         <h3 class="text-sm font-semibold text-gray-800">No Telepon</h3>
-                        <p class="text-gray-600 ml-4">{{ $selectedUser->nomor_telepon }}</p>
+                        <p class="text-gray-600 ml-4">{{ $selectedUser->nomor_telepon ?? 'Tidak ada data' }}</p>
                     </div>
                     <div class="grid grid-cols-2 gap-x-4 items-center">
                         <h3 class="text-sm font-semibold text-gray-800">Role</h3>
@@ -58,21 +56,27 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const modal = document.getElementById('userDetailModal');
-        const closeModalButtons = document.querySelectorAll('#closeModalButton');
-        const openModalButtons = document.querySelectorAll('.openModalButton');
+        const closeModalButton = document.getElementById('closeModalButton');
 
-        // Fungsi untuk membuka modal
-        openModalButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                modal.classList.remove('hidden');
-            });
-        });
+        // Tampilkan modal jika ada selectedUser
+        @if (isset($selectedUser))
+            modal.classList.remove('hidden');
+        @endif
 
         // Fungsi untuk menutup modal
-        closeModalButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                modal.classList.add('hidden');
+        if (closeModalButton) {
+            closeModalButton.addEventListener('click', function() {
+                // Redirect ke halaman index tanpa parameter
+                window.location.href = "{{ route('admin.pengguna.index') }}";
             });
+        }
+
+        // Tutup modal ketika klik di luar modal
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                // Redirect ke halaman index tanpa parameter
+                window.location.href = "{{ route('admin.pengguna.index') }}";
+            }
         });
     });
 </script>

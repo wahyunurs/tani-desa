@@ -11,7 +11,8 @@
                 <ol class="list-reset flex items-center space-x-2">
                     <li><a href="{{ route('gudang.index') }}" class="hover:underline text-blue-600">Gudang</a></li>
                     <li><span class="text-gray-400">></span></li>
-                    <li><a href="{{ route('gudang.permintaan-barang.index') }}" class="hover:underline text-blue-600">Stok
+                    <li><a href="{{ route('gudang.permintaan-barang.index') }}"
+                            class="hover:underline text-blue-600">Permintaan
                             Barang</a>
                     </li>
                     <li><span class="text-gray-400">></span></li>

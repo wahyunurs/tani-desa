@@ -23,7 +23,7 @@
             <li>
                 <a href="{{ route('petani.permintaan.index') }}"
                     class="{{ request()->routeIs('petani.permintaan.index') ? 'text-green-600 border-b-2 border-green-600' : 'hover:text-green-600' }} pb-1">
-                    Permintaan
+                    Pemesanan
                 </a>
             </li>
         </ul>

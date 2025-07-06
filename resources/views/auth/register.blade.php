@@ -30,6 +30,40 @@
                         @enderror
                     </div>
 
+                    <!-- Alamat -->
+                    <div>
+                        <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat</label>
+                        <input id="alamat" type="text" name="alamat" :value="old('alamat')" required
+                            class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                            placeholder="Alamat Anda">
+                        @error('alamat')
+                            <span class="text-sm text-red-500 mt-2">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Desa -->
+                    <div>
+                        <label for="desa" class="block text-sm font-medium text-gray-700">Desa</label>
+                        <input id="desa" type="text" name="desa" :value="old('desa')" required
+                            class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                            placeholder="Desa Anda">
+                        @error('desa')
+                            <span class="text-sm text-red-500 mt-2">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Nomor Telepon -->
+                    <div>
+                        <label for="nomor_telepon" class="block text-sm font-medium text-gray-700">Nomor Telepon</label>
+                        <input id="nomor_telepon" type="number" name="nomor_telepon" :value="old('nomor_telepon')"
+                            required
+                            class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                            placeholder="Nomor Telepon">
+                        @error('nomor_telepon')
+                            <span class="text-sm text-red-500 mt-2">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                     <!-- Password -->
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>

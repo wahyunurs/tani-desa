@@ -39,10 +39,12 @@
                                     class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-green-500">
                                 <label for="remember_me" class="ml-2 text-sm text-gray-700">Ingat Saya</label>
                             </div>
-                            @if (Route::has('password.request'))
+
+                            <!-- Forgot Password Link -->
+                            {{-- @if (Route::has('password.request'))
                                 <a href="{{ route('password.request') }}"
                                     class="text-sm text-green-500 hover:underline">Lupa Password?</a>
-                            @endif
+                            @endif --}}
                         </div>
 
                         <!-- Login Button -->
