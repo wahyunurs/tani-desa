@@ -65,7 +65,7 @@
                         placeholder="Masukkan nomor telepon">
                 </div>
 
-                <!-- Password -->
+                {{-- <!-- Password -->
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                     <input type="password" name="password" id="password" required
@@ -80,7 +80,7 @@
                     <input type="password" name="password_confirmation" id="password_confirmation" required
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         placeholder="Konfirmasi password">
-                </div>
+                </div> --}}
 
                 <!-- Role -->
                 <div>

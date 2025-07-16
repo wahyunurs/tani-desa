@@ -19,17 +19,19 @@ class GudangController extends Controller
             return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
         }
 
+        $user = Auth::user();
+
         // Total barang berdasarkan jenis
         $pupukCount = StokBarang::where('jenis', 'pupuk')
-            ->where('gudang_id', Auth::user()->id)
+            ->where('gudang_id', $user->id)
             ->sum('jumlah');
 
         $bibitCount = StokBarang::where('jenis', 'bibit')
-            ->where('gudang_id', Auth::user()->id)
+            ->where('gudang_id', $user->id)
             ->sum('jumlah');
 
         $obatCount = StokBarang::where('jenis', 'obat')
-            ->where('gudang_id', Auth::user()->id)
+            ->where('gudang_id', $user->id)
             ->sum('jumlah');
 
         // Ambil semua stok_barang_id milik gudang yang login
@@ -85,9 +87,11 @@ class GudangController extends Controller
             'data' => $totalPermintaanPerBulan->pluck('total'),
         ];
 
+        $totalStokBarang = StokBarang::where('gudang_id', $user->id)->sum('jumlah');
+
         return view('gudang.index', [
             'title' => 'Dashboard Gudang',
-            'user' => Auth::user()->name,
+            'user' => $user->name,
             'pupukCount' => $pupukCount ?? 0,
             'bibitCount' => $bibitCount ?? 0,
             'obatCount' => $obatCount ?? 0,

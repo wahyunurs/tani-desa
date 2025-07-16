@@ -55,17 +55,6 @@ class PermintaanBarangAdminController extends Controller
         ]);
     }
 
-    public function show($id)
-    {
-        // Ambil permintaan barang berdasarkan ID
-        $permintaanBarang = PermintaanBarang::findOrFail($id);
-
-        return view('admin.permintaan-barang.show', [
-            'title' => 'Detail Permintaan Barang',
-            'permintaanBarang' => $permintaanBarang,
-        ]);
-    }
-
     public function distribusi($id)
     {
         // Ambil permintaan barang berdasarkan ID

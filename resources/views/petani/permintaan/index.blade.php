@@ -6,7 +6,7 @@
             <div class="container mx-auto px-10 py-5">
                 <!-- Section Header -->
                 <div class="text-center mb-9">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-6 mt-20">Daftar Permintaan</h2>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6 mt-20">Daftar Pemesanan</h2>
                 </div>
 
                 <!-- Search and Filters -->
@@ -14,7 +14,7 @@
                     <!-- Search -->
                     <form method="GET" action="{{ route('petani.permintaan.index') }}"
                         class="relative w-full md:w-3/5 mb-4 md:mb-0">
-                        <input type="text" name="search" id="search" placeholder="Cari permintaan..."
+                        <input type="text" name="search" id="search" placeholder="Cari pemesanan..."
                             value="{{ request('search') }}"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500">
                         <button type="submit" class="absolute right-2 top-2 text-gray-500">
@@ -131,7 +131,7 @@
                             </div>
                         </div>
                     @empty
-                        <p class="text-center text-gray-600">Permintaan barang tidak ditemukan.</p>
+                        <p class="text-center text-gray-600">Pemesanan barang tidak ditemukan.</p>
                     @endforelse
                 </div>
             </div>

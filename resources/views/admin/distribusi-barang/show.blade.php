@@ -71,18 +71,24 @@
         const closeModalButtons = document.querySelectorAll('#closeModalButton, #closeModalButtonFooter');
         const openModalButtons = document.querySelectorAll('.openModalButton');
 
-        // Fungsi untuk membuka modal
-        openModalButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                modal.classList.remove('hidden');
-            });
-        });
+        // Tampilkan modal jika ada selectedDistribusiBarang
+        @if (isset($selectedDistribusiBarang))
+            modal.classList.remove('hidden');
+        @endif
 
         // Fungsi untuk menutup modal
         closeModalButtons.forEach(button => {
             button.addEventListener('click', function() {
-                modal.classList.add('hidden');
+                window.location.href = "{{ route('admin.distribusi-barang.index') }}";
             });
+        });
+
+        // Tutup modal ketika klik di luar modal
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                // Redirect ke halaman index tanpa parameter
+                window.location.href = "{{ route('admin.distribusi-barang.index') }}";
+            }
         });
     });
 </script>

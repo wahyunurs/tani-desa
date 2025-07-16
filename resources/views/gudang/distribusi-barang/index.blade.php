@@ -20,12 +20,12 @@
             <div
                 class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 space-y-4 sm:space-y-0 sm:space-x-4">
                 <!-- Form Filter -->
-                <form method="GET" action="{{ route('gudang.distribusi-barang.filter') }}"
+                <form method="GET" action="{{ route('gudang.distribusi-barang.filter') }}" id="filterForm"
                     class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full">
                     <!-- Filter Status -->
                     <div class="w-full sm:w-auto">
                         <label for="status" class="block text-sm font-medium text-gray-700">Filter Status:</label>
-                        <select name="status" id="status"
+                        <select name="status" id="status" onchange="document.getElementById('filterForm').submit()"
                             class="mt-1 block w-full sm:w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             <option value="">Semua</option>
                             <option value="Proses Pengiriman"
@@ -35,19 +35,6 @@
                             </option>
                             <option value="Gagal" {{ request('status') == 'Gagal' ? 'selected' : '' }}>Gagal</option>
                         </select>
-                    </div>
-
-                    <!-- Tombol Filter -->
-                    <div class="w-full sm:w-auto">
-                        <button type="submit"
-                            class="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200 flex items-center justify-center w-full sm:w-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7" />
-                            </svg>
-                            Filter
-                        </button>
                     </div>
                 </form>
 

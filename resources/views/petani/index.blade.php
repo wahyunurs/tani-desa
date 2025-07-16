@@ -5,29 +5,112 @@
     <main class="bg-green-50 min-h-screen pt-16">
         <x-session-modal />
 
-        <section class="container mx-auto px-6 h-[calc(100vh-4rem)] flex items-center">
-            <div class="flex flex-col md:flex-row items-center justify-between w-full">
-                <div class="md:w-1/2 mb-8 md:mb-0">
-                    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-2">
-                        Tani Desa
-                    </h1>
-                    <h1 class="text-4xl md:text-6xl font-bold text-green-500 mb-6">Solusi Pertanian</h1>
-                    <p class="text-gray-600 text-lg mb-8">
-                        Dukung produktivitas pertanian Anda dengan produk kami yang berkualitas tinggi
-                        yang ramah lingkungan dan terjangkau.
-                    </p>
-                    <button
-                        class="bg-green-500 text-white px-8 py-3 rounded-full hover:bg-green-600 transition duration-300">
-                        <a href="#">
-                            Lanjut</a>
-                    </button>
-                </div>
+        @if ($isServiceAvailable)
+            <!-- Konten Normal - Layanan Tersedia -->
+            <section class="container mx-auto px-6 h-[calc(100vh-4rem)] flex items-center">
+                <div class="flex flex-col md:flex-row items-center justify-between w-full">
+                    <div class="md:w-1/2 mb-8 md:mb-0">
+                        <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-2">
+                            Tani Desa
+                        </h1>
+                        <h1 class="text-4xl md:text-6xl font-bold text-green-500 mb-6">Solusi Pertanian</h1>
+                        <p class="text-gray-600 text-lg mb-8">
+                            Dukung produktivitas pertanian Anda dengan produk kami yang berkualitas tinggi
+                            yang ramah lingkungan dan terjangkau.
+                        </p>
+                        <button
+                            class="bg-green-500 text-white px-8 py-3 rounded-full hover:bg-green-600 transition duration-300">
+                            <a href="{{ route('petani.barang.index') }}">
+                                Lihat Produk</a>
+                        </button>
+                    </div>
 
-                <div class="md:w-1/2 flex justify-center hidden md:block">
-                    <img src="{{ asset('images/tani-desa.png') }}" alt="Tani Desa" class="w-4/5 h-auto object-contain">
+                    <div class="md:w-1/2 hidden md:flex justify-center">
+                        <img src="{{ asset('images/tani-desa.png') }}" alt="Tani Desa"
+                            class="w-4/5 h-auto object-contain">
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @else
+            <!-- Konten Layanan Belum Tersedia -->
+            <section class="container mx-auto px-6 py-8 min-h-[calc(100vh-4rem)] flex items-center">
+                <div class="flex flex-col items-center justify-center w-full text-center">
+                    <div class="mb-8">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-24 h-24 sm:w-32 sm:h-32 mx-auto text-gray-400 mb-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                        <h1 class="text-2xl sm:text-3xl md:text-5xl font-bold text-gray-700 mb-4">
+                            Tani Desa
+                        </h1>
+                        <h2 class="text-xl sm:text-2xl md:text-4xl font-bold text-orange-500 mb-6">
+                            Belum Hadir di {{ $userDesa ?? 'Desa Anda' }}
+                        </h2>
+                    </div>
+
+                    <div class="max-w-2xl mb-8 px-4">
+                        <p class="text-gray-600 text-base sm:text-lg md:text-xl mb-6 leading-relaxed">
+                            Maaf, layanan Tani Desa belum tersedia di desa Anda saat ini. Kami sedang bekerja keras
+                            untuk memperluas jangkauan layanan kami.
+                        </p>
+                        <p class="text-gray-700 text-base sm:text-lg font-medium mb-8">
+                            🚀 <strong>Tani Desa akan segera hadir di {{ $userDesa ?? 'desa Anda' }}!</strong>
+                        </p>
+
+                        {{-- <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg border-l-4 border-green-500 text-left">
+                            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-3 text-center sm:text-left">
+                                Apa yang bisa Anda lakukan?</h3>
+                            <ul class="text-gray-600 space-y-2 text-sm sm:text-base">
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Hubungi kami untuk informasi lebih lanjut</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Daftarkan desa Anda untuk layanan prioritas</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span>Ikuti update terbaru dari kami</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                        <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md">
+                            <button
+                                class="bg-green-500 text-white px-6 sm:px-8 py-3 rounded-full hover:bg-green-600 transition duration-300 text-sm sm:text-base">
+                                <a href="mailto:info@tanidesa.com">
+                                    Hubungi Kami
+                                </a>
+                            </button>
+                            <button
+                                class="bg-white text-green-500 border-2 border-green-500 px-6 sm:px-8 py-3 rounded-full hover:bg-green-50 transition duration-300 text-sm sm:text-base">
+                                <a href="https://wa.me/1234567890" target="_blank">
+                                    WhatsApp
+                                </a>
+                            </button>
+                        </div>
+                    </div> --}}
+            </section>
+        @endif
     </main>
 
     <!-- Footer -->

@@ -38,6 +38,31 @@ class PenggunaAdminController extends Controller
         ]);
     }
 
+    public function filter(Request $request)
+    {
+        $role = $request->input('role');
+
+        if (Auth::user()->role !== 'admin') {
+            return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
+        }
+
+        // Ambil semua pengguna
+        $query = User::whereIn('role', ['gudang', 'petani', 'distributor']);
+
+        // Jika ada filter role, terapkan filter
+        if ($role) {
+            $query->where('role', 'LIKE', '%' . $role . '%');
+        }
+
+        $users = $query->get();
+
+        return view('admin.pengguna.index', [
+            'title' => 'Pengguna',
+            'user' => Auth::user()->name,
+            'users' => $users,
+        ]);
+    }
+
     public function show($id)
     {
         // Periksa apakah pengguna memiliki role admin
@@ -81,14 +106,13 @@ class PenggunaAdminController extends Controller
             'alamat' => ['required', 'string', 'max:255'],
             'desa' => ['required', 'string', 'max:255'],
             'nomor_telepon' => ['required', 'string', 'max:15', 'regex:/^[0-9]+$/'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         // Buat pengguna baru
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make('pasword'),
             'role' => $request->role,
         ]);
 

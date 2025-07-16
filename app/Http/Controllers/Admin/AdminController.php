@@ -49,6 +49,9 @@ class AdminController extends Controller
             session()->flash('warning', 'Ada stok barang yang hampir habis.');
         }
 
+        // Total stok barang
+        $totalStokBarang = StokBarang::sum('jumlah');
+
         return view('admin.index', [
             'title' => 'Dashboard Admin',
             'user' => Auth::user()->name,

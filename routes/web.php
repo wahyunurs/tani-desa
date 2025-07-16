@@ -74,6 +74,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::prefix('distribusi-barang')->group(function () {
             Route::get('/', [DistribusiBarangAdminController::class, 'index'])->name('admin.distribusi-barang.index');
             Route::get('/filter', [DistribusiBarangAdminController::class, 'filter'])->name('admin.distribusi-barang.filter');
+            Route::get('/show/{id}', [DistribusiBarangAdminController::class, 'show'])->name('admin.distribusi-barang.show');
             Route::put('/update-status/{id}', [DistribusiBarangAdminController::class, 'updateStatus'])->name('admin.distribusi-barang.update-status');
             Route::get('/create', [DistribusiBarangAdminController::class, 'create'])->name('admin.distribusi-barang.create');
             Route::post('/store', [DistribusiBarangAdminController::class, 'store'])->name('admin.distribusi-barang.store');

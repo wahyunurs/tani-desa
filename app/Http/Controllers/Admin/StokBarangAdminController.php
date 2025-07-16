@@ -61,18 +61,6 @@ class StokBarangAdminController extends Controller
         ]);
     }
 
-    public function show($id)
-    {
-        // Temukan stok barang berdasarkan ID
-        $stokBarang = StokBarang::findOrFail($id);
-
-        return view('admin.stok-barang.show', [
-            'title' => 'Detail Stok Barang',
-            'user' => Auth::user()->name,
-            'stokBarang' => $stokBarang,
-        ]);
-    }
-
     public function create()
     {
         $gudangList = StokBarang::select('gudang_id')

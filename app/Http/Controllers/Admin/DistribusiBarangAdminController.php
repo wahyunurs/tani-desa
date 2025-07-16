@@ -67,13 +67,24 @@ class DistribusiBarangAdminController extends Controller
 
     public function show($id)
     {
+        $status = request()->input('status');
         // Ambil distribusi barang berdasarkan ID
-        $distribusiBarang = DistribusiBarang::with('distributor', 'permintaanBarang')->findOrFail($id);
+        $selectedDistribusiBarang = DistribusiBarang::with('distributor', 'permintaanBarang')->findOrFail($id);
 
-        return view('admin.distribusi-barang.show', [
+        $statusList = DistribusiBarang::select('status')
+            ->distinct()
+            ->get();
+
+        $distribusiBarang = DistribusiBarang::when($status, function ($query, $status) {
+            return $query->where('status', $status);
+        })->whereIn('status', ['Proses Pengiriman', 'Selesai', 'Gagal'])->get();
+
+        return view('admin.distribusi-barang.index', [
             'title' => 'Detail Distribusi Barang',
+            'selectedDistribusiBarang' => $selectedDistribusiBarang,
+            'permintaanBarang' => $selectedDistribusiBarang->permintaanBarang,
             'distribusiBarang' => $distribusiBarang,
-            'permintaanBarang' => $distribusiBarang->permintaanBarang,
+            'statusList' => $statusList,
         ]);
     }
 

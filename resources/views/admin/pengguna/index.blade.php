@@ -16,18 +16,23 @@
 
         <div class="p-4 rounded-lg bg-white border border-gray-200">
             <!-- Filter by Role -->
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4">
+            <div
+                class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 space-y-4 sm:space-y-0 sm:space-x-4">
                 <form method="GET" action="{{ route('admin.pengguna.filter') }}" class="flex items-center"
-                    id="filterForm">
-                    <label for="role" class="block text-sm font-medium text-gray-700 mr-2">Filter Role:</label>
-                    <select name="role" id="role" onchange="document.getElementById('filterForm').submit()"
-                        class="mt-1 block w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        <option value="">Semua</option>
-                        <option value="gudang" {{ request('role') == 'gudang' ? 'selected' : '' }}>Gudang</option>
-                        <option value="petani" {{ request('role') == 'petani' ? 'selected' : '' }}>Petani</option>
-                        <option value="distributor" {{ request('role') == 'distributor' ? 'selected' : '' }}>Distributor
-                        </option>
-                    </select>
+                    id="filterForm"
+                    class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full">
+                    <div class="w-full sm:w-auto">
+                        <label for="status" class="block text-sm font-medium text-gray-700">Filter Status:</label>
+                        <select name="role" id="role" onchange="document.getElementById('filterForm').submit()"
+                            class="mt-1 block w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="">Semua</option>
+                            <option value="gudang" {{ request('role') == 'gudang' ? 'selected' : '' }}>Gudang</option>
+                            <option value="petani" {{ request('role') == 'petani' ? 'selected' : '' }}>Petani</option>
+                            <option value="distributor" {{ request('role') == 'distributor' ? 'selected' : '' }}>
+                                Distributor
+                            </option>
+                        </select>
+                    </div>
                 </form>
 
                 <!-- Button Tambah -->
@@ -77,6 +82,7 @@
                                 </td>
                                 <td class="h-full px-6 py-4 text-sm text-gray-700">
                                     <div class="flex items-center justify-center space-x-4 h-full">
+                                        <!-- Tombol Show -->
                                         <button type="submit"
                                             class="text-gray-500 hover:text-gray-700 transition duration-200 ease-in-out">
                                             <a href="{{ route('admin.pengguna.show', $user->id) }}">

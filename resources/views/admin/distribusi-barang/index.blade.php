@@ -19,12 +19,12 @@
             <!-- Filter by Status -->
             <div
                 class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 space-y-4 sm:space-y-0 sm:space-x-4">
-                <form method="GET" action="{{ route('admin.distribusi-barang.filter') }}"
+                <form method="GET" action="{{ route('admin.distribusi-barang.filter') }}" id="filterForm"
                     class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full">
                     <!-- Filter Status -->
                     <div class="w-full sm:w-auto">
                         <label for="status" class="block text-sm font-medium text-gray-700">Filter Status:</label>
-                        <select name="status" id="status"
+                        <select name="status" id="status" onchange="document.getElementById('filterForm').submit()"
                             class="mt-1 block w-full sm:w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             <option value="">Semua</option>
                             <option value="Proses Pengiriman"
@@ -34,19 +34,6 @@
                             </option>
                             <option value="Gagal" {{ request('status') == 'Gagal' ? 'selected' : '' }}>Gagal</option>
                         </select>
-                    </div>
-
-                    <!-- Tombol Filter -->
-                    <div class="w-full sm:w-auto">
-                        <button type="submit"
-                            class="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200 flex items-center justify-center w-full sm:w-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7" />
-                            </svg>
-                            Filter
-                        </button>
                     </div>
                 </form>
 
@@ -112,6 +99,20 @@
                                     </button>
                                 </td>
                                 <td class="px-6 py-4 text-center text-sm text-gray-700 flex justify-center space-x-4">
+                                    <!-- Tombol Show -->
+                                    <button type="submit"
+                                        class="text-gray-500 hover:text-gray-700 transition duration-200 ease-in-out">
+                                        <a href="{{ route('admin.distribusi-barang.show', $distribusi->id) }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500"
+                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M2.458 12C3.732 7.943 7.522 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7s-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </a>
+                                    </button>
+
                                     <!-- Tombol Edit -->
                                     <form action="{{ route('admin.distribusi-barang.edit', $distribusi->id) }}"
                                         method="GET">
@@ -135,21 +136,6 @@
                                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3m5 0H6" />
                                         </svg>
                                     </button>
-
-                                    <!-- Tombol Show -->
-                                    <button type="submit"
-                                        class="text-gray-500 hover:text-gray-700 transition duration-200 ease-in-out">
-                                        <a
-                                            href="{{ route('admin.distribusi-barang.index', ['id' => $distribusi->id]) }}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M2.458 12C3.732 7.943 7.522 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7s-8.268-2.943-9.542-7z" />
-                                            </svg>
-                                        </a>
-                                    </button>
                                 </td>
                             </tr>
                         @empty
@@ -164,12 +150,8 @@
         </div>
     </div>
 
-    <!-- Modal Konfirmasi Hapus -->
+    <!-- Modal -->
     @include('admin.distribusi-barang.delete')
-
-    <!-- Modal Update Status -->
     @include('admin.distribusi-barang.update-status')
-
-    <!-- Modal Detail -->
     @include('admin.distribusi-barang.show')
 </x-app-layout>
