@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\StokBarang;
 use Illuminate\Http\Request;
 use App\Models\PermintaanBarang;
+use App\Models\Laporan;
 use Illuminate\Support\Facades\Auth;
 
 class BarangPetaniController extends Controller
@@ -69,7 +70,7 @@ class BarangPetaniController extends Controller
         $stokBarang->decrement('jumlah', $request->jumlah);
 
         // Simpan data permintaan barang
-        PermintaanBarang::create([
+        $permintaanBarang = PermintaanBarang::create([
             'petani_id' => $petani_id,
             'stok_barang_id' => $request->stok_barang_id,
             'nama_barang' => $stokBarang->nama_barang,
@@ -77,6 +78,14 @@ class BarangPetaniController extends Controller
             'status' => 'Masuk',
         ]);
 
-        return redirect()->route('petani.barang.index')->with('success', 'Barang berhasil ditambahkan.');
+        // Tambahkan data ke model Laporan dengan status "keluar"
+        Laporan::create([
+            'barang_id' => $stokBarang->id,
+            'nama_barang' => $stokBarang->nama_barang,
+            'jumlah' => $request->jumlah,
+            'status' => 'keluar',
+        ]);
+
+        return redirect()->route('petani.barang.index')->with('success', 'Barang berhasil dipesan.');
     }
 }

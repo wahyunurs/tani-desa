@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Petani;
 
 use Illuminate\Http\Request;
 use App\Models\PermintaanBarang;
+use App\Models\Laporan;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -62,22 +63,56 @@ class PermintaanBarangPetaniController extends Controller
         // Cari permintaan barang berdasarkan ID
         $permintaanBarang = PermintaanBarang::findOrFail($id);
 
+        // Cek apakah permintaan masih bisa diupdate (status masuk atau diproses)
+        if (!in_array(strtolower($permintaanBarang->status), ['masuk', 'diproses'])) {
+            return redirect()->back()->with('error', 'Permintaan dengan status "' . $permintaanBarang->status . '" tidak dapat diubah.');
+        }
+
         // Cari stok barang terkait
         $stokBarang = $permintaanBarang->stokBarang;
 
         // Hitung perubahan jumlah
         $jumlahSebelumnya = $permintaanBarang->jumlah;
         $jumlahBaru = $request->jumlah;
+        $selisihJumlah = $jumlahBaru - $jumlahSebelumnya;
+
+        // Jika tidak ada perubahan jumlah, tidak perlu update
+        if ($selisihJumlah == 0) {
+            return redirect()->route('petani.permintaan.index')->with('info', 'Tidak ada perubahan jumlah.');
+        }
 
         if ($jumlahBaru > $jumlahSebelumnya) {
-            // Jika jumlah baru lebih besar, kurangi stok barang
+            // Jika jumlah baru lebih besar, cek apakah stok mencukupi
+            $tambahJumlah = $jumlahBaru - $jumlahSebelumnya;
+            if ($stokBarang->jumlah < $tambahJumlah) {
+                return redirect()->back()->with('error', 'Stok tidak mencukupi. Stok tersedia: ' . $stokBarang->jumlah);
+            }
+
+            // Kurangi stok barang
             $stokBarang->update([
-                'jumlah' => $stokBarang->jumlah - ($jumlahBaru - $jumlahSebelumnya),
+                'jumlah' => $stokBarang->jumlah - $tambahJumlah,
+            ]);
+
+            // Tambahkan laporan keluar untuk penambahan jumlah
+            Laporan::create([
+                'barang_id' => $stokBarang->id,
+                'nama_barang' => $stokBarang->nama_barang,
+                'jumlah' => $tambahJumlah,
+                'status' => 'keluar',
             ]);
         } elseif ($jumlahBaru < $jumlahSebelumnya) {
             // Jika jumlah baru lebih kecil, tambahkan kembali stok barang
+            $kurangJumlah = $jumlahSebelumnya - $jumlahBaru;
             $stokBarang->update([
-                'jumlah' => $stokBarang->jumlah + ($jumlahSebelumnya - $jumlahBaru),
+                'jumlah' => $stokBarang->jumlah + $kurangJumlah,
+            ]);
+
+            // Tambahkan laporan masuk untuk pengurangan jumlah (return barang)
+            Laporan::create([
+                'barang_id' => $stokBarang->id,
+                'nama_barang' => $stokBarang->nama_barang,
+                'jumlah' => $kurangJumlah,
+                'status' => 'masuk',
             ]);
         }
 
@@ -94,8 +129,31 @@ class PermintaanBarangPetaniController extends Controller
     {
         // Menghapus permintaan barang
         $permintaanBarang = PermintaanBarang::findOrFail($id);
+
+        // Cek apakah permintaan masih bisa dihapus (status masuk atau diproses)
+        if (!in_array(strtolower($permintaanBarang->status), ['masuk', 'diproses'])) {
+            return redirect()->back()->with('error', 'Permintaan dengan status "' . $permintaanBarang->status . '" tidak dapat dihapus.');
+        }
+
+        // Kembalikan stok barang ke gudang
+        $stokBarang = $permintaanBarang->stokBarang;
+        if ($stokBarang) {
+            $stokBarang->update([
+                'jumlah' => $stokBarang->jumlah + $permintaanBarang->jumlah,
+            ]);
+
+            // Tambahkan laporan masuk untuk barang yang dikembalikan
+            Laporan::create([
+                'barang_id' => $stokBarang->id,
+                'nama_barang' => $stokBarang->nama_barang,
+                'jumlah' => $permintaanBarang->jumlah,
+                'status' => 'masuk',
+            ]);
+        }
+
+        // Hapus permintaan barang
         $permintaanBarang->delete();
 
-        return redirect()->route('petani.permintaan.index')->with('success', 'Permintaan barang berhasil dihapus.');
+        return redirect()->route('petani.permintaan.index')->with('success', 'Permintaan barang berhasil dihapus dan stok dikembalikan.');
     }
 }

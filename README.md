@@ -1,66 +1,301 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🌾 Tani Desa - Sistem Manajemen Distribusi Barang Pertanian
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Tani Desa Logo](public/images/tani-desa.png)
 
-## About Laravel
+**Tani Desa** adalah sistem manajemen distribusi barang pertanian berbasis web yang dirancang untuk memudahkan pengelolaan dan distribusi pupuk, bibit, dan obat pertanian dari gudang ke petani melalui jaringan distributor. Sistem ini dibangun menggunakan Laravel 11 dengan desain yang responsive dan user-friendly.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Fitur Utama
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 👤 Multi-Role Management
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   **Admin**: Mengelola pengguna, stok barang, distribusi, dan laporan
+-   **Gudang**: Mengelola inventori dan stok barang
+-   **Distributor**: Mengelola distribusi barang ke petani
+-   **Petani**: Mengajukan permintaan barang pertanian
 
-## Learning Laravel
+### 📦 Manajemen Inventori
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+-   **Stok Barang**: CRUD lengkap dengan upload foto produk
+-   **Kategori Barang**: Pupuk, Bibit, dan Obat pertanian
+-   **Real-time Stock Tracking**: Monitoring stok secara real-time
+-   **Multi-unit Support**: Kg, Liter, dan Pcs
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 📊 Sistem Pelaporan
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+-   **Audit Trail**: Tracking lengkap semua transaksi barang
+-   **Laporan Masuk-Keluar**: Monitoring pergerakan barang
+-   **Export PDF**: Generate laporan dalam format PDF
+-   **Dashboard Analytics**: Visualisasi data untuk setiap role
 
-## Laravel Sponsors
+### 🗺️ Geographic Coverage
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+-   **Multi-Desa**: Support untuk multiple desa/wilayah
+-   **Location-based Service**: Layanan berdasarkan lokasi geografis
+-   **Service Availability**: Conditional content berdasarkan ketersediaan layanan
 
-### Premium Partners
+## 🛠️ Tech Stack
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Backend
 
-## Contributing
+-   **Framework**: Laravel 11.x
+-   **PHP**: ^8.2
+-   **Database**: SQLite/MySQL
+-   **Authentication**: Laravel Breeze
+-   **PDF Generation**: DomPDF
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Frontend
 
-## Code of Conduct
+-   **CSS Framework**: Tailwind CSS 3.x
+-   **JavaScript**: Alpine.js
+-   **UI Components**: Flowbite
+-   **Icons**: Heroicons
+-   **Build Tool**: Vite
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Development Tools
 
-## Security Vulnerabilities
+-   **Testing**: Pest PHP
+-   **Code Quality**: Laravel Pint
+-   **Package Manager**: Composer & NPM
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 📋 Persyaratan Sistem
 
-## License
+-   PHP >= 8.2
+-   Composer
+-   Node.js & NPM
+-   SQLite/MySQL Database
+-   Web Server (Apache/Nginx)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## ⚡ Instalasi
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/wahyunurs/tani-desa.git
+cd tani-desa
+```
+
+### 2. Install Dependencies
+
+```bash
+# Install PHP dependencies
+composer install
+
+# Install Node.js dependencies
+npm install
+```
+
+### 3. Environment Setup
+
+```bash
+# Copy environment file
+cp .env.example .env
+
+# Generate application key
+php artisan key:generate
+```
+
+### 4. Database Setup
+
+```bash
+# Run migrations
+php artisan migrate
+
+# Seed database with sample data
+php artisan db:seed
+```
+
+### 5. Storage Link
+
+```bash
+# Create storage link for file uploads
+php artisan storage:link
+```
+
+### 6. Build Assets
+
+```bash
+# Development
+npm run dev
+
+# Production
+npm run build
+```
+
+### 7. Run Application
+
+```bash
+# Start development server
+php artisan serve
+```
+
+## 👥 Default User Accounts
+
+Setelah menjalankan seeder, Anda dapat login dengan akun berikut:
+
+| Role        | Email                    | Password | Desa       |
+| ----------- | ------------------------ | -------- | ---------- |
+| Admin       | admin@tanidesa.com       | password | -          |
+| Gudang      | gudang@tanidesa.com      | password | Sukamakmur |
+| Distributor | distributor@tanidesa.com | password | Sukamakmur |
+| Petani      | petani@tanidesa.com      | password | Sukamakmur |
+
+## 📁 Struktur Proyek
+
+```
+tani-desa/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── Admin/           # Admin controllers
+│   │   ├── Gudang/          # Warehouse controllers
+│   │   ├── Distributor/     # Distributor controllers
+│   │   └── Petani/          # Farmer controllers
+│   └── Models/              # Eloquent models
+├── database/
+│   ├── migrations/          # Database migrations
+│   └── seeders/             # Database seeders
+├── resources/
+│   ├── views/
+│   │   ├── admin/           # Admin views
+│   │   ├── gudang/          # Warehouse views
+│   │   ├── distributor/     # Distributor views
+│   │   └── petani/          # Farmer views
+│   └── js/                  # JavaScript assets
+└── public/
+    └── images/              # Static images
+```
+
+## 🔄 Workflow Sistem
+
+### 1. Manajemen Stok
+
+```
+Admin/Gudang → Input Barang → Update Stok → Generate Laporan Masuk
+```
+
+### 2. Permintaan Petani
+
+```
+Petani → Request Barang → Validasi Stok → Update Inventory → Generate Laporan Keluar
+```
+
+### 3. Distribusi Barang
+
+```
+Distributor → Terima Permintaan → Proses Distribusi → Update Status → Selesai
+```
+
+## 📊 Fitur Database
+
+### Tables Utama:
+
+-   **users**: Multi-role user management
+-   **stok_barangs**: Inventory management
+-   **permintaan_barangs**: Request management
+-   **distribusi_barangs**: Distribution tracking
+-   **laporans**: Transaction audit trail
+
+### Relationships:
+
+-   User → StokBarang (One to Many)
+-   StokBarang → PermintaanBarang (One to Many)
+-   PermintaanBarang → DistribusiBarang (One to One)
+-   StokBarang → Laporan (One to Many)
+
+## 🎨 UI/UX Features
+
+-   **Responsive Design**: Mobile-first approach
+-   **Dark Mode Ready**: Consistent color scheme
+-   **Interactive Modals**: CRUD operations with modals
+-   **Real-time Filtering**: Auto-submit filters
+-   **File Upload**: Image upload with validation
+-   **Password Toggle**: Enhanced login experience
+-   **Conditional Content**: Service availability display
+
+## 🔧 Konfigurasi
+
+### File Upload
+
+-   **Max Size**: 5MB untuk foto produk
+-   **Formats**: JPEG, PNG, JPG
+-   **Storage**: Local storage dengan symlink
+
+### Pagination
+
+-   **Default**: 10 items per page
+-   **Customizable**: Dapat disesuaikan per module
+
+### Security
+
+-   **Authentication**: Session-based
+-   **Authorization**: Role-based access control
+-   **CSRF Protection**: Enabled untuk semua forms
+-   **File Validation**: Strict validation untuk uploads
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+php artisan test
+
+# Run with coverage
+php artisan test --coverage
+```
+
+## 📈 Performance
+
+-   **Eager Loading**: Optimized database queries
+-   **Asset Optimization**: Minified CSS/JS
+-   **Image Optimization**: Lazy loading untuk gambar
+-   **Caching**: Query result caching
+
+## 🔒 Security Features
+
+-   **Input Validation**: Comprehensive form validation
+-   **SQL Injection Protection**: Eloquent ORM
+-   **XSS Protection**: Blade templating
+-   **File Upload Security**: Type and size validation
+-   **Role-based Access**: Middleware protection
+
+## 🌐 Deployment
+
+### Production Checklist:
+
+1. Set `APP_ENV=production` in `.env`
+2. Set `APP_DEBUG=false`
+3. Configure proper database credentials
+4. Run `php artisan optimize`
+5. Set up proper web server configuration
+6. Configure SSL certificate
+7. Set up backup strategy
+
+## 🤝 Contributing
+
+1. Fork repository
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
+
+## 📝 License
+
+Distributed under the MIT License. See `LICENSE` file for more information.
+
+## 📧 Contact
+
+**Developer**: Wahyu Nursalam  
+**Email**: wahyunurs@example.com  
+**Project Link**: [https://github.com/wahyunurs/tani-desa](https://github.com/wahyunurs/tani-desa)
+
+## 🙏 Acknowledgments
+
+-   [Laravel Framework](https://laravel.com)
+-   [Tailwind CSS](https://tailwindcss.com)
+-   [Alpine.js](https://alpinejs.dev)
+-   [Flowbite Components](https://flowbite.com)
+-   [Heroicons](https://heroicons.com)
+
+---
+
+<div align="center">
+  <b>🌾 Tani Desa - Memajukan Pertanian Indonesia 🇮🇩</b>
+</div>
