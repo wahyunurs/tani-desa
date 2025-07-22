@@ -23,10 +23,9 @@
                     class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full">
                     <!-- Filter Status -->
                     <div class="w-full sm:w-auto">
-                        <label for="status" class="block text-sm font-medium text-gray-700">Filter Status:</label>
                         <select name="status" id="status" onchange="document.getElementById('filterForm').submit()"
                             class="mt-1 block w-full sm:w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                            <option value="">Semua</option>
+                            <option value="">Status</option>
                             <option value="Proses Pengiriman"
                                 {{ request('status') == 'Proses Pengiriman' ? 'selected' : '' }}>Proses Pengiriman
                             </option>

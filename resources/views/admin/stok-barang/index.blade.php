@@ -21,10 +21,9 @@
                     class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full">
                     <!-- Filter Jenis -->
                     <div class="w-full sm:w-auto">
-                        <label for="jenis" class="block text-sm font-medium text-gray-700">Jenis Barang</label>
                         <select name="jenis" id="jenis" onchange="document.getElementById('filterForm').submit()"
                             class="mt-1 block w-full sm:w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                            <option value="">Semua</option>
+                            <option value="">Jenis</option>
                             <option value="Pupuk" {{ request('jenis') == 'Pupuk' ? 'selected' : '' }}>Pupuk</option>
                             <option value="Bibit" {{ request('jenis') == 'Bibit' ? 'selected' : '' }}>Bibit</option>
                             <option value="Obat" {{ request('jenis') == 'Obat' ? 'selected' : '' }}>Obat</option>
@@ -33,10 +32,10 @@
 
                     <!-- Filter Gudang -->
                     <div class="w-full sm:w-auto">
-                        <label for="gudang_id" class="block text-sm font-medium text-gray-700">Gudang</label>
-                        <select name="gudang_id" id="gudang_id" onchange="document.getElementById('filterForm').submit()"
+                        <select name="gudang_id" id="gudang_id"
+                            onchange="document.getElementById('filterForm').submit()"
                             class="mt-1 block w-full sm:w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                            <option value="">Semua</option>
+                            <option value="">Gudang</option>
                             @foreach ($gudangList as $gudang)
                                 <option value="{{ $gudang->gudang_id }}"
                                     {{ request('gudang_id') == $gudang->gudang_id ? 'selected' : '' }}>

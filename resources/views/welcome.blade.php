@@ -11,16 +11,20 @@
 
                 <!-- Menu untuk Desktop -->
                 <div class="hidden lg:flex items-center space-x-6 xl:space-x-8">
-                    <a href="#beranda" id="link-beranda" class="pb-1 text-sm xl:text-base text-gray-600 hover:text-green-500 transition-colors duration-200">
+                    <a href="#beranda" id="link-beranda"
+                        class="pb-1 text-sm xl:text-base text-gray-600 hover:text-green-500 transition-colors duration-200">
                         Beranda
                     </a>
-                    <a href="#tentang" id="link-tentang" class="pb-1 text-sm xl:text-base text-gray-600 hover:text-green-500 transition-colors duration-200">
+                    <a href="#tentang" id="link-tentang"
+                        class="pb-1 text-sm xl:text-base text-gray-600 hover:text-green-500 transition-colors duration-200">
                         Tentang
                     </a>
-                    <a href="#produk" id="link-produk" class="pb-1 text-sm xl:text-base text-gray-600 hover:text-green-500 transition-colors duration-200">
+                    <a href="#produk" id="link-produk"
+                        class="pb-1 text-sm xl:text-base text-gray-600 hover:text-green-500 transition-colors duration-200">
                         Produk
                     </a>
-                    <a href="#testimoni" id="link-testimoni" class="pb-1 text-sm xl:text-base text-gray-600 hover:text-green-500 transition-colors duration-200">
+                    <a href="#testimoni" id="link-testimoni"
+                        class="pb-1 text-sm xl:text-base text-gray-600 hover:text-green-500 transition-colors duration-200">
                         Testimoni
                     </a>
                     <a href="{{ route('register') }}"
@@ -31,8 +35,8 @@
 
                 <!-- Button Garis Tiga untuk Mobile -->
                 <button id="menu-button" class="lg:hidden text-gray-600 hover:text-green-500 focus:outline-none p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
@@ -45,17 +49,21 @@
             class="fixed top-0 right-0 w-64 sm:w-72 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50">
             <div class="p-4 sm:p-6">
                 <button id="close-sidebar" class="text-gray-600 hover:text-red-500 focus:outline-none p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
                 <ul class="mt-6 sm:mt-8 space-y-4">
-                    <li><a href="#beranda" class="block text-gray-600 hover:text-green-500 py-2 text-base">Beranda</a></li>
-                    <li><a href="#tentang" class="block text-gray-600 hover:text-green-500 py-2 text-base">Tentang</a></li>
-                    <li><a href="#produk" class="block text-gray-600 hover:text-green-500 py-2 text-base">Produk</a></li>
-                    <li><a href="#testimoni" class="block text-gray-600 hover:text-green-500 py-2 text-base">Testimoni</a></li>
+                    <li><a href="#beranda" class="block text-gray-600 hover:text-green-500 py-2 text-base">Beranda</a>
+                    </li>
+                    <li><a href="#tentang" class="block text-gray-600 hover:text-green-500 py-2 text-base">Tentang</a>
+                    </li>
+                    <li><a href="#produk" class="block text-gray-600 hover:text-green-500 py-2 text-base">Produk</a>
+                    </li>
+                    <li><a href="#testimoni"
+                            class="block text-gray-600 hover:text-green-500 py-2 text-base">Testimoni</a></li>
                     <li>
                         <a href="{{ route('register') }}"
                             class="block bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition duration-300 text-center mt-4">
@@ -75,13 +83,16 @@
             <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
                 <div class="flex flex-col lg:flex-row items-center justify-between w-full gap-8 lg:gap-12">
                     <div class="w-full lg:w-1/2 text-center lg:text-left">
-                        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-2 leading-tight">
+                        <h1
+                            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-2 leading-tight">
                             Tani Desa
                         </h1>
-                        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-green-500 mb-4 sm:mb-6 leading-tight">
+                        <h1
+                            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-green-500 mb-4 sm:mb-6 leading-tight">
                             Solusi Pertanian
                         </h1>
-                        <p class="text-gray-600 text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        <p
+                            class="text-gray-600 text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
                             Dukung produktivitas pertanian Anda dengan produk kami yang berkualitas tinggi
                             yang ramah lingkungan dan terjangkau.
                         </p>
@@ -95,8 +106,8 @@
 
                     <!-- Image Tani Desa -->
                     <div class="w-full lg:w-1/2 flex justify-center">
-                        <img src="{{ asset('images/tani-desa.png') }}" alt="Tani Desa" 
-                             class="w-full max-w-md sm:max-w-lg lg:max-w-full h-auto object-contain">
+                        <img src="{{ asset('images/tani-desa.png') }}" alt="Tani Desa"
+                            class="w-full max-w-md sm:max-w-lg lg:max-w-full h-auto object-contain">
                     </div>
                 </div>
             </div>
@@ -107,8 +118,10 @@
             <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Section Header -->
                 <div class="text-center mb-12 sm:mb-16">
-                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Fitur Utama Aplikasi Tani Desa</h2>
-                    <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">Solusi lengkap untuk kebutuhan pertanian Anda</p>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Fitur Utama Aplikasi Tani
+                        Desa</h2>
+                    <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">Solusi lengkap untuk kebutuhan
+                        pertanian Anda</p>
                 </div>
 
                 <!-- Features Grid -->
@@ -148,7 +161,8 @@
                     </div>
 
                     <!-- Feature 3 -->
-                    <div class="text-center p-6 rounded-lg hover:shadow-xl transition duration-300 md:col-span-2 lg:col-span-1">
+                    <div
+                        class="text-center p-6 rounded-lg hover:shadow-xl transition duration-300 md:col-span-2 lg:col-span-1">
                         <div class="bg-green-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -240,7 +254,7 @@
                     <div
                         class="bg-green-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 p-6">
                         <div class="flex items-center mb-4">
-                            <img src="{{ asset('images/user1.jpg') }}" alt="User 1"
+                            <img src="{{ asset('images/budi-santoso.png') }}" alt="Budi Santoso"
                                 class="w-12 h-12 rounded-full object-cover">
                             <div class="ml-4">
                                 <h3 class="text-lg font-bold text-gray-900">Budi Santoso</h3>
@@ -258,10 +272,10 @@
                     <div
                         class="bg-green-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 p-6">
                         <div class="flex items-center mb-4">
-                            <img src="{{ asset('images/user2.jpg') }}" alt="User 2"
+                            <img src="{{ asset('images/ahmad-fauzi.png') }}" alt="Ahmad Fauzi"
                                 class="w-12 h-12 rounded-full object-cover">
                             <div class="ml-4">
-                                <h3 class="text-lg font-bold text-gray-900">Siti Aminah</h3>
+                                <h3 class="text-lg font-bold text-gray-900">Ahmad Fauzi</h3>
                                 <p class="text-sm text-gray-600">Distributor</p>
                             </div>
                         </div>
@@ -276,11 +290,11 @@
                     <div
                         class="bg-green-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 p-6">
                         <div class="flex items-center mb-4">
-                            <img src="{{ asset('images/user3.jpg') }}" alt="User 3"
+                            <img src="{{ asset('images/siti-aminah.png') }}" alt="Siti Aminah"
                                 class="w-12 h-12 rounded-full object-cover">
                             <div class="ml-4">
-                                <h3 class="text-lg font-bold text-gray-900">Ahmad Fauzi</h3>
-                                <p class="text-sm text-gray-600">Kelompok Tani</p>
+                                <h3 class="text-lg font-bold text-gray-900">Siti Aminah</h3>
+                                <p class="text-sm text-gray-600">Petani Cabai</p>
                             </div>
                         </div>
                         <p class="text-gray-600">

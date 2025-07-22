@@ -22,10 +22,9 @@
                     class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full">
                     <!-- Filter Jenis -->
                     <div class="w-full sm:w-auto">
-                        <label for="jenis" class="block text-sm font-medium text-gray-700">Jenis Barang</label>
                         <select name="jenis" id="jenis" onchange="document.getElementById('filterForm').submit()"
                             class="mt-1 block w-full sm:w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                            <option value="">Semua</option>
+                            <option value="">Jenis</option>
                             <option value="Pupuk" {{ request('jenis') == 'Pupuk' ? 'selected' : '' }}>Pupuk</option>
                             <option value="Bibit" {{ request('jenis') == 'Bibit' ? 'selected' : '' }}>Bibit</option>
                             <option value="Obat" {{ request('jenis') == 'Obat' ? 'selected' : '' }}>Obat</option>
@@ -83,17 +82,17 @@
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $barang->jumlah }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $barang->satuan }}</td>
                                 </td>
-                                <td
-                                    class="px-6 py-4 text-center text-sm text-gray-700"
-                                    style="vertical-align: middle;">
+                                <td class="px-6 py-4 text-center text-sm text-gray-700" style="vertical-align: middle;">
                                     <div class="flex justify-center items-center space-x-4">
                                         <!-- Tombol Edit -->
-                                        <form action="{{ route('gudang.stok-barang.edit', $barang->id) }}" method="GET">
+                                        <form action="{{ route('gudang.stok-barang.edit', $barang->id) }}"
+                                            method="GET">
                                             <button type="submit"
                                                 class="text-yellow-500 hover:text-yellow-700 transition duration-200 ease-in-out">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
                                                         d="M15.232 5.232l3.536 3.536M9 11l6.364-6.364a2 2 0 012.828 0l1.172 1.172a2 2 0 010 2.828L13 15l-4 1 1-4z" />
                                                 </svg>
                                             </button>

@@ -1,4 +1,4 @@
-<!-- filepath: d:\laragon\www\pupuk-tani-desa\resources\views\admin\stok-barang\create.blade.php -->
+<!-- filepath: d:\laragon\www\tani-desa\resources\views\admin\stok-barang\create.blade.php -->
 <x-app-layout>
     @if (session('error'))
         <script>

@@ -22,10 +22,9 @@
                     id="filterForm"
                     class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full">
                     <div class="w-full sm:w-auto">
-                        <label for="status" class="block text-sm font-medium text-gray-700">Filter Status:</label>
                         <select name="role" id="role" onchange="document.getElementById('filterForm').submit()"
                             class="mt-1 block w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                            <option value="">Semua</option>
+                            <option value="">Role</option>
                             <option value="gudang" {{ request('role') == 'gudang' ? 'selected' : '' }}>Gudang</option>
                             <option value="petani" {{ request('role') == 'petani' ? 'selected' : '' }}>Petani</option>
                             <option value="distributor" {{ request('role') == 'distributor' ? 'selected' : '' }}>
