@@ -183,7 +183,7 @@
         </section>
 
         <!-- Produk Section -->
-        <section id="produk" class="bg-green-50 py-12 md:py-16">">
+        <section id="produk" class="bg-green-50 py-12 md:py-16">
             <div class="container mx-auto px-6 py-20">
                 <!-- Section Header -->
                 <div class="text-center mb-16">
@@ -239,7 +239,7 @@
         </section>
 
         <!-- Testimoni Section -->
-        <section id="testimoni" class="bg-white py-12 md:py-16">">
+        <section id="testimoni" class="bg-white py-12 md:py-16">
             <div class="container mx-auto px-6 py-20">
                 <!-- Section Header -->
                 <div class="text-center mb-16">
