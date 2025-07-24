@@ -23,7 +23,8 @@ class PermintaanBarangGudangController extends Controller
         $stokIds = StokBarang::where('gudang_id', Auth::id())->pluck('id');
 
         // Ambil permintaan barang yang hanya berhubungan dengan stok milik gudang tersebut
-        $permintaanBarang = PermintaanBarang::whereIn('stok_barang_id', $stokIds)->get();
+        $permintaanBarang = PermintaanBarang::with(['user', 'stokBarang'])
+            ->whereIn('stok_barang_id', $stokIds)->get();
 
         $statusList = PermintaanBarang::select('status')
             ->distinct()
@@ -44,9 +45,10 @@ class PermintaanBarangGudangController extends Controller
         // Ambil semua stok_barang_id milik gudang yang login
         $stokIds = StokBarang::where('gudang_id', Auth::id())->pluck('id');
 
-        $permintaanBarang = PermintaanBarang::when($status, function ($query, $status) {
-            return $query->where('status', $status);
-        })
+        $permintaanBarang = PermintaanBarang::with(['user', 'stokBarang'])
+            ->when($status, function ($query, $status) {
+                return $query->where('status', $status);
+            })
             ->whereIn('stok_barang_id', $stokIds)
             ->whereIn('status', ['Masuk', 'Diproses', 'Selesai'])->get();
 

@@ -19,8 +19,8 @@ class PermintaanBarangAdminController extends Controller
             return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
         }
 
-        // Ambil semua permintaan barang
-        $permintaanBarang = PermintaanBarang::with('user')->get();
+        // Ambil semua permintaan barang dengan relasi user dan stokBarang
+        $permintaanBarang = PermintaanBarang::with(['user', 'stokBarang'])->get();
 
         $statusList = PermintaanBarang::select('status')
             ->distinct()
@@ -39,7 +39,7 @@ class PermintaanBarangAdminController extends Controller
     {
         $status = $request->input('status');
 
-        $permintaanBarang = PermintaanBarang::when($status, function ($query, $status) {
+        $permintaanBarang = PermintaanBarang::with(['user', 'stokBarang'])->when($status, function ($query, $status) {
             return $query->where('status', $status);
         })->whereIn('status', ['Masuk', 'Diproses', 'Selesai'])->get();
 

@@ -52,17 +52,19 @@
                 <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
                     <thead class="bg-gradient-to-r from-green-400 to-green-600 text-white">
                         <tr>
-                            <th class="px-4 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">No
+                            <th class="px-4 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">No
                             </th>
-                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Nama
+                            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">Nama
                                 Petani
                             </th>
-                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Nama
+                            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">Nama
                                 Barang
                             </th>
-                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Jumlah
+                            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">Jumlah
                             </th>
-                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Status
+                            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">Satuan
+                            </th>
+                            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">Status
                             </th>
                             <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">
                                 Distribusi
@@ -74,17 +76,19 @@
                     <tbody class="divide-y divide-gray-200">
                         @forelse ($permintaanBarang as $permintaan)
                             <tr class="hover:bg-green-50 hover:shadow-md transition duration-200 ease-in-out">
-                                <td class="px-6 py-4 text-sm text-gray-700">
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">
                                     {{ $loop->iteration }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-700">
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">
                                     {{ $permintaan->user->name ?? 'Tidak Diketahui' }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-700">{{ $permintaan->nama_barang }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-700">
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">{{ $permintaan->nama_barang }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">
                                     {{ $permintaan->jumlah }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-700">{{ $permintaan->status }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-700">
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">
+                                    {{ $permintaan->stokBarang->satuan ?? '-' }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">{{ $permintaan->status }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">
                                     @if ($permintaan->status == 'Masuk')
                                         <form
                                             action="{{ route('admin.permintaan-barang.distribusi', $permintaan->id) }}"
@@ -139,7 +143,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-4 text-center text-gray-500">Belum ada permintaan.
+                                <td colspan="8" class="px-6 py-4 text-center text-gray-500">Belum ada permintaan.
                                 </td>
                             </tr>
                         @endforelse

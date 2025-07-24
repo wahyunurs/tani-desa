@@ -25,7 +25,9 @@ class PermintaanBarangDistributorController extends Controller
             ->pluck('permintaan_id');
 
         // Ambil semua permintaan barang berdasarkan ID tersebut
-        $permintaanBarang = PermintaanBarang::whereIn('id', $permintaanIds)->get();
+        $permintaanBarang = PermintaanBarang::whereIn('id', $permintaanIds)
+            ->with(['user', 'stokBarang'])
+            ->get();
 
         // Ambil status unik dari permintaan-permintaan ini
         $statusList = PermintaanBarang::whereIn('id', $permintaanIds)
@@ -57,6 +59,7 @@ class PermintaanBarangDistributorController extends Controller
                 return $query->where('status', $status);
             })
             ->whereIn('status', ['Masuk', 'Diproses', 'Selesai'])
+            ->with(['user', 'stokBarang'])
             ->get();
 
         // Ambil status yang tersedia dari data permintaan tersebut

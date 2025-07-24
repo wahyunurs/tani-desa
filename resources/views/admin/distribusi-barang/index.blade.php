@@ -58,6 +58,16 @@
                                 Permintaan
                             </th>
                             <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Nama
+                                Petani
+                            </th>
+                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Nama
+                                Barang
+                            </th>
+                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Jumlah
+                            </th>
+                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Satuan
+                            </th>
+                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Nama
                                 Distributor
                             </th>
                             <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Status
@@ -77,6 +87,18 @@
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-700">
                                     {{ $distribusi->permintaan_id }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-700">
+                                    {{ $distribusi->permintaanBarang->user->name ?? 'Tidak Diketahui' }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-700">
+                                    {{ $distribusi->permintaanBarang->nama_barang ?? '-' }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-700">
+                                    {{ $distribusi->permintaanBarang->jumlah ?? '-' }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-700">
+                                    {{ $distribusi->permintaanBarang->stokBarang->satuan ?? '-' }}
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-700">
                                     {{ $distribusi->distributor->name ?? 'Tidak Diketahui' }}
@@ -139,7 +161,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-6 py-4 text-center text-gray-500">Belum ada distribusi.
+                                <td colspan="10" class="px-6 py-4 text-center text-gray-500">Belum ada distribusi.
                                 </td>
                             </tr>
                         @endforelse

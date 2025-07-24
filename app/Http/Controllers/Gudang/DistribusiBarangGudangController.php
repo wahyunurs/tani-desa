@@ -28,8 +28,12 @@ class DistribusiBarangGudangController extends Controller
         // Ambil ID permintaan
         $permintaanIds = $permintaanBarang->pluck('id');
 
-        // Ambil distribusi_barang berdasarkan permintaan_id
-        $distribusiBarang = DistribusiBarang::whereIn('permintaan_id', $permintaanIds)->get();
+        // Ambil distribusi_barang berdasarkan permintaan_id dengan relasi yang diperlukan
+        $distribusiBarang = DistribusiBarang::with([
+            'permintaanBarang.user',
+            'permintaanBarang.stokBarang',
+            'distributor'
+        ])->whereIn('permintaan_id', $permintaanIds)->get();
 
         // Ambil semua status unik untuk filter (opsional)
         $statusList = DistribusiBarang::select('status')->distinct()->get();
@@ -37,7 +41,11 @@ class DistribusiBarangGudangController extends Controller
         // Ambil distribusi barang yang dipilih berdasarkan id (jika ada)
         $selectedDistribusiBarang = null;
         if (request()->has('id')) {
-            $selectedDistribusiBarang = DistribusiBarang::with('permintaanBarang', 'distributor')->find(request()->id);
+            $selectedDistribusiBarang = DistribusiBarang::with([
+                'permintaanBarang.user',
+                'permintaanBarang.stokBarang',
+                'distributor'
+            ])->find(request()->id);
 
             // Jika distribusi barang tidak ditemukan, kembalikan pesan error
             if (!$selectedDistribusiBarang) {
@@ -59,9 +67,22 @@ class DistribusiBarangGudangController extends Controller
     {
         $status = $request->input('status');
 
-        $distribusiBarang = DistribusiBarang::when($status, function ($query, $status) {
+        // Ambil semua stok_barang_id milik gudang yang login
+        $stokIds = StokBarang::where('gudang_id', Auth::id())->pluck('id');
+
+        // Ambil permintaan_barang berdasarkan stok_barang_id
+        $permintaanBarang = PermintaanBarang::whereIn('stok_barang_id', $stokIds)->get();
+
+        // Ambil ID permintaan
+        $permintaanIds = $permintaanBarang->pluck('id');
+
+        $distribusiBarang = DistribusiBarang::with([
+            'permintaanBarang.user',
+            'permintaanBarang.stokBarang',
+            'distributor'
+        ])->when($status, function ($query, $status) {
             return $query->where('status', $status);
-        })->whereIn('status', ['Proses Pengiriman', 'Selesai', 'Gagal'])->get();
+        })->whereIn('permintaan_id', $permintaanIds)->get();
 
         $statusList = DistribusiBarang::select('status')
             ->distinct()

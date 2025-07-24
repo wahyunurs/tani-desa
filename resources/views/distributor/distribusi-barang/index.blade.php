@@ -53,12 +53,28 @@
                 <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
                     <thead class="bg-gradient-to-r from-green-400 to-green-600 text-white">
                         <tr>
-                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Id
+                            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">No
+                            </th>
+                            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">Nama
+                                Petani
+                            </th>
+                            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">Nama
+                                Barang
+                            </th>
+                            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">
+                                Jumlah
+                            </th>
+                            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">
+                                Satuan
+                            </th>
+                            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">Id
                                 Permintaan
                             </th>
-                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Status
+                            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">
+                                Status
                             </th>
-                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Update
+                            <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">
+                                Update
                                 Status
                             </th>
                             <th class="px-6 py-3 text-center text-sm font-medium uppercase tracking-wider border-b">Aksi
@@ -66,18 +82,33 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        @forelse ($distribusiBarang as $distribusi)
+                        @forelse ($distribusiBarang as $index => $distribusi)
                             <tr class="hover:bg-green-50 hover:shadow-md transition duration-200 ease-in-out">
-                                <td class="px-6 py-4 text-sm text-gray-700">
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">
+                                    {{ $index + 1 }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">
+                                    {{ $distribusi->permintaanBarang->user->name ?? 'Tidak Diketahui' }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">
+                                    {{ $distribusi->permintaanBarang->nama_barang ?? 'Tidak Diketahui' }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">
+                                    {{ $distribusi->permintaanBarang->jumlah ?? '-' }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">
+                                    {{ $distribusi->permintaanBarang->stokBarang->satuan ?? '-' }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">
                                     {{ $distribusi->permintaan_id }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-700">{{ $distribusi->status }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-700">
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">{{ $distribusi->status }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-700 text-center">
                                     <button type="button"
                                         class="updateStatusButton text-blue-500 hover:text-blue-700 transition duration-200 ease-in-out"
                                         data-url="{{ route('distributor.distribusi-barang.update-status', $distribusi->id) }}"
                                         data-status="{{ $distribusi->status }}">
-                                        <div class="flex items-center">
+                                        <div class="flex items-center justify-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -117,7 +148,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-6 py-4 text-center text-gray-500">Belum ada distribusi.
+                                <td colspan="9" class="px-6 py-4 text-center text-gray-500">Belum ada distribusi.
                                 </td>
                             </tr>
                         @endforelse

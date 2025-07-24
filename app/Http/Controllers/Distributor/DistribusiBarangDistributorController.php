@@ -19,7 +19,9 @@ class DistribusiBarangDistributorController extends Controller
         }
 
         // Ambil distribusi_barang berdasarkan distributor_id
-        $distribusiBarang = DistribusiBarang::where('distributor_id', Auth::user()->id)->get();
+        $distribusiBarang = DistribusiBarang::where('distributor_id', Auth::user()->id)
+            ->with(['permintaanBarang.user', 'permintaanBarang.stokBarang'])
+            ->get();
 
         // Ambil semua status unik untuk filter (opsional)
         $statusList = DistribusiBarang::select('status')->distinct()->get();
@@ -50,7 +52,9 @@ class DistribusiBarangDistributorController extends Controller
 
         $distribusiBarang = DistribusiBarang::when($status, function ($query, $status) {
             return $query->where('status', $status);
-        })->whereIn('status', ['Proses Pengiriman', 'Selesai', 'Gagal'])->get();
+        })->whereIn('status', ['Proses Pengiriman', 'Selesai', 'Gagal'])
+            ->with(['permintaanBarang.user', 'permintaanBarang.stokBarang'])
+            ->get();
 
         $statusList = DistribusiBarang::select('status')
             ->distinct()

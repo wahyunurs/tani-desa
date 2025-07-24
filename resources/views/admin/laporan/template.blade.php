@@ -1,4 +1,3 @@
-<!-- filepath: d:\laragon\www\tani-desa\resources\views\admin\laporan\pdf.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,6 +71,7 @@
                 <th>ID</th>
                 <th>Nama Barang</th>
                 <th>Jumlah</th>
+                <th>Satuan</th>
                 <th>Status</th>
                 <th>Tanggal</th>
             </tr>
@@ -82,12 +82,13 @@
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->nama_barang }}</td>
                     <td>{{ $item->jumlah }}</td>
+                    <td>{{ $item->stokBarang->satuan ?? '-' }}</td>
                     <td>{{ $item->status }}</td>
                     <td>{{ $item->created_at->format('d-m-Y H:i') }}</td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5" class="px-6 py-4 text-center text-gray-500">Tidak ada data laporan.
+                    <td colspan="6" class="px-6 py-4 text-center text-gray-500">Tidak ada data laporan.
                     </td>
                 </tr>
             @endforelse

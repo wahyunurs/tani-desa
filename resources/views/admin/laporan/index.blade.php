@@ -68,6 +68,8 @@
                             </th>
                             <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Jumlah
                             </th>
+                            <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Satuan
+                            </th>
                             <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">Status
                             </th>
                             <th class="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider border-b">
@@ -81,6 +83,7 @@
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $item->id }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $item->nama_barang }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-700">{{ $item->jumlah }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-700">{{ $item->stokBarang->satuan ?? '-' }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-700 capitalize">{{ $item->status }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-700">
                                     {{ $item->updated_at->translatedFormat('d F Y') }}
@@ -88,7 +91,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-6 py-4 text-center text-gray-500">Tidak ada data laporan.
+                                <td colspan="6" class="px-6 py-4 text-center text-gray-500">Tidak ada data laporan.
                                 </td>
                             </tr>
                         @endforelse

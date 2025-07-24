@@ -18,8 +18,12 @@ class DistribusiBarangAdminController extends Controller
             return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
         }
 
-        // Ambil semua distribusi barang
-        $distribusiBarang = DistribusiBarang::with('permintaanBarang', 'distributor')->get();
+        // Ambil semua distribusi barang dengan relasi yang diperlukan
+        $distribusiBarang = DistribusiBarang::with([
+            'permintaanBarang.user',
+            'permintaanBarang.stokBarang',
+            'distributor'
+        ])->get();
 
         $statusList = DistribusiBarang::select('status')
             ->distinct()
@@ -28,7 +32,11 @@ class DistribusiBarangAdminController extends Controller
         // Ambil distribusi barang yang dipilih berdasarkan id (jika ada)
         $selectedDistribusiBarang = null;
         if (request()->has('id')) {
-            $selectedDistribusiBarang = DistribusiBarang::with('permintaanBarang', 'distributor')->find(request()->id);
+            $selectedDistribusiBarang = DistribusiBarang::with([
+                'permintaanBarang.user',
+                'permintaanBarang.stokBarang',
+                'distributor'
+            ])->find(request()->id);
 
             // Jika distribusi barang tidak ditemukan, kembalikan pesan error
             if (!$selectedDistribusiBarang) {
@@ -49,9 +57,13 @@ class DistribusiBarangAdminController extends Controller
     {
         $status = $request->input('status');
 
-        $distribusiBarang = DistribusiBarang::when($status, function ($query, $status) {
+        $distribusiBarang = DistribusiBarang::with([
+            'permintaanBarang.user',
+            'permintaanBarang.stokBarang',
+            'distributor'
+        ])->when($status, function ($query, $status) {
             return $query->where('status', $status);
-        })->whereIn('status', ['Proses Pengiriman', 'Selesai', 'Gagal'])->get();
+        })->get();
 
         $statusList = DistribusiBarang::select('status')
             ->distinct()

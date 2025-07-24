@@ -12,8 +12,8 @@ class LaporanAdminController extends Controller
 {
     public function index()
     {
-        // Ambil semua data laporan
-        $laporan = Laporan::orderBy('updated_at', 'desc')->get();
+        // Ambil semua data laporan dengan relasi stokBarang untuk mendapatkan satuan
+        $laporan = Laporan::with('stokBarang')->orderBy('updated_at', 'desc')->get();
 
         return view('admin.laporan.index', [
             'title' => 'Laporan',
@@ -24,7 +24,7 @@ class LaporanAdminController extends Controller
     public function filter(Request $request)
     {
         // Filter berdasarkan status (masuk/keluar) dan bulan
-        $query = Laporan::query();
+        $query = Laporan::with('stokBarang');
 
         if ($request->has('status') && $request->status != '') {
             $query->where('status', $request->status);
@@ -45,7 +45,7 @@ class LaporanAdminController extends Controller
     public function export(Request $request)
     {
         // Ambil data laporan berdasarkan filter bulan dan status
-        $query = Laporan::query();
+        $query = Laporan::with('stokBarang');
 
         if ($request->has('status') && $request->status != '') {
             $query->where('status', $request->status);
